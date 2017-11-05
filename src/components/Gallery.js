@@ -29,25 +29,9 @@ const Gallery = connect(
     this.gotoPrevious = this.gotoPrevious.bind(this);
   }
 
-  componentWillMount () {
-    console.log('componentWillMount');
-    // this.props.fetchImgAddr(this.props.galleryId)
-  }
-
   componentDidMount () {
-    console.log('componentDidMount');
-    // this.props.fetchImgAddr(this.props.galleryId)
+    this.props.fetchImgAddr(this.props.galleryId)
   }
-
-  // shouldComponentUpdate(nextProps, nextState){
-  //   console.log('shouldComponentUpdate');
-  //   console.log(this.props, nextProps);
-  //   const { imgs, imgAddr, loadImages, galleryId } = nextProps
-  //   var res = true
-  //   if(this.props.galleryId === nextProps.galleryId && imgAddr !== undefined && imgs !== undefined && imgAddr.toJS().length === imgs.toJS().length) res = false
-  //   console.log(res);
-  //   return res
-  // }
 
   componentWillUpdate (nextProps) {
     const { imgs, imgAddr, loadImages, galleryId } = nextProps
