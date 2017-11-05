@@ -12,25 +12,26 @@ const Gallery = connect(
       imgs: imgSelector(state)
     }
   },
-  dispatch => ({
-    fetchImgAddr: () => fetchImgAddr()(dispatch),
-    loadImages:  () => dispatch(loadImages())
+  (dispatch, props) => ({
+      fetchImgAddr: arg => fetchImgAddr(arg)(dispatch),
+      loadImages:  () => dispatch(loadImages())
   })
 )(class extends React.Component {
-  constructor() {
+  constructor(props) {
     super();
-    this.state = { currentImage: 0, pictures: [] };
+    this.state = { currentImage: 0, pictures: [], galleryId: props.match.params.galleryId };
     this.closeLightbox = this.closeLightbox.bind(this);
     this.openLightbox = this.openLightbox.bind(this);
     this.gotoNext = this.gotoNext.bind(this);
     this.gotoPrevious = this.gotoPrevious.bind(this);
   }
   componentWillMount () {
-    this.props.fetchImgAddr()
+    this.props.fetchImgAddr(this.state.galleryId)
   }
 
   componentDidMount() {
-    this.props.loadImages()
+    // this.props.fetchImgAddr(this.state.galleryId)
+    // this.props.loadImages()
   }
 
   openLightbox(event, obj) {
@@ -56,11 +57,10 @@ const Gallery = connect(
     });
   }
 
-  componentDidUpdate () {
-    this.props.loadImages()
-  }
-
   render() {
+    if (this.props.imgs === undefined || this.props.imgAddr.toJS().length !== this.props.imgs.toJS().length) {
+      this.props.loadImages()
+    }
     return (
       <div>
         <h2>Gallery</h2>

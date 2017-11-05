@@ -10,7 +10,8 @@ import Accueil from './Accueil'
 import Gallery from './Gallery'
 import UploadImage from './UploadImage'
 
-export default function Nav () {
+export default function Nav (props) {
+  console.log(props);
   return (
     <div>
         <Router>
@@ -19,10 +20,12 @@ export default function Nav () {
               <NavItem><Link to='/'>Accueil</Link></NavItem>
               <NavItem><Link to='/gallery'>Gallerie</Link></NavItem>
               <NavItem><Link to='/uploadimage'>UploadImage</Link></NavItem>
+              <NavItem><Link to='/gallery/1'>Gallerie 1</Link></NavItem>
             </Navbar>
             <Route exact path='/' component={Accueil} />
             <Route path='/uploadimage' component={UploadImage} />
-            <Route path='/gallery' component={Gallery} />
+            <Route exact path='/gallery' component={Gallery} />
+            <Route path='/gallery/:galleryId' component={Gallery}  />
           </div>
         </Router>
     </div>
