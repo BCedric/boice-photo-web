@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import Lightbox from 'react-images'
 import React from 'react'
 import { fetchImgAddr, loadImages, loadMore, setGalleryId, razImgs, setCurrentImage, setLightboxIsOpen } from 'gallery-redux/actions'
-import { imgAddrSelector, imgSelector, galleryIdSelector, nbImgsSelector, currentImageSelector, lightboxIsOpenSelector } from 'gallery-redux/selectors'
+import { imgAddrSelector, imgSelector, galleryIdSelector, nbImgsSelector, currentImageSelector, lightboxIsOpenSelector, isFetchingSelector } from 'gallery-redux/selectors'
 
 const THRESHOLD_RELOAD = 50
 
@@ -15,7 +15,8 @@ const Gallery = connect(
       galleryId: galleryIdSelector(state),
       nbImgs: nbImgsSelector(state),
       currentImage: currentImageSelector(state),
-      lightboxIsOpen: lightboxIsOpenSelector(state)
+      lightboxIsOpen: lightboxIsOpenSelector(state),
+      isFetching: isFetchingSelector(state)
     }
   },
   (dispatch, props) => ({
@@ -35,25 +36,18 @@ const Gallery = connect(
     this.openLightbox = this.openLightbox.bind(this);
     this.gotoNext = this.gotoNext.bind(this);
     this.gotoPrevious = this.gotoPrevious.bind(this);
+
   }
 
   componentDidMount () {
-    console.log('componentDidMount');
     const {razImgs} = this.props
-    razImgs()
-    this.forceUpdate()
+    console.log('raz');
     window.addEventListener('scroll', this.handleScroll)
   }
 
-  shouldComponentUpdate() {
-    console.log('shouldComponentUpdate');
-    return true
-  }
-
   componentWillUpdate (nextProps) {
-    console.log('componentWillUpdate');
     const { fetchImgAddr, imgs, imgAddr, loadImages, galleryId, nbImgs, currentImage, loadMore } = nextProps
-    if(galleryId !== galleryId || imgAddr === undefined) {
+    if((nextProps.galleryId !== galleryId || imgAddr === undefined) && !nextProps.isFetching) {
       fetchImgAddr(galleryId)
     }
     if((imgAddr !== undefined && imgs === undefined) || (imgAddr !== undefined && imgs !== undefined && imgAddr.toJS().length + imgs.toJS().length !== nbImgs)) {
@@ -96,7 +90,6 @@ const Gallery = connect(
   }
 
   render() {
-    console.log(this.props);
     const { imgs, columns, currentImage, lightboxIsOpen } = this.props
     return (
       <div>
