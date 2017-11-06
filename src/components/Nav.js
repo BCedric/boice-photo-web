@@ -11,7 +11,6 @@ import Gallery from './Gallery'
 import UploadImage from './UploadImage'
 
 export default function Nav (props) {
-  console.log(props);
   return (
     <div>
         <Router>
@@ -21,6 +20,7 @@ export default function Nav (props) {
               <NavItem><Link to='/gallery'>Gallerie</Link></NavItem>
               <NavItem><Link to='/uploadimage'>UploadImage</Link></NavItem>
               <NavItem><Link to='/gallery/1'>Gallerie 1</Link></NavItem>
+              <NavItem><Link to='/gallery/3'>Gallerie 3</Link></NavItem>
             </Navbar>
             <Route exact path='/' component={Accueil} />
             <Route path='/uploadimage' component={UploadImage} />
