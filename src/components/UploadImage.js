@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ImagesUploader from 'react-images-uploader';
+import config from 'config'
 // import 'react-images-uploader/styles.css';
 // import 'react-images-uploader/font.css';
 
@@ -8,7 +9,7 @@ export default class UploadImage extends Component {
 		return (
 			<div>
         <ImagesUploader
-				url="http://localhost:8080/picture/1"
+				url={config.adressServer+"/picture/1"}
 				optimisticPreviews
 				onLoadEnd={(err) => {
 					if (err) {
