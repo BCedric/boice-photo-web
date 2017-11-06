@@ -19,7 +19,7 @@ const Gallery = connect(
       isFetching: isFetchingSelector(state)
     }
   },
-  (dispatch, props) => ({
+  dispatch => ({
       fetchImgAddr: arg => fetchImgAddr(arg)(dispatch),
       loadImages:  () => dispatch(loadImages()),
       setGalleryId: galleryId => dispatch(setGalleryId(galleryId)),
@@ -40,14 +40,13 @@ const Gallery = connect(
   }
 
   componentDidMount () {
-    const {razImgs} = this.props
-    console.log('raz');
     window.addEventListener('scroll', this.handleScroll)
   }
 
   componentWillUpdate (nextProps) {
-    const { fetchImgAddr, imgs, imgAddr, loadImages, galleryId, nbImgs, currentImage, loadMore } = nextProps
-    if((nextProps.galleryId !== galleryId || imgAddr === undefined) && !nextProps.isFetching) {
+    const { fetchImgAddr, imgs, imgAddr, loadImages, galleryId, nbImgs, currentImage, loadMore, razImgs } = nextProps
+    if((this.props.galleryId !== galleryId || imgAddr === undefined) && !nextProps.isFetching) {
+      razImgs()
       fetchImgAddr(galleryId)
     }
     if((imgAddr !== undefined && imgs === undefined) || (imgAddr !== undefined && imgs !== undefined && imgAddr.toJS().length + imgs.toJS().length !== nbImgs)) {
@@ -59,9 +58,8 @@ const Gallery = connect(
   }
 
   componentDidUpdate () {
-    const {razImgs, match, galleryId, setGalleryId} = this.props
+    const {match, galleryId, setGalleryId} = this.props
     if(match.params.galleryId !== galleryId){
-      razImgs()
       setGalleryId(match.params.galleryId)
     }
   }
