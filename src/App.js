@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 
 import {
   BrowserRouter as Router,
-  Link,
   Route
 } from 'react-router-dom'
 import Accueil from './components/Accueil'
+import Admin from './components/Admin'
 import Gallery from './components/Gallery'
 import GalleriesList from './components/GalleriesList'
 import UploadImage from './components/UploadImage'
@@ -24,6 +24,7 @@ class App extends Component {
             <div className='content'>
               <Route exact path='/' component={Accueil} />
               <Route path='/uploadimage' component={UploadImage} />
+              <Route path='/admin' component={Admin} />
               <Route exact path='/gallery' component={Gallery} />
               <Route path='/gallery/:galleryId' component={Gallery}  />
               <Route path='/gallerieslist/:galleriesList' component={GalleriesList}  />

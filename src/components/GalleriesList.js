@@ -9,7 +9,6 @@ import {
   Card,
   CardTitle
 } from 'react-materialize'
-import { withRouter } from 'react-router'
 
 import {
   isFetchingSelector,
@@ -32,10 +31,6 @@ const GalleriesList = connect(
   })
 )(
   class extends React.Component {
-    constructor(props) {
-      super(props)
-    }
-
     componentWillMount() {
       // console.log('componentWillMount', this.props);
       this.props.fetchGalleriesList(this.props.match.params.galleriesList)
@@ -43,7 +38,7 @@ const GalleriesList = connect(
 
     componentWillUpdate (nextProps) {
       console.log('componentWillUpdate GalleriesList');
-      const {galleriesList, isFetching, fetchGalleriesList, match } = nextProps
+      const {galleriesList, fetchGalleriesList, match } = nextProps
       if(this.props.match.params.galleriesList !== match.params.galleriesList
         || galleriesList === undefined
       )

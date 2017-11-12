@@ -3,9 +3,9 @@ import {
   Link
 } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import { forEach, map, upperFirst } from 'lodash'
+import { map, upperFirst } from 'lodash'
 import { connect } from 'react-redux'
-import { Navbar, NavItem, Dropdown, Button, Tab, Tabs } from 'react-materialize'
+import { Navbar, NavItem } from 'react-materialize'
 import {
   fetchGalleries,
   fetchGalleriesLists,
@@ -37,6 +37,10 @@ const items = [
   {
     nameItem: 'Gallery',
     route: '/gallery'
+  },
+  {
+    navItem: 'Admin',
+    route:'/admin'
   }
 ]
 
@@ -121,20 +125,12 @@ const Nav = connect(
   }
 
   render () {
-
     // console.log(this.props);
-    // if(this.props.galleriesNotInLists )console.log('coucou', map(
-    //   this.props.galleriesNotInLists.toJS(),
-    //   gallery => gallery.id).includes(utils.getIdFromPath(this.props.location.pathname)), map(
-    //     this.props.galleriesNotInLists.toJS(),
-    //     gallery => gallery.id),
-    //     utils.getIdFromPath(this.props.location.pathname)
-    //   )
-    // if(this.props.currentGalleries) console.log('currentGalleries', this.props.currentGalleries.toJS());
+    // console.log(map(items, item => this.getNavItems(item)));
     return (
       <div className='nav'>
         <div>
-          <img className='logo' src={logo} />
+          <img className='logo' src={logo} alt='logo' />
           <Navbar className='navbar' left>
             { map(items, item => this.getNavItems(item)) }
             {this.props.galleriesLists !== undefined

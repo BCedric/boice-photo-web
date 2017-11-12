@@ -6,7 +6,6 @@ import {
   fetchImgAddr,
   loadImages,
   loadMore,
-  setGalleryId,
   razImgs,
   setCurrentImage,
   setLightboxIsOpen
@@ -17,7 +16,6 @@ import {
   currentImageSelector,
   lightboxIsOpenSelector,
   isFetchingSelector,
-  galleryDescriptionSelector,
   gallerySelector
 } from 'gallery-redux/selectors'
 import './styles/Gallery.css'
@@ -63,7 +61,7 @@ const Gallery = connect(
 
   componentWillUpdate (nextProps) {
     console.log('componentWillUpdate');
-    const { fetchImgAddr, loadImages, nbImgs, currentImage, loadMore, razImgs, gallery, match, imgs } = nextProps
+    const { fetchImgAddr, loadImages, currentImage, loadMore, razImgs, gallery, match } = nextProps
     if(gallery !== undefined && this.props.match.params.galleryId !== nextProps.match.params.galleryId){
       razImgs()
       fetchImgAddr(match.params.galleryId)
