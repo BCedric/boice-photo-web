@@ -133,14 +133,14 @@ const Nav = connect(
           <img className='logo' src={logo} alt='logo' />
           <Navbar className='navbar' left>
             { map(items, item => this.getNavItems(item)) }
-            {this.props.galleriesLists !== undefined
-              ? map(map(this.props.galleriesLists.toJS(), list => ({nameItem: upperFirst(list.name), route: '/gallerieslist/'+list.id})), list => this.getNavItems(list))
-              : null
+            {
+              this.props.galleriesLists
+                && map(map(this.props.galleriesLists.toJS(), list => ({nameItem: upperFirst(list.name), route: '/gallerieslist/'+list.id})), list => this.getNavItems(list))
             }
 
-              {this.props.galleriesNotInLists !== undefined
-                ? map(map(this.props.galleriesNotInLists.toJS(), gallery => ({nameItem: upperFirst(gallery.name), route: '/gallery/'+gallery.id})), gallery => this.getNavItems(gallery))
-                : null
+              {
+                this.props.galleriesNotInLists
+                  && map(map(this.props.galleriesNotInLists.toJS(), gallery => ({nameItem: upperFirst(gallery.name), route: '/gallery/'+gallery.id})), gallery => this.getNavItems(gallery))
               }
 
 
