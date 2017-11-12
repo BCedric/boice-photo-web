@@ -12,15 +12,13 @@ import {
   setLightboxIsOpen
 } from 'gallery-redux/actions'
 import {
-  imgAddrSelector,
-  imgSelector,
-  galleryIdSelector,
+  imgsSelector,
   nbImgsSelector,
   currentImageSelector,
   lightboxIsOpenSelector,
   isFetchingSelector,
   galleryDescriptionSelector,
-  galleryNameSelector
+  gallerySelector
 } from 'gallery-redux/selectors'
 import './styles/Gallery.css'
 
@@ -29,21 +27,17 @@ const THRESHOLD_RELOAD = 50
 const Gallery = connect(
   state => {
     return {
-      imgAddr: imgAddrSelector(state),
-      imgs: imgSelector(state),
-      galleryId: galleryIdSelector(state),
+      imgs: imgsSelector(state),
       nbImgs: nbImgsSelector(state),
       currentImage: currentImageSelector(state),
       lightboxIsOpen: lightboxIsOpenSelector(state),
       isFetching: isFetchingSelector(state),
-      galleryDescription: galleryDescriptionSelector(state),
-      galleryName: galleryNameSelector(state)
+      gallery: gallerySelector(state)
     }
   },
   dispatch => ({
       fetchImgAddr: arg => fetchImgAddr(arg)(dispatch),
       loadImages:  () => dispatch(loadImages()),
-      setGalleryId: galleryId => dispatch(setGalleryId(galleryId)),
       razImgs: () => dispatch(razImgs()),
       loadMore: () => dispatch(loadMore()),
       setCurrentImage: id => dispatch(setCurrentImage(id)),
@@ -52,45 +46,41 @@ const Gallery = connect(
 )(class extends React.Component {
   constructor(props) {
     super();
-    props.setGalleryId(props.match.params.galleryId)
     this.closeLightbox = this.closeLightbox.bind(this);
     this.openLightbox = this.openLightbox.bind(this);
     this.gotoNext = this.gotoNext.bind(this);
     this.gotoPrevious = this.gotoPrevious.bind(this);
-
   }
 
-  componentWillMount () {
-    console.log('componentWillMount');
-  }
+  // componentWillMount () {
+  //   console.log('componentWillMount');
+  // }
 
   componentDidMount () {
-    console.log('componentDidMount');
-    this.forceUpdate()
+    this.props.fetchImgAddr(this.props.match.params.galleryId)
     window.addEventListener('scroll', this.handleScroll)
   }
 
   componentWillUpdate (nextProps) {
-    console.log('componentWillUpdate', window.innerHeight, window.outerHeight, window.scrollMaxY, window.screenY);
-    const { fetchImgAddr, imgs, imgAddr, loadImages, galleryId, nbImgs, currentImage, loadMore, razImgs } = nextProps
-    if((this.props.galleryId !== galleryId || imgAddr === undefined) && !nextProps.isFetching) {
+    console.log('componentWillUpdate');
+    const { fetchImgAddr, loadImages, nbImgs, currentImage, loadMore, razImgs, gallery, match, imgs } = nextProps
+    if(gallery !== undefined && this.props.match.params.galleryId !== nextProps.match.params.galleryId){
       razImgs()
-      fetchImgAddr(galleryId)
+      fetchImgAddr(match.params.galleryId)
     }
-    if(window.scrollMaxY === 0 || (imgAddr !== undefined && imgs === undefined) || (imgAddr !== undefined && imgs !== undefined && imgAddr.toJS().length + imgs.toJS().length !== nbImgs)) {
+    if(window.scrollMaxY === 0
+      && ((nextProps.isFetching !== undefined && !nextProps.isFetching)
+          || nextProps.isFetching === undefined)
+    ) {
       loadImages()
     }
-    if(imgs !== undefined && currentImage === imgs.toJS().length-1) {
+    if(gallery !== undefined && currentImage === gallery.pictures.length-1) {
       loadMore()
     }
   }
 
-  componentDidUpdate () {
-    console.log('componentDidUpdate');
-    const {match, galleryId, setGalleryId} = this.props
-    if(match.params.galleryId !== galleryId){
-      setGalleryId(match.params.galleryId)
-    }
+  componentWillUnmount() {
+    this.props.razImgs()
   }
 
   handleScroll = (event) => {
@@ -117,20 +107,17 @@ const Gallery = connect(
   }
 
   render() {
-    const { imgs, columns, currentImage, lightboxIsOpen, galleryDescription, galleryName } = this.props
+    const { columns, currentImage, lightboxIsOpen, gallery, imgs } = this.props
     // console.log(this.props);
     return (
       <div>
-        <h2>{galleryName ? galleryName : "Gallery"}</h2>
-        { galleryDescription !== undefined
-        ? <p className='description'>{galleryDescription}</p>
-        : null }
-        { imgs !== undefined
-        ? <div>
-            <GalleryPhotos className='gallery' photos={imgs.toJS()} columns={columns} onClick={this.openLightbox}/>
+        <h2>{gallery && gallery.name }</h2>
+        { gallery && <p className='description'>{gallery.description}</p> }
+        { imgs && <div>
+            <GalleryPhotos className='gallery' photos={imgs} columns={columns} onClick={this.openLightbox}>LOADING</GalleryPhotos>
             <Lightbox
               theme={{ container: { background: 'rgba(0, 0, 0, 0.85)' } }}
-              images={imgs.toJS().map(x => ({ ...x, srcset: x.srcSet, caption: x.title }))}
+              images={imgs.map(x => ({ ...x, srcset: x.srcSet, caption: x.title }))}
               backdropClosesModal={true}
               onClose={this.closeLightbox}
               onClickPrev={this.gotoPrevious}
@@ -139,8 +126,7 @@ const Gallery = connect(
               isOpen={lightboxIsOpen}
               width={1600}
             />
-          </div>
-        : <p></p> }
+          </div> }
 
       </div>
     );
