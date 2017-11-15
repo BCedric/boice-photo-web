@@ -55,6 +55,7 @@ const GalleriesList = connect(
       return (
         <div>
           {galleriesList && <h1>{galleriesList.name}</h1>}
+          {galleriesList && <p>{galleriesList.description}</p>}
           { galleriesList !== undefined
             ? map(galleriesList.galleries, gallery =>
               (<Card header={<Link to={'/gallery/' + gallery.id}><CardTitle image={config.adressServer+gallery.randPicture} waves='light'/></Link>}

@@ -39,7 +39,7 @@ const items = [
     route: '/gallery'
   },
   {
-    navItem: 'Admin',
+    nameItem: 'Admin',
     route:'/admin'
   }
 ]
@@ -135,30 +135,25 @@ const Nav = connect(
             { map(items, item => this.getNavItems(item)) }
             {
               this.props.galleriesLists
-                && map(map(this.props.galleriesLists.toJS(), list => ({nameItem: upperFirst(list.name), route: '/gallerieslist/'+list.id})), list => this.getNavItems(list))
+                && map(this.props.galleriesLists.toJS(),
+                  list => this.getNavItems({nameItem: upperFirst(list.name), route: '/gallerieslist/'+list.id}))
             }
 
               {
                 this.props.galleriesNotInLists
-                  && map(map(this.props.galleriesNotInLists.toJS(), gallery => ({nameItem: upperFirst(gallery.name), route: '/gallery/'+gallery.id})), gallery => this.getNavItems(gallery))
+                  && map(this.props.galleriesNotInLists.toJS(), gallery => this.getNavItems({nameItem: upperFirst(gallery.name), route: '/gallery/'+gallery.id}))
               }
-
-
           </Navbar>
-
           { this.props.currentGalleries
             && this.props.galleriesNotInLists
             && !map(
               this.props.galleriesNotInLists.toJS(),
               gallery => gallery.id).includes(utils.getIdFromPath(this.props.location.pathname))
-
-            ?<Navbar className='galerie-nav tabs z-depth-1'>
+            && <Navbar className='galerie-nav tabs z-depth-1'>
               {map(this.props.currentGalleries.toJS(), gallery => this.getNavItemsGalleries(gallery)
 
               )}
-
             </Navbar>
-            : null
           }
 
         </div>

@@ -56,7 +56,7 @@ const Gallery = connect(
 
   componentDidMount () {
     this.props.fetchImgAddr(this.props.match.params.galleryId)
-    window.addEventListener('scroll', this.handleScroll)
+    document.addEventListener('scroll', this.handleScroll)
   }
 
   componentWillUpdate (nextProps) {
@@ -82,13 +82,15 @@ const Gallery = connect(
   }
 
   handleScroll = (event) => {
-    if(window.scrollMaxY - THRESHOLD_RELOAD < window.scrollY) this.props.loadMore()
+    const scrollMax = document.documentElement.scrollHeight - document.documentElement.clientHeight
+    if(scrollMax - THRESHOLD_RELOAD < window.scrollY) this.props.loadMore()
   }
 
   openLightbox(event, obj) {
-    const {setLightboxIsOpen, setCurrentImage} = this.props
+    const {setLightboxIsOpen, setCurrentImage, loadMore, imgs} = this.props
     setLightboxIsOpen(true)
     setCurrentImage(obj.index)
+    if(imgs.length === obj.index+1) loadMore()
   }
   closeLightbox() {
     const {setLightboxIsOpen, setCurrentImage} = this.props
@@ -100,7 +102,8 @@ const Gallery = connect(
     setCurrentImage(currentImage - 1)
   }
   gotoNext() {
-    const {currentImage, setCurrentImage} = this.props
+    const {currentImage, setCurrentImage, imgs, loadMore} = this.props
+    if(imgs.length === currentImage+2) loadMore()
     setCurrentImage(currentImage + 1)
   }
 
