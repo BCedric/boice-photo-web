@@ -32,12 +32,10 @@ const GalleriesList = connect(
 )(
   class extends React.Component {
     componentWillMount() {
-      // console.log('componentWillMount', this.props);
       this.props.fetchGalleriesList(this.props.match.params.galleriesList)
     }
 
     componentWillUpdate (nextProps) {
-      console.log('componentWillUpdate GalleriesList');
       const {galleriesList, fetchGalleriesList, match } = nextProps
       if(this.props.match.params.galleriesList !== match.params.galleriesList
         || galleriesList === undefined
@@ -50,7 +48,6 @@ const GalleriesList = connect(
      }
 
     render () {
-      // console.log(this.props);
       const { galleriesList } = this.props
       return (
         <div>

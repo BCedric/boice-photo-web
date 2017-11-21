@@ -37,7 +37,6 @@ const Admin = connect(
 
 
     render () {
-      console.log(this.props);
       return (
         <div>
           <form onSubmit={e => {

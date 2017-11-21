@@ -68,11 +68,6 @@ const Nav = connect(
     history: PropTypes.object.isRequired
   }
 
-  constructor (props) {
-    super(props)
-    this.state = {}
-  }
-
   componentDidMount(){
     this.props.fetchGalleries()
     this.props.fetchGalleriesLists()
@@ -125,8 +120,7 @@ const Nav = connect(
   }
 
   render () {
-    // console.log(this.props);
-    // console.log(map(items, item => this.getNavItems(item)));
+    const {galleriesLists, galleriesNotInLists, location, currentGalleries, setGalleriesPage, galleriesPage } = this.props
     return (
       <div className='nav'>
         <div>
@@ -134,18 +128,18 @@ const Nav = connect(
           <Navbar className='navbar' left>
             { map(items, item => this.getNavItems(item)) }
             {
-              this.props.galleriesLists
-                && map(this.props.galleriesLists.toJS(),
+              galleriesLists
+                && map(galleriesLists,
                   list => this.getNavItems({nameItem: upperFirst(list.name), route: '/gallerieslist/'+list.id}))
             }
 
               {
-                this.props.galleriesNotInLists
-                  && map(this.props.galleriesNotInLists.toJS(), gallery => this.getNavItems({nameItem: upperFirst(gallery.name), route: '/gallery/'+gallery.id}))
+                galleriesNotInLists
+                  && map(galleriesNotInLists, gallery => this.getNavItems({nameItem: upperFirst(gallery.name), route: '/gallery/'+gallery.id}))
               }
           </Navbar>
-          { this.props.currentGalleries
-            && this.props.galleriesNotInLists
+          { currentGalleries
+            && galleriesNotInLists
             && !map(
               this.props.galleriesNotInLists.toJS(),
               gallery => gallery.id).includes(utils.getIdFromPath(this.props.location.pathname))

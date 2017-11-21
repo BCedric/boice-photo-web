@@ -50,17 +50,12 @@ const Gallery = connect(
     this.gotoPrevious = this.gotoPrevious.bind(this);
   }
 
-  // componentWillMount () {
-  //   console.log('componentWillMount');
-  // }
-
   componentDidMount () {
     this.props.fetchImgAddr(this.props.match.params.galleryId)
     document.addEventListener('scroll', this.handleScroll)
   }
 
   componentWillUpdate (nextProps) {
-    console.log('componentWillUpdate');
     const { fetchImgAddr, loadImages, currentImage, loadMore, razImgs, gallery, match } = nextProps
     if(gallery !== undefined && this.props.match.params.galleryId !== nextProps.match.params.galleryId){
       razImgs()
@@ -109,7 +104,6 @@ const Gallery = connect(
 
   render() {
     const { columns, currentImage, lightboxIsOpen, gallery, imgs } = this.props
-    // console.log(this.props);
     return (
       <div>
         <h2>{gallery && gallery.name }</h2>
