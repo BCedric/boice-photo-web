@@ -33,14 +33,21 @@ const GalleriesList = connect(
   class extends React.Component {
     componentWillMount() {
       this.props.fetchGalleriesList(this.props.match.params.galleriesList)
+      this.forceUpdate()
+    }
+
+    shouldComponentUpdate(){
+      return !this.props.isFetching
     }
 
     componentWillUpdate (nextProps) {
       const {galleriesList, fetchGalleriesList, match } = nextProps
       if(this.props.match.params.galleriesList !== match.params.galleriesList
         || galleriesList === undefined
-      )
+      ) {
+        this.props.razList()
         fetchGalleriesList(match.params.galleriesList)
+      }
     }
 
     componentWillUnmount() {
