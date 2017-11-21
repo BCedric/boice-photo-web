@@ -22,3 +22,22 @@
   margin: 10px;
   width: 200px;
 }
+
+ul.galerie-nav {
+  float: left;
+  position: relative;
+  left: 50%;
+
+}
+
+
+ul.galerie-nav li {
+  float: left;
+  margin: auto;
+  position: relative;
+  right: 50%;
+}
+
+.arrow i {
+  color: black;
+}
