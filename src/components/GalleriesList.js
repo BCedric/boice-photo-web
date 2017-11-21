@@ -1,14 +1,6 @@
 import { connect } from 'react-redux'
 import React from 'react'
-import { map } from 'lodash'
-import config from 'config'
-import {
-  Link
-} from 'react-router-dom'
-import {
-  Card,
-  CardTitle
-} from 'react-materialize'
+import { map, upperFirst } from 'lodash'
 
 import {
   isFetchingSelector,
@@ -18,6 +10,7 @@ import {
   fetchGalleriesList,
   razList
 } from 'galleries-list-redux/actions'
+import GalleryListItem from './gallery-list-components/GalleryListItem'
 import './styles/GalleriesList.css'
 
 const GalleriesList = connect(
@@ -58,17 +51,13 @@ const GalleriesList = connect(
       const { galleriesList } = this.props
       return (
         <div>
-          {galleriesList && <h1>{galleriesList.name}</h1>}
+          {galleriesList && <h1>{upperFirst(galleriesList.name)}</h1>}
           {galleriesList && <p>{galleriesList.description}</p>}
-          { galleriesList !== undefined
-            ? map(galleriesList.galleries, gallery =>
-              (<Card header={<Link to={'/gallery/' + gallery.id}><CardTitle image={config.adressServer+gallery.randPicture} waves='light'/></Link>}
-              		title={gallery.name}>
-              		<p><Link to={'/gallery/' + gallery.id}>Voir plus</Link></p>
-              </Card>)
-            )
-            : null}
-        </div>)
+          { galleriesList !== undefined && map(galleriesList.galleries,
+            gallery => <GalleryListItem {...gallery} />
+          )}
+        </div>
+      )
     }
   }
 )
