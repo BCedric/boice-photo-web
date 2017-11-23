@@ -11,8 +11,9 @@ import {
 } from 'nav-redux/actions'
 
 import NavItemComp from './NavItemComp'
+import FadeTransition from 'FadeTransition'
 
-const galleriesNumToDisplay = 3
+const galleriesNumToDisplay = 4
 
 const NavGalleries = connect(
   state => ({
@@ -26,7 +27,6 @@ const NavGalleries = connect(
   })
 )(
   class extends React.Component {
-
     getGalleriesToDisplay(){
       return remove(map(this.props.currentGalleries, (gallerie, index) => {
 
@@ -69,10 +69,13 @@ const NavGalleries = connect(
       const { setGalleriesPage, galleriesPage, className } = this.props
       return (
         <div className={`galerie-nav tabs z-depth-1 ${className}`}>
-            {this.displayLeftArrow() && <NavItem className='tab col arrow'><a onClick={(e) => setGalleriesPage(e, galleriesPage - 1)} ><Icon>navigate_before</Icon></a></NavItem>}
-            {this.getGalleriesToDisplay().map(gallery => this.getNavItemsGalleries(gallery))}
-            {this.displayRightArrow() && <NavItem className='tab col arrow'><a onClick={(e) => setGalleriesPage(e, galleriesPage + 1)} ><Icon>navigate_next</Icon></a></NavItem>}
+              {this.displayLeftArrow() && <NavItem className='tab col arrow'><a onClick={(e) => setGalleriesPage(e, galleriesPage - 1)} ><Icon>navigate_before</Icon></a></NavItem>}
+              {this.getGalleriesToDisplay().map(gallery => this.getNavItemsGalleries(gallery))}
+              {this.displayRightArrow() && <NavItem className='tab col arrow'><a onClick={(e) => {
+                setGalleriesPage(e, galleriesPage + 1)
+              }} ><Icon>navigate_next</Icon></a></NavItem>}
         </div>
+
       )
     }
   }

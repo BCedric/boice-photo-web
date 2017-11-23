@@ -17,10 +17,11 @@ import {
 } from 'nav-redux/selectors'
 import { withRouter } from 'react-router'
 import utils from 'utils'
-import './styles/Nav.css'
 
+
+import './styles/Nav.css'
 import logo from './styles/img/logo.png'
-import NavGalleries from './nav-components/NavGalleries'
+import NavBarGalleries from './nav-components/NavBarGalleries'
 import NavBarComp from './nav-components/NavBarComp'
 
 
@@ -73,7 +74,6 @@ const Nav = connect(
     }
   }
 
-
   render () {
     const { galleriesNotInLists, location, currentGalleries } = this.props
     return (
@@ -86,7 +86,7 @@ const Nav = connect(
             && !map(
               galleriesNotInLists,
               gallery => gallery.id).includes(utils.getIdFromPath(location.pathname))
-            && <NavGalleries {...this.props} className='fade' />
+            && <NavBarGalleries {...this.props} className='fade'/>
           }
         </div>
       </div>
