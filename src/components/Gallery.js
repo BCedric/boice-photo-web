@@ -1,4 +1,5 @@
 import {default as GalleryPhotos} from 'react-photo-gallery'
+import Helmet from 'react-helmet'
 import { connect } from 'react-redux'
 import Lightbox from 'react-images'
 import React from 'react'

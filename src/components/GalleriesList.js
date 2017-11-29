@@ -1,5 +1,6 @@
 import { connect } from 'react-redux'
 import React from 'react'
+import Helmet from 'react-helmet'
 import { map, upperFirst } from 'lodash'
 
 import {

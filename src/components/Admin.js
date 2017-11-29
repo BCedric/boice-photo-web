@@ -1,4 +1,5 @@
 import { connect } from 'react-redux'
+import Helmet from 'react-helmet'
 import {
   Button,
   Row,
@@ -39,6 +40,10 @@ const Admin = connect(
     render () {
       return (
         <div>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>Boïce Photo | Admin </title>
+        </Helmet>
           <form onSubmit={e => {
             e.preventDefault()
           }}>

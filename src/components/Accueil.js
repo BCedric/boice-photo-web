@@ -1,8 +1,13 @@
 import React from 'react'
+import Helmet from 'react-helmet'
 
 export default function Accueil () {
   return (
     <div>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Boïce Photo | Accueil </title>
+      </Helmet>
       <h1>Accueil</h1>
       <div className="accueil-content">
         <p>
