@@ -56,6 +56,10 @@ const NavBarComp = connect (
               galleriesNotInLists
                 && map(galleriesNotInLists, gallery => this.getNavItem({nameItem: upperFirst(gallery.name), route: '/gallery/'+gallery.id}))
             }
+            {map([{
+                nameItem: 'Contact',
+                route:'/contact'
+              }], item => this.getNavItem(item))}
         </Navbar>
       )
     }

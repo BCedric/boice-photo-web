@@ -9,6 +9,7 @@ import Admin from './components/Admin'
 import Gallery from './components/Gallery'
 import GalleriesList from './components/GalleriesList'
 import UploadImage from './components/UploadImage'
+import Contact from './components/Contact'
 
 import Nav from './components/Nav'
 import './App.css';
@@ -23,10 +24,10 @@ class App extends Component {
             <div className='content'>
               <Route exact path='/' component={Accueil} />
               <Route path='/uploadimage' component={UploadImage} />
-              <Route path='/admin' component={Admin} />
-              <Route exact path='/gallery' component={Gallery} />
+              <Route exact path='/vrac' component={Gallery} />
               <Route path='/gallery/:galleryId' component={Gallery}  />
               <Route path='/gallerieslist/:galleriesList' component={GalleriesList}  />
+              <Route path='/contact' component={Contact}  />
             </div>
             </div>
         </Router>
