@@ -14,12 +14,8 @@ const items = [
     route: '/'
   },
   {
-    nameItem: 'Gallery',
-    route: '/gallery'
-  },
-  {
-    nameItem: 'Admin',
-    route:'/admin'
+    nameItem: 'Vrac',
+    route: '/vrac'
   }
 ]
 
