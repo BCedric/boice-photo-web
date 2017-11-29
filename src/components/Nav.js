@@ -24,7 +24,6 @@ import logo from './styles/img/logo.png'
 import NavBarGalleries from './nav-components/NavBarGalleries'
 import NavBarComp from './nav-components/NavBarComp'
 
-
 const Nav = connect(
   state => {
     return {

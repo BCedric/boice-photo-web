@@ -8,11 +8,34 @@ import {
 } from 'react-router-dom'
 import config from 'config'
 
-const GalleryListItem = ({id, name, randPicture}) => (
-  <Card header={<Link to={'/gallery/' + id}><CardTitle image={config.adressServer+randPicture} waves='light'/></Link>}
-      title={name}>
-      <p><Link to={'/gallery/' + id}>Voir plus</Link></p>
-  </Card>
-)
+class GalleryListItem extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = {loading: true}
+  }
+
+  render () {
+    const {id, name, randPicture} = this.props
+    return (
+        <Card
+          title={name}
+          header={
+            <Link to={'/gallery/' + id}>
+              {this.state.loading &&
+                <CardTitle
+                  onLoad={() => this.setState({loading: true})}
+                  onLoaded= {() => this.setState({loading: false})}
+                  image={config.adressServer+randPicture}
+                  waves='light'/>
+              }
+            </Link>
+          }
+          >
+            <p><Link to={'/gallery/' + id}>Voir plus</Link></p>
+          </Card>
+
+    )
+  }
+}
 
 export default GalleryListItem

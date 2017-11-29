@@ -13,6 +13,7 @@ import {
 } from 'galleries-list-redux/actions'
 import GalleryListItem from './gallery-list-components/GalleryListItem'
 import './styles/GalleriesList.css'
+import FadeComponent from 'fade-component'
 
 const GalleriesList = connect(
   state => ({
@@ -25,14 +26,18 @@ const GalleriesList = connect(
   })
 )(
   class extends React.Component {
+
+    constructor (props) {
+        super(props)
+        this.state = {display: false, loading: true}
+    }
+
     componentWillMount() {
       this.props.fetchGalleriesList(this.props.match.params.galleriesList)
       this.forceUpdate()
     }
 
-    shouldComponentUpdate(){
-      return !this.props.isFetching
-    }
+
 
     componentWillUpdate (nextProps) {
       const {galleriesList, fetchGalleriesList, match } = nextProps
@@ -48,15 +53,27 @@ const GalleriesList = connect(
       this.props.razList()
      }
 
+     displayList() {
+       const { galleriesList } = this.props
+       return !this.props.isFetching && galleriesList &&
+         this.props.match.params.galleriesList === galleriesList.id.toString()
+     }
+
     render () {
       const { galleriesList } = this.props
       return (
         <div>
-          {galleriesList && <h1>{upperFirst(galleriesList.name)}</h1>}
-          {galleriesList && <p>{galleriesList.description}</p>}
-          { galleriesList !== undefined && map(galleriesList.galleries,
-            gallery => <GalleryListItem {...gallery} />
-          )}
+          <Helmet>
+            <meta charSet="utf-8" />
+            <title>{`Boïce Photo | ${galleriesList && galleriesList.name}`} </title>
+          </Helmet>
+          <FadeComponent onLoad={() => this.setState({loading: true})}  onLoaded= {() => this.setState({loading: false})} display={this.displayList()} onCompositionStart={() => console.log('onCompositionStart')}>
+            {galleriesList && <h1>{upperFirst(galleriesList.name)}</h1>}
+            {galleriesList && <p>{galleriesList.description}</p>}
+            { galleriesList !== undefined && map(galleriesList.galleries,
+              gallery => <GalleryListItem {...gallery} />
+            )}
+          </FadeComponent>
         </div>
       )
     }

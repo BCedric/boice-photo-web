@@ -19,9 +19,12 @@ import {
   isFetchingSelector,
   gallerySelector
 } from 'gallery-redux/selectors'
+import FadeComponent from 'fade-component'
 import './styles/Gallery.css'
 
 const THRESHOLD_RELOAD = 50
+
+const VRAC_DESCRIPTION = "Si vous voulez voir des photos de manière alétoire, qui n'ont donc rien à voir les unes avec les autres, vous êtes au bon endroit !"
 
 const Gallery = connect(
   state => {
@@ -49,6 +52,7 @@ const Gallery = connect(
     this.openLightbox = this.openLightbox.bind(this);
     this.gotoNext = this.gotoNext.bind(this);
     this.gotoPrevious = this.gotoPrevious.bind(this);
+    this.state = {display: false, loading: true}
   }
 
   componentDidMount () {
@@ -103,12 +107,34 @@ const Gallery = connect(
     setCurrentImage(currentImage + 1)
   }
 
+  displayGallery() {
+    const { imgs } = this.props
+    return imgs !== undefined
+  }
+
   render() {
-    const { columns, currentImage, lightboxIsOpen, gallery, imgs } = this.props
+    console.log(this.props);
+    const { columns, currentImage, lightboxIsOpen, gallery, imgs, match } = this.props
     return (
       <div>
-        <h2>{gallery && gallery.name }</h2>
-        { gallery && <p className='description'>{gallery.description}</p> }
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>Boïce Photo | {gallery && match.params.galleryId ? gallery.name : 'Vrac'}</title>
+          <link rel="canonical" href="http://mysite.com/example" />
+        </Helmet>
+        <FadeComponent
+          onLoad={() => this.setState({loading: true})}
+          onLoaded= {() => this.setState({loading: false})}
+          display={this.displayGallery()}
+          onCompositionStart={() => console.log('onCompositionStart')}>
+        {gallery && <h2> {match.params.galleryId ? gallery.name : 'Vrac'} </h2>}
+
+        { gallery && <p className='description'>{
+          match.params.galleryId
+          ? gallery.description
+          : VRAC_DESCRIPTION
+        }</p>
+        }
         { imgs && <div>
             <GalleryPhotos className='gallery' photos={imgs} columns={columns} onClick={this.openLightbox}>LOADING</GalleryPhotos>
             <Lightbox
@@ -124,10 +150,9 @@ const Gallery = connect(
             />
           </div> }
 
+          </FadeComponent>
       </div>
     );
   }
 })
-
-
 export default Gallery;
