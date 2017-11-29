@@ -78,7 +78,9 @@ const Nav = connect(
     return (
       <div className='nav'>
         <div>
-          <img className='logo' src={logo} alt='logo' />
+          <div className='header'>
+            <img className='logo' src={logo} alt='logo' />
+          </div>
           <NavBarComp {...this.props }/>
           { currentGalleries
             && galleriesNotInLists
