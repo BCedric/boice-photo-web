@@ -14,6 +14,7 @@ import {
 import GalleryListItem from './gallery-list-components/GalleryListItem'
 import './styles/GalleriesList.css'
 import FadeComponent from 'fade-component'
+import { Preloader } from 'react-materialize'
 
 const GalleriesList = connect(
   state => ({
@@ -27,53 +28,52 @@ const GalleriesList = connect(
 )(
   class extends React.Component {
 
-    constructor (props) {
-        super(props)
-        this.state = {display: false, loading: true}
+    constructor(props) {
+      super(props)
     }
 
-    componentWillMount() {
+    componentDidMount() {
       this.props.fetchGalleriesList(this.props.match.params.galleriesList)
-      this.forceUpdate()
     }
 
 
 
-    componentWillUpdate (nextProps) {
-      const {galleriesList, fetchGalleriesList, match } = nextProps
-      if(this.props.match.params.galleriesList !== match.params.galleriesList
-        || galleriesList === undefined
-      ) {
-        this.props.razList()
-        fetchGalleriesList(match.params.galleriesList)
+    componentDidUpdate(nextProps) {
+      const nextGalleryListId = nextProps.match.params.galleriesList
+      const currentGalleryListId = this.props.match.params.galleriesList
+      if (nextGalleryListId !== currentGalleryListId) {
+        this.props.fetchGalleriesList(this.props.match.params.galleriesList)
       }
     }
 
-    componentWillUnmount() {
-      this.props.razList()
-     }
-
-     displayList() {
-       const { galleriesList } = this.props
-       return !this.props.isFetching && galleriesList &&
-         this.props.match.params.galleriesList === galleriesList.id.toString()
-     }
-
-    render () {
+    displayList() {
       const { galleriesList } = this.props
+      return !this.props.isFetching && galleriesList &&
+        this.props.match.params.galleriesList === galleriesList.id.toString()
+    }
+
+    render() {
+      const { galleriesList, isFetching } = this.props
       return (
         <div>
           <Helmet>
             <meta charSet="utf-8" />
             <title>{`Boïce Photo | ${galleriesList && galleriesList.name}`} </title>
           </Helmet>
-          <FadeComponent onLoad={() => this.setState({loading: true})}  onLoaded= {() => this.setState({loading: false})} display={this.displayList()} onCompositionStart={() => console.log('onCompositionStart')}>
-            {galleriesList && <h1>{upperFirst(galleriesList.name)}</h1>}
-            {galleriesList && <p>{galleriesList.description}</p>}
-            { galleriesList !== undefined && map(galleriesList.galleries,
-              gallery => <GalleryListItem {...gallery} />
-            )}
-          </FadeComponent>
+          {/* {
+            <FadeComponent display={!isFetching}> */}
+          {galleriesList != null &&
+            <div>
+              {<h1>{upperFirst(galleriesList.name)}</h1>}
+              {<p>{galleriesList.description}</p>}
+              {galleriesList.galleries.map(
+                gallery => <GalleryListItem {...gallery} />
+              )}
+            </div>}
+          {isFetching && <Preloader />}
+          {/* </FadeComponent>
+
+          } */}
         </div>
       )
     }
