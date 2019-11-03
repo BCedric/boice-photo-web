@@ -9,7 +9,6 @@ import {
 } from 'galleries-list-redux/selectors'
 import {
   fetchGalleriesList,
-  razList
 } from 'galleries-list-redux/actions'
 import GalleryListItem from './gallery-list-components/GalleryListItem'
 import './styles/GalleriesList.css'
@@ -23,7 +22,6 @@ const GalleriesList = connect(
   }),
   dispatch => ({
     fetchGalleriesList: id => fetchGalleriesList(id)(dispatch),
-    razList: () => dispatch(razList())
   })
 )(
   class extends React.Component {
