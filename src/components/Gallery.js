@@ -1,7 +1,7 @@
-import {default as GalleryPhotos} from 'react-photo-gallery'
+import { default as GalleryPhotos } from 'react-photo-gallery'
 import Helmet from 'react-helmet'
 import { connect } from 'react-redux'
-import Lightbox from 'react-images'
+
 import React from 'react'
 import {
   fetchImgAddr,
@@ -9,7 +9,8 @@ import {
   loadMore,
   razImgs,
   setCurrentImage,
-  setLightboxIsOpen
+  setLightboxIsOpen,
+  fetchGallery
 } from 'gallery-redux/actions'
 import {
   imgsSelector,
@@ -20,7 +21,9 @@ import {
   gallerySelector
 } from 'gallery-redux/selectors'
 import FadeComponent from 'fade-component'
+import config from 'config'
 import './styles/Gallery.css'
+import GalleryPicture from './gallery-components/GalleryPicture'
 
 const THRESHOLD_RELOAD = 50
 
@@ -29,92 +32,108 @@ const VRAC_DESCRIPTION = "Si vous voulez voir des photos de manière alétoire, 
 const Gallery = connect(
   state => {
     return {
-      imgs: imgsSelector(state),
-      nbImgs: nbImgsSelector(state),
+      // imgs: imgsSelector(state),
+      // nbImgs: nbImgsSelector(state),
       currentImage: currentImageSelector(state),
-      lightboxIsOpen: lightboxIsOpenSelector(state),
+      // lightboxIsOpen: lightboxIsOpenSelector(state),
       isFetching: isFetchingSelector(state),
       gallery: gallerySelector(state)
     }
   },
   dispatch => ({
-      fetchImgAddr: arg => fetchImgAddr(arg)(dispatch),
-      loadImages:  () => dispatch(loadImages()),
-      razImgs: () => dispatch(razImgs()),
-      loadMore: () => dispatch(loadMore()),
-      setCurrentImage: id => dispatch(setCurrentImage(id)),
-      setLightboxIsOpen: bool => dispatch(setLightboxIsOpen(bool))
+    fetchGallery: galleryId => fetchGallery(galleryId)(dispatch),
+    // fetchImgAddr: arg => fetchImgAddr(arg)(dispatch),
+    // loadImages: () => dispatch(loadImages()),
+    // razImgs: () => dispatch(razImgs()),
+    // loadMore: () => dispatch(loadMore()),
+    setCurrentImage: id => dispatch(setCurrentImage(id)),
+    // setLightboxIsOpen: bool => dispatch(setLightboxIsOpen(bool))
   })
 )(class extends React.Component {
   constructor(props) {
     super();
-    this.closeLightbox = this.closeLightbox.bind(this);
-    this.openLightbox = this.openLightbox.bind(this);
-    this.gotoNext = this.gotoNext.bind(this);
-    this.gotoPrevious = this.gotoPrevious.bind(this);
-    this.state = {display: false, loading: true}
+    // this.closeLightbox = this.closeLightbox.bind(this);
+    // this.openLightbox = this.openLightbox.bind(this);
+    // this.gotoNext = this.gotoNext.bind(this);
+    // this.gotoPrevious = this.gotoPrevious.bind(this);
+    // this.state = { display: false, loading: true }
+    this.state = { isLightBoxOpen: false, currentPicture: null }
   }
 
-  componentDidMount () {
-    this.props.fetchImgAddr(this.props.match.params.galleryId)
-    document.addEventListener('scroll', this.handleScroll)
+  componentDidMount() {
+    this.props.fetchGallery(this.props.match.params.galleryId)
+    // document.addEventListener('scroll', this.handleScroll)
   }
 
-  componentWillUpdate (nextProps) {
-    const { fetchImgAddr, loadImages, currentImage, loadMore, razImgs, gallery, match } = nextProps
-    if(gallery !== undefined && this.props.match.params.galleryId !== nextProps.match.params.galleryId){
-      razImgs()
-      fetchImgAddr(match.params.galleryId)
-    }
-    if(window.scrollMaxY === 0
-      && ((nextProps.isFetching !== undefined && !nextProps.isFetching)
-          || nextProps.isFetching === undefined)
-    ) {
-      loadImages()
-    }
-    if(gallery !== undefined && currentImage === gallery.pictures.length-1) {
-      loadMore()
+  componentDidUpdate(nextProps) {
+    const nextGalleryListId = nextProps.match.params.galleryId
+    const currentGalleryListId = this.props.match.params.galleryId
+    if (nextGalleryListId !== currentGalleryListId) {
+      this.props.fetchGallery(this.props.match.params.galleryId)
     }
   }
 
-  componentWillUnmount() {
-    this.props.razImgs()
+  openLightbox = (event, obj) => {
+    this.props.setCurrentImage(obj.index)
   }
 
-  handleScroll = (event) => {
-    const scrollMax = document.documentElement.scrollHeight - document.documentElement.clientHeight
-    if(scrollMax - THRESHOLD_RELOAD < window.scrollY) this.props.loadMore()
-  }
 
-  openLightbox(event, obj) {
-    const {setLightboxIsOpen, setCurrentImage, loadMore, imgs} = this.props
-    setLightboxIsOpen(true)
-    setCurrentImage(obj.index)
-    if(imgs.length === obj.index+1) loadMore()
-  }
-  closeLightbox() {
-    const {setLightboxIsOpen, setCurrentImage} = this.props
-    setLightboxIsOpen(false)
-    setCurrentImage(0)
-  }
-  gotoPrevious() {
-    const {currentImage, setCurrentImage} = this.props
-    setCurrentImage(currentImage - 1)
-  }
-  gotoNext() {
-    const {currentImage, setCurrentImage, imgs, loadMore} = this.props
-    if(imgs.length === currentImage+2) loadMore()
-    setCurrentImage(currentImage + 1)
-  }
+  // componentWillUpdate(nextProps) {
+  //   const { fetchImgAddr, loadImages, currentImage, loadMore, razImgs, gallery, match } = nextProps
 
-  displayGallery() {
-    const { imgs } = this.props
-    return imgs !== undefined
-  }
+  //   if (gallery !== undefined && this.props.match.params.galleryId !== nextProps.match.params.galleryId) {
+  //     razImgs()
+  //     fetchImgAddr(match.params.galleryId)
+  //   }
+  //   if (window.scrollMaxY === 0
+  //     && ((nextProps.isFetching !== undefined && !nextProps.isFetching)
+  //       || nextProps.isFetching === undefined)
+  //   ) {
+  //     // loadImages()
+  //   }
+  //   if (gallery !== undefined && currentImage === gallery.pictures.length - 1) {
+  //     loadMore()
+  //   }
+  // }
+
+  // componentWillUnmount() {
+  //   this.props.razImgs()
+  // }
+
+  // handleScroll = (event) => {
+  //   const scrollMax = document.documentElement.scrollHeight - document.documentElement.clientHeight
+  //   if (scrollMax - THRESHOLD_RELOAD < window.scrollY) this.props.loadMore()
+  // }
+
+  // openLightbox(event, obj) {
+  //   const { setLightboxIsOpen, setCurrentImage, loadMore, imgs } = this.props
+  //   setLightboxIsOpen(true)
+  //   setCurrentImage(obj.index)
+  //   if (imgs.length === obj.index + 1) loadMore()
+  // }
+  // closeLightbox() {
+  //   const { setLightboxIsOpen, setCurrentImage } = this.props
+  //   setLightboxIsOpen(false)
+  //   setCurrentImage(0)
+  // }
+  // gotoPrevious() {
+  //   const { currentImage, setCurrentImage } = this.props
+  //   setCurrentImage(currentImage - 1)
+  // }
+  // gotoNext() {
+  //   const { currentImage, setCurrentImage, imgs, loadMore } = this.props
+  //   if (imgs.length === currentImage + 2) loadMore()
+  //   setCurrentImage(currentImage + 1)
+  // }
+
+  // displayGallery() {
+  //   const { imgs } = this.props
+  //   return imgs !== undefined
+  // }
 
   render() {
-    console.log(this.props);
-    const { columns, currentImage, lightboxIsOpen, gallery, imgs, match } = this.props
+    const { columns, currentImage, lightboxIsOpen, gallery, imgs, match, isFetching } = this.props
+    const pictures = gallery != null && gallery.pictures.map(picture => ({ src: `${config.adressServer}${picture.addr}`, width: picture.width, height: picture.height }))
     return (
       <div>
         <Helmet>
@@ -122,20 +141,28 @@ const Gallery = connect(
           <title>Boïce Photo | {gallery && match.params.galleryId ? gallery.name : 'Vrac'}</title>
           <link rel="canonical" href="http://mysite.com/example" />
         </Helmet>
-        <FadeComponent
-          onLoad={() => this.setState({loading: true})}
-          onLoaded= {() => this.setState({loading: false})}
+        {gallery != null &&
+          <FadeComponent display={!isFetching}>
+            <div>
+              <h1>{gallery.name}</h1>
+              <p className='description'>{
+                match.params.galleryId
+                  ? gallery.description
+                  : VRAC_DESCRIPTION
+              }</p>
+              <GalleryPhotos className='gallery' photos={pictures} columns={3} onClick={this.openLightbox} >LOADING</GalleryPhotos>
+              <GalleryPicture pictures={pictures} pictureIndex={this.props.currentImage} setCurrentPicture={this.props.setCurrentImage} />
+            </div>
+          </FadeComponent>
+        }
+        {/* <FadeComponent
+          onLoad={() => this.setState({ loading: true })}
+          onLoaded={() => this.setState({ loading: false })}
           display={this.displayGallery()}
           onCompositionStart={() => console.log('onCompositionStart')}>
-        {gallery && <h2> {match.params.galleryId ? gallery.name : 'Vrac'} </h2>}
+          {gallery && <h2> {match.params.galleryId ? gallery.name : 'Vrac'} </h2>}
 
-        { gallery && <p className='description'>{
-          match.params.galleryId
-          ? gallery.description
-          : VRAC_DESCRIPTION
-        }</p>
-        }
-        { imgs && <div>
+          {imgs && <div>
             <GalleryPhotos className='gallery' photos={imgs} columns={columns} onClick={this.openLightbox}>LOADING</GalleryPhotos>
             <Lightbox
               theme={{ container: { background: 'rgba(0, 0, 0, 0.85)' } }}
@@ -148,9 +175,9 @@ const Gallery = connect(
               isOpen={lightboxIsOpen}
               width={1600}
             />
-          </div> }
+          </div>}
 
-          </FadeComponent>
+        </FadeComponent> */}
       </div>
     );
   }
