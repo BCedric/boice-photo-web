@@ -3,12 +3,11 @@ import { connect } from 'react-redux'
 import { Collection, CollectionItem, Icon } from 'react-materialize'
 
 import config from 'config'
-
-import './AdminGalleryPictures.css'
 import { deletePicture, getGalleryPictures } from 'redux/admin-redux/actions'
 import AdminAddPictureModal from './AdminAddPictureModal'
 import { currentPicturesSelector } from 'redux/admin-redux/selectors'
 
+import './AdminGalleryPictures.css'
 
 const AdminGalleryPictures = connect(
     state => ({

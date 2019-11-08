@@ -4,14 +4,14 @@ import {
   BrowserRouter as Router,
   Route
 } from 'react-router-dom'
-import Accueil from './components/Accueil'
-import Admin from './components/Admin'
-import Gallery from './components/Gallery'
-import GalleriesList from './components/GalleriesList'
+import Home from './components/home/Accueil'
+import Admin from './components/admin/Admin'
+import Gallery from './components/gallery/Gallery'
+import GalleriesList from './components/galleries-list/GalleriesList'
 import UploadImage from './components/UploadImage'
-import Contact from './components/Contact'
+import Contact from './components/contact/Contact'
 
-import Nav from './components/Nav'
+import Nav from './components/nav/Nav'
 import './App.css';
 
 class App extends Component {
@@ -22,7 +22,7 @@ class App extends Component {
           <div>
             <Nav></Nav>
             <div className='content'>
-              <Route exact path='/' component={Accueil} />
+              <Route exact path='/' component={Home} />
               <Route path='/uploadimage' component={UploadImage} />
               <Route path='/vrac' component={Gallery} />
               <Route path='/gallery/:galleryId' component={Gallery} />

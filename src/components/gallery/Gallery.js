@@ -20,8 +20,9 @@ import {
 } from 'redux/gallery-redux/selectors'
 import FadeComponent from 'components/fade-component'
 import config from 'config'
-import './styles/Gallery.css'
 import GalleryPicture from './gallery-components/GalleryPicture'
+
+import './Gallery.css'
 
 const THRESHOLD_RELOAD = 50
 

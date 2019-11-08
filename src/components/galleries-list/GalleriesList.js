@@ -10,10 +10,11 @@ import {
 import {
   fetchGalleriesList,
 } from 'redux/galleries-list-redux/actions'
-import GalleryListItem from './gallery-list-components/GalleryListItem'
-import './styles/GalleriesList.css'
+import GalleryListItem from '../gallery-list-components/GalleryListItem'
 import FadeComponent from 'components/fade-component'
 import { Preloader } from 'react-materialize'
+
+import './GalleriesList.css'
 
 const GalleriesList = connect(
   state => ({

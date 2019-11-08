@@ -14,7 +14,6 @@ import {
   formSelector,
   responseSelector
 } from 'redux/contact-redux/selectors'
-import './styles/Contact.css'
 
 const Contact = connect(
   state => ({

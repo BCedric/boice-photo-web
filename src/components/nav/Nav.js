@@ -11,11 +11,11 @@ import {
 } from 'redux/nav-redux/selectors'
 import { withRouter } from 'react-router'
 
-import logo from './styles/img/logo.png'
+import logo from '../styles/img/logo.png'
 import NavBarGalleries from './nav-components/NavBarGalleries'
 import NavItemComp from './nav-components/NavItemComp'
 
-import './styles/Nav.css'
+import './Nav.css'
 
 const items = [
   {

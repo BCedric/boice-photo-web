@@ -62,7 +62,7 @@ ul.galerie-nav li {
 }
 
 .header {
-  background-image: url('img/_TUN4034.jpg');
+  background-image: url('../styles/img/_TUN4034.jpg');
   background-repeat: no-repeat;
   background-size: 120%;
   background-position: 0 50%;

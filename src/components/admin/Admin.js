@@ -17,8 +17,8 @@ import {
   updateDB,
   saveAdressServer
 } from 'redux/admin-redux/actions.js'
-import AdminGalleries from './admin-components/AdminGalleries'
-import './styles/Admin.css'
+import AdminGalleries from './admin-components/admin-galleries-tab/AdminGalleries'
+import './Admin.css'
 
 function TabPanel(props) {
   const { children, value, index } = props;
