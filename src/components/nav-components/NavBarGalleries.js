@@ -2,13 +2,13 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { map, upperFirst, remove, findIndex } from 'lodash'
 import { NavItem, Icon } from 'react-materialize'
-import utils from 'utils'
+import utils from 'utils/utils'
 import {
   galleriesPageSelector
-} from 'nav-redux/selectors'
+} from 'redux/nav-redux/selectors'
 import {
   setGalleriesPage
-} from 'nav-redux/actions'
+} from 'redux/nav-redux/actions'
 
 
 import NavItemComp from './NavItemComp'

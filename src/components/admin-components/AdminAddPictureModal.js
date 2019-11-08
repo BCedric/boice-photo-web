@@ -4,7 +4,7 @@ import { Dialog, DialogTitle, DialogContent, DialogActions } from '@material-ui/
 import { Icon, Fab } from '@material-ui/core'
 import { connect } from 'react-redux'
 
-import { addPicture } from 'admin-redux/actions'
+import { addPicture } from 'redux/admin-redux/actions'
 
 const AdminAddPictureModal = connect(
     state => ({}),

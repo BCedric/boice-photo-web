@@ -6,13 +6,13 @@ import { map, upperFirst } from 'lodash'
 import {
   isFetchingSelector,
   galleriesListSelector
-} from 'galleries-list-redux/selectors'
+} from 'redux/galleries-list-redux/selectors'
 import {
   fetchGalleriesList,
-} from 'galleries-list-redux/actions'
+} from 'redux/galleries-list-redux/actions'
 import GalleryListItem from './gallery-list-components/GalleryListItem'
 import './styles/GalleriesList.css'
-import FadeComponent from 'fade-component'
+import FadeComponent from 'components/fade-component'
 import { Preloader } from 'react-materialize'
 
 const GalleriesList = connect(

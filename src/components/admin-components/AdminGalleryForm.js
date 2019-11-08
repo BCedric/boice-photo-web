@@ -4,7 +4,7 @@ import { Button } from "@material-ui/core";
 import { connect } from 'react-redux'
 
 import './AdminGalleryForm.css'
-import { postGallery } from "admin-redux/actions";
+import { postGallery } from "redux/admin-redux/actions";
 
 const AdminGalleryForm = connect(
     state => ({}),

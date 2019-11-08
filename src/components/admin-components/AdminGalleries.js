@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { galleriesSelector } from 'admin-redux/selectors'
-import { getGalleries } from 'admin-redux/actions'
+import { galleriesSelector } from 'redux/admin-redux/selectors'
+import { getGalleries } from 'redux/admin-redux/actions'
 
 import AdminGalleryPictures from './AdminGalleryPictures'
 import { ListItem, List } from '@material-ui/core'

@@ -12,11 +12,11 @@ import React from 'react'
 import {
   messageSelector,
   adressServerSelector
-} from 'admin-redux/selectors'
+} from 'redux/admin-redux/selectors'
 import {
   updateDB,
   saveAdressServer
-} from 'admin-redux/actions.js'
+} from 'redux/admin-redux/actions.js'
 import AdminGalleries from './admin-components/AdminGalleries'
 import './styles/Admin.css'
 

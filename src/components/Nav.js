@@ -5,10 +5,10 @@ import { Navbar } from 'react-materialize'
 import { connect } from 'react-redux'
 import {
   fetchNavGalleries,
-} from 'nav-redux/actions'
+} from 'redux/nav-redux/actions'
 import {
   navGalleriesSelector
-} from 'nav-redux/selectors'
+} from 'redux/nav-redux/selectors'
 import { withRouter } from 'react-router'
 
 import logo from './styles/img/logo.png'

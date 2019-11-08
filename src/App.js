@@ -24,12 +24,13 @@ class App extends Component {
             <div className='content'>
               <Route exact path='/' component={Accueil} />
               <Route path='/uploadimage' component={UploadImage} />
-              <Route exact path='/vrac' component={Gallery} />
-              <Route path='/gallery/:galleryId' component={Gallery}  />
-              <Route path='/gallerieslist/:galleriesList' component={GalleriesList}  />
-              <Route path='/contact' component={Contact}  />
+              <Route path='/vrac' component={Gallery} />
+              <Route path='/gallery/:galleryId' component={Gallery} />
+              <Route path='/gallerieslist/:galleriesList' component={GalleriesList} />
+              <Route path='/contact' component={Contact} />
+              <Route path='/admin' component={Admin} />
             </div>
-            </div>
+          </div>
         </Router>
       </div>
     );
