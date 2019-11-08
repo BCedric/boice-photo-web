@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.6.0",
     "image-size": "^0.6.1",
     "immutable": "^3.8.2",
     "install": "^0.10.1",
