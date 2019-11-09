@@ -4,14 +4,17 @@ import {
   BrowserRouter as Router,
   Route
 } from 'react-router-dom'
+import { ThemeProvider } from '@material-ui/styles';
+
 import Home from './components/home/Accueil'
 import Admin from './components/admin/Admin'
 import Gallery from './components/gallery/Gallery'
 import GalleriesList from './components/galleries-list/GalleriesList'
 import UploadImage from './components/UploadImage'
 import Contact from './components/contact/Contact'
-
 import Nav from './components/nav/Nav'
+import theme from 'styles/theme';
+
 import './App.css';
 
 class App extends Component {
@@ -20,16 +23,18 @@ class App extends Component {
       <div className="App">
         <Router>
           <div>
-            <Nav></Nav>
-            <div className='content'>
-              <Route exact path='/' component={Home} />
-              <Route path='/uploadimage' component={UploadImage} />
-              <Route path='/vrac' component={Gallery} />
-              <Route path='/gallery/:galleryId' component={Gallery} />
-              <Route path='/gallerieslist/:galleriesList' component={GalleriesList} />
-              <Route path='/contact' component={Contact} />
-              <Route path='/admin' component={Admin} />
-            </div>
+            <ThemeProvider theme={theme}>
+              <Nav></Nav>
+              <div className='content'>
+                <Route exact path='/' component={Home} />
+                <Route path='/uploadimage' component={UploadImage} />
+                <Route path='/vrac' component={Gallery} />
+                <Route path='/gallery/:galleryId' component={Gallery} />
+                <Route path='/gallerieslist/:galleriesList' component={GalleriesList} />
+                <Route path='/contact' component={Contact} />
+                <Route path='/admin' component={Admin} />
+              </div>
+            </ThemeProvider>
           </div>
         </Router>
       </div>
