@@ -1,64 +1,6 @@
-.navbar {
-  background-color: #089CCC;
-}
-
-.galerie-nav .active {
-  background-color: white;
-}
-
-.galerie-nav .tab a {
-  color: #19CCC8;
-}
-
-.galerie-nav .active  a {
-  color: red;
-}
-
-.galerie-nav .tab a:hover {
-  color: rgb(199, 67, 32, 0.8);
-}
-
 .logo {
   margin: 10px;
   width: 200px;
-}
-
-ul.galerie-nav {
-  float: left;
-  position: relative;
-  left: 50%;
-
-}
-
-
-ul.galerie-nav li {
-  float: left;
-  margin: auto;
-  position: relative;
-  right: 50%;
-}
-
-.arrow i {
-  color: black;
-}
-
-
-.fade-enter {
-  opacity: 0.01;
-}
-
-.fade-enter.fade-enter-active {
-  opacity: 1;
-  transition: opacity 1000ms ease-in;
-}
-
-.fade-exit {
-  opacity: 1;
-}
-
-.fade-exit.fade-exit-active {
-  opacity: 0.01;
-  transition: opacity 800ms ease-in;
 }
 
 .header {

@@ -1,8 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { upperFirst } from 'lodash'
-import { Navbar } from 'react-materialize'
 import { connect } from 'react-redux'
+import { AppBar, Toolbar } from '@material-ui/core'
+
 import {
   fetchNavGalleries,
 } from 'redux/nav-redux/actions'
@@ -80,14 +81,16 @@ const Nav = connect(
           <div className='header'>
             <img className='logo' src={logo} alt='logo' />
           </div>
-          <Navbar className='navbar' left>
-            {items.map((item, index) => this.getNavItem(item, index))}
-            {navGalleries != null && this.mapGalleries(navGalleries.galleriesLists, 'gallerieslist')}
-            {navGalleries != null && this.mapGalleries(navGalleries.galleries, 'gallery')}
-            {/* <NavBarGalleries {...this.props} className='fade' /> */}
-          </Navbar>
+          <AppBar className='navbar' position="static">
+            <Toolbar>
+              {items.map((item, index) => this.getNavItem(item, index))}
+              {navGalleries != null && this.mapGalleries(navGalleries.galleriesLists, 'gallerieslist')}
+              {navGalleries != null && this.mapGalleries(navGalleries.galleries, 'gallery')}
+              {/* <NavBarGalleries {...this.props} className='fade' /> */}
+            </Toolbar>
+          </AppBar>
         </div>
-      </div>
+      </div >
     )
   }
 })
