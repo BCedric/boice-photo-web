@@ -10,9 +10,8 @@ import {
 import {
   fetchGalleriesList,
 } from 'redux/galleries-list-redux/actions'
-import GalleryListItem from '../gallery-list-components/GalleryListItem'
+import GalleryListItem from './gallery-list-components/GalleryListItem'
 import FadeComponent from 'components/fade-component'
-import { Preloader } from 'react-materialize'
 
 import './GalleriesList.css'
 
@@ -63,13 +62,14 @@ const GalleriesList = connect(
             <FadeComponent display={!isFetching}> */}
           {galleriesList != null &&
             <div>
-              {<h1>{upperFirst(galleriesList.name)}</h1>}
-              {<p>{galleriesList.description}</p>}
-              {galleriesList.galleries.map(
-                gallery => <GalleryListItem {...gallery} />
-              )}
+              <h1>{upperFirst(galleriesList.name)}</h1>
+              <p>{galleriesList.description}</p>
+              <div className="gallery-list-container">
+                {galleriesList.galleries.map(
+                  gallery => <GalleryListItem {...gallery} />
+                )}
+              </div>
             </div>}
-          {isFetching && <Preloader />}
           {/* </FadeComponent>
 
           } */}

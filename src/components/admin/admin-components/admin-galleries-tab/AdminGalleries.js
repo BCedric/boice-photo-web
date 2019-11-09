@@ -2,9 +2,9 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { galleriesSelector } from 'redux/admin-redux/selectors'
 import { getGalleries } from 'redux/admin-redux/actions'
+import { ListItem, List } from '@material-ui/core'
 
 import AdminGalleryPictures from './AdminGalleryPictures'
-import { ListItem, List } from '@material-ui/core'
 import AdminGalleryForm from './AdminGalleryForm'
 
 import './AdminGalleries.css'

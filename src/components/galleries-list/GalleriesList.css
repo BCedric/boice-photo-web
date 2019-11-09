@@ -1,5 +1,4 @@
-.card {
-  width: 20%;
-  display: inline-block;
-  margin: 10px;
+.gallery-list-container {
+  display: flex;
+  justify-content: center;
 }
