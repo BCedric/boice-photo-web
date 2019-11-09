@@ -6,8 +6,6 @@ import { connect } from 'react-redux'
 import { withTheme, makeStyles } from '@material-ui/styles'
 import { white } from 'material-ui/styles/colors'
 
-import './NavItemComp.css'
-
 const useStyles = makeStyles(theme => {
   return {
     'link': {
