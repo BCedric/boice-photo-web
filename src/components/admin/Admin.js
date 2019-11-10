@@ -1,13 +1,7 @@
+import React from 'react'
 import { connect } from 'react-redux'
 import Helmet from 'react-helmet'
-import {
-  Button,
-  Row,
-  Input,
-} from 'react-materialize'
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import React from 'react'
+import { Button, Tabs, Tab } from "@material-ui/core"
 
 import {
   messageSelector,
@@ -86,16 +80,6 @@ const Admin = connect(
             <AdminGalleries></AdminGalleries>
           </TabPanel>
           <TabPanel value={value} index={1}>
-            <form onSubmit={e => {
-              e.preventDefault()
-            }}>
-              <Row>
-                <Input s={6} label="Adress Server" validate onChange={e => {
-                  this.props.saveAdressServer(e.target.value)
-                }} value={this.props.adressServer} />
-                <Button>Save</Button>
-              </Row>
-            </form>
             <Button onClick={() => this.props.updateDB(this.props.adressServer)}>Update DB</Button>
             {this.props.message && <p>{this.props.message}</p>}
           </TabPanel>

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import React from 'react'
 import Helmet from 'react-helmet'
-import { map, upperFirst } from 'lodash'
+import { upperFirst } from 'lodash'
 
 import {
   isFetchingSelector,
@@ -62,7 +62,9 @@ const GalleriesList = connect(
             <FadeComponent display={!isFetching}> */}
           {galleriesList != null &&
             <div>
-              <h1>{upperFirst(galleriesList.name)}</h1>
+              <h1>
+                {upperFirst(galleriesList.name)}
+              </h1>
               <p>{galleriesList.description}</p>
               <div className="gallery-list-container">
                 {galleriesList.galleries.map(

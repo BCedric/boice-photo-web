@@ -1,7 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { map, upperFirst, remove, findIndex } from 'lodash'
-import { NavItem, Icon } from 'react-materialize'
+import { Icon } from '@material-ui/core'
+
 import utils from 'utils/utils'
 import {
   galleriesPageSelector
@@ -74,12 +75,12 @@ const NavGalleries = connect(
       const { setGalleriesPage, galleriesPage, className } = this.props
       return (
         <div className={`galerie-nav tabs z-depth-1 ${className}`}>
-          {this.displayLeftArrow() && <NavItem className='tab col arrow'><a onClick={(e) => setGalleriesPage(e, galleriesPage - 1)} ><Icon>navigate_before</Icon></a></NavItem>}
+          {/* {this.displayLeftArrow() && <NavItem className='tab col arrow'><a onClick={(e) => setGalleriesPage(e, galleriesPage - 1)} ><Icon>navigate_before</Icon></a></NavItem>} */}
           {this.getGalleriesToDisplay().map(gallery => this.getNavItemsGalleries(gallery))}
-          {this.displayRightArrow() && <NavItem className='tab col arrow'><a onClick={(e) => {
+          {/* {this.displayRightArrow() && <NavItem className='tab col arrow'><a onClick={(e) => {
             this.setState({ open: !this.state.open })
             setGalleriesPage(e, galleriesPage + 1)
-          }} ><Icon>navigate_next</Icon></a></NavItem>}
+          }} ><Icon>navigate_next</Icon></a></NavItem>} */}
         </div>
 
       )

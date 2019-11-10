@@ -23,16 +23,18 @@ function GalleryListItem(props) {
   const { id, name, randPicture } = props
   return (
     <Card className={classes.card}>
-      <CardMedia
-        className={classes.media}
-        image={`${config.adressServer}${randPicture}`}
-        title="Test"
-      />
+      <Link href={'/gallery/' + id}>
+        <CardMedia
+          className={classes.media}
+          image={`${config.adressServer}${randPicture}`}
+          title="Test"
+        />
+      </Link>
       <CardContent>
         <span className={classes.title}>
           {name}
         </span>
-        <p><Link to={'/gallery/' + id}>Voir plus</Link></p>
+        <p><Link href={'/gallery/' + id}>Voir plus</Link></p>
       </CardContent>
 
     </Card>
