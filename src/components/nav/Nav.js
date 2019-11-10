@@ -13,7 +13,6 @@ import {
 import { withRouter } from 'react-router'
 
 import logo from '../styles/img/logo.png'
-import NavBarGalleries from './nav-components/NavBarGalleries'
 import NavItemComp from './nav-components/NavItemComp'
 
 import './Nav.css'

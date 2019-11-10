@@ -20,7 +20,7 @@ const AdminGalleryForm = connect(
         }
 
         componentDidUpdate(nextProps) {
-            if (nextProps.gallery.id != this.props.gallery.id) {
+            if (nextProps.gallery.id !== this.props.gallery.id) {
                 const gallery = this.props.gallery
                 this.setState({ name: gallery.name, description: gallery.description != null ? gallery.description : '' })
             }

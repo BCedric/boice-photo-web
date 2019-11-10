@@ -40,7 +40,7 @@ const AdminGalleryPictures = connect(
         }
 
         componentDidUpdate(nextProps) {
-            if (nextProps.gallery.id != this.props.gallery.id) {
+            if (nextProps.gallery.id !== this.props.gallery.id) {
                 this.props.getGalleryPictures(this.props.gallery)
             }
 
@@ -60,7 +60,7 @@ const AdminGalleryPictures = connect(
                                 <ListItem className={classes.listItem} key={index}>
                                     <div className="picture-content">
                                         <div>
-                                            <img className="picture-img" src={`${config.adressServer}${picture.addr}`} />
+                                            <img className="picture-img" alt={picture.name} src={`${config.adressServer}${picture.addr}`} />
                                         </div>
                                         <div className="picture-name">
                                         </div>

@@ -1,8 +1,9 @@
 import React from 'react'
-import { Card, CardMedia, CardContent, Link } from '@material-ui/core'
+import { Card, CardMedia, CardContent } from '@material-ui/core'
 
 import config from 'config'
 import { makeStyles } from '@material-ui/styles'
+import MyLink from 'components/Link';
 
 const useStyles = makeStyles({
   card: {
@@ -23,18 +24,22 @@ function GalleryListItem(props) {
   const { id, name, randPicture } = props
   return (
     <Card className={classes.card}>
-      <Link href={'/gallery/' + id}>
+      <MyLink to={'/gallery/' + id}>
         <CardMedia
           className={classes.media}
           image={`${config.adressServer}${randPicture}`}
-          title="Test"
+          title={name}
         />
-      </Link>
+      </MyLink>
       <CardContent>
         <span className={classes.title}>
           {name}
         </span>
-        <p><Link href={'/gallery/' + id}>Voir plus</Link></p>
+        <p>
+          <MyLink to={'/gallery/' + id}>
+            Voir plus
+          </MyLink>
+        </p>
       </CardContent>
 
     </Card>

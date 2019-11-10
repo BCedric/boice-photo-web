@@ -13,25 +13,9 @@ import {
   formSelector,
   responseSelector
 } from 'redux/contact-redux/selectors'
-import { TextField, Button, Grid } from '@material-ui/core'
-import { withStyles } from '@material-ui/styles'
+import { TextField, Button } from '@material-ui/core'
 
-const styles = theme => ({
-  root: {
-    flexGrow: 1,
-  },
-  textField: {
-    width: '100%'
-  },
-  multiline: {
-    width: '100%',
-    height: '10em'
-  },
-  grid: {
-    margin: '0.5em',
-    maxWidth: '48%'
-  }
-})
+import './Contact.css'
 
 const Contact = connect(
   state => ({
@@ -64,86 +48,69 @@ const Contact = connect(
 
 
     render() {
-      console.log(this.props);
-      const { classes } = this.props
+      const { nom, prenom, email, sujet, message } = this.props.form
       return (
         <div>
           <Helmet>
             <meta charSet="utf-8" />
             <title>Boïce Photo | Contact </title>
           </Helmet>
-          <Modal header='coucou' show={this.props.response !== undefined && this.props.response.ok}>
-            <h1>Message envoyé</h1>
-            {/* <Button
+          {/* <Modal header='coucou' show={this.props.response !== undefined && this.props.response.ok}> */}
+          {/* <h1>Message envoyé</h1> */}
+          {/* <Button
               waves='light'
               onClick={() => this.props.setResponse(undefined)}
             >Fermer</Button> */}
-          </Modal>
+          {/* </Modal> */}
           <h1>Contact</h1>
           <p>Si vous voulez m'addresser des mots doux, n'hésitez surtout pas.</p>
-          <div className={classes.root}>
+          <div>
+            <div className="form-line">
+              <TextField
+                id='nom'
+                required
+                label="Nom"
+                margin="normal"
+                onChange={(e) => this.onChangeForm(e)}
+                value={nom}
+              />
 
-            <Grid container spacing={24}>
-              <Grid xs={6} className={classes.grid}>
-                <TextField
-                  id='nom'
-                  className={classes.textField}
-                  required
-                  label="Nom"
-                  margin="normal"
-                  onChange={(e) => this.onChangeForm(e)}
-                  value={this.props.form.nom}
-                />
-
-              </Grid>
-              <Grid xs={6} className={classes.grid}>
-                <TextField
-                  id='prenom'
-                  className={classes.textField}
-                  required
-                  label="Prénom"
-                  margin="normal"
-                  onChange={(e) => this.onChangeForm(e)}
-                  value={this.props.form.prenom}
-                />
-
-              </Grid>
-              <Grid xs={6} className={classes.grid}>
-                <TextField
-                  id='email'
-                  className={classes.textField}
-                  label="email"
-                  margin="normal"
-                  onChange={(e) => this.onChangeForm(e)}
-                  type="email" label="Email"
-                  value={this.props.form.email}
-                />
-
-              </Grid>
-              <Grid xs={6} className={classes.grid}>
-
-                <TextField
-                  id='sujet'
-                  className={classes.textField}
-                  label="sujet"
-                  margin="normal"
-                  onChange={(e) => this.onChangeForm(e)}
-                  label="Sujet"
-                  value={this.props.form.sujet}
-                />
-              </Grid>
-            </Grid>
+              <TextField
+                id='prenom'
+                required
+                label="Prénom"
+                margin="normal"
+                onChange={(e) => this.onChangeForm(e)}
+                value={prenom}
+              />
+            </div>
+            <div className="form-line">
+              <TextField
+                id='email'
+                margin="normal"
+                onChange={(e) => this.onChangeForm(e)}
+                type="email"
+                label="Email"
+                value={email}
+              />
+              <TextField
+                id='sujet'
+                margin="normal"
+                onChange={(e) => this.onChangeForm(e)}
+                label="Sujet"
+                value={sujet}
+              />
+            </div>
           </div>
           <TextField
             id='message'
-            className={classes.multiline}
+            className="message"
             multiline
             rows="5"
             label="Message"
             margin="normal"
             onChange={(e) => this.onChangeForm(e)}
-            s={6}
-            value={this.props.form.message}
+            value={message}
           />
           <Captcha
             sitekey='6LfNfjoUAAAAAP8XWyo1-lyspeqsa1AyyydzT2-P'
@@ -155,10 +122,10 @@ const Contact = connect(
             waves='light'
             onClick={() => this.props.sendEmail(this.props.form)}
             disabled={!this.isButtonEnabled()}>Envoyer</Button>
-        </div>
+        </div >
       )
     }
   }
 )
 
-export default withStyles(styles)(Contact)
+export default Contact

@@ -10,8 +10,8 @@ import {
 import {
   fetchGalleriesList,
 } from 'redux/galleries-list-redux/actions'
+
 import GalleryListItem from './gallery-list-components/GalleryListItem'
-import FadeComponent from 'components/fade-component'
 
 import './GalleriesList.css'
 
@@ -26,15 +26,9 @@ const GalleriesList = connect(
 )(
   class extends React.Component {
 
-    constructor(props) {
-      super(props)
-    }
-
     componentDidMount() {
       this.props.fetchGalleriesList(this.props.match.params.galleriesList)
     }
-
-
 
     componentDidUpdate(nextProps) {
       const nextGalleryListId = nextProps.match.params.galleriesList
@@ -51,15 +45,13 @@ const GalleriesList = connect(
     }
 
     render() {
-      const { galleriesList, isFetching } = this.props
+      const { galleriesList } = this.props
       return (
         <div>
           <Helmet>
             <meta charSet="utf-8" />
             <title>{`Boïce Photo | ${galleriesList && galleriesList.name}`} </title>
           </Helmet>
-          {/* {
-            <FadeComponent display={!isFetching}> */}
           {galleriesList != null &&
             <div>
               <h1>
@@ -72,9 +64,7 @@ const GalleriesList = connect(
                 )}
               </div>
             </div>}
-          {/* </FadeComponent>
 
-          } */}
         </div>
       )
     }
