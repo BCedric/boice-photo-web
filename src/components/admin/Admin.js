@@ -66,20 +66,18 @@ const Admin = connect(
             indicatorColor="primary"
             textColor="primary"
           >
-            {/* <Tab title="Photos">
-              Photos
-            </Tab> */}
-            <Tab label="Galeries">
-            </Tab>
-            <Tab label="tests">
-
-            </Tab>
+            <Tab label="Galeries" />>
+            <Tab label="Listes" />
+            <Tab label="tests" />
           </Tabs>
 
           <TabPanel value={value} index={0}>
             <AdminGalleries></AdminGalleries>
           </TabPanel>
           <TabPanel value={value} index={1}>
+            <AdminGalleries></AdminGalleries>
+          </TabPanel>
+          <TabPanel value={value} index={2}>
             <Button onClick={() => this.props.updateDB(this.props.adressServer)}>Update DB</Button>
             {this.props.message && <p>{this.props.message}</p>}
           </TabPanel>

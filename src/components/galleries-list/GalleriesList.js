@@ -60,7 +60,7 @@ const GalleriesList = connect(
               <p>{galleriesList.description}</p>
               <div className="gallery-list-container">
                 {galleriesList.galleries.map(
-                  gallery => <GalleryListItem {...gallery} />
+                  (gallery, index) => <GalleryListItem {...gallery} key={index} />
                 )}
               </div>
             </div>}

@@ -1,8 +1,10 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { upperFirst } from 'lodash'
 import { connect } from 'react-redux'
 import { AppBar, Toolbar } from '@material-ui/core'
+import {
+  Link
+} from 'react-router-dom'
 
 import {
   fetchNavGalleries,
@@ -43,11 +45,6 @@ const Nav = connect(
   })
 )(class extends React.Component {
 
-  static propTypes = {
-    match: PropTypes.object.isRequired,
-    location: PropTypes.object.isRequired,
-    history: PropTypes.object.isRequired
-  }
 
   componentDidMount() {
     this.props.fetchNavGalleries()
@@ -78,7 +75,9 @@ const Nav = connect(
       <div className='nav'>
         <div>
           <div className='header'>
-            <img className='logo' src={logo} alt='logo' />
+            <Link to='/'>
+              <img className='logo' src={logo} alt='logo' />
+            </Link>
           </div>
           <AppBar className='navbar' position="static">
             <Toolbar>

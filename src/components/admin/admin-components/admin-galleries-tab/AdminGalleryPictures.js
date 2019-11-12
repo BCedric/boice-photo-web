@@ -43,7 +43,6 @@ const AdminGalleryPictures = connect(
             if (nextProps.gallery.id !== this.props.gallery.id) {
                 this.props.getGalleryPictures(this.props.gallery)
             }
-
         }
 
         deletePicture = pictureId => this.props.deletePicture(pictureId)
@@ -56,8 +55,8 @@ const AdminGalleryPictures = connect(
                     <AdminAddPictureModal galleryId={this.props.gallery.id}></AdminAddPictureModal>
                     {pictures != null && <List className={classes.root}>
                         {pictures.map((picture, index) =>
-                            <div>
-                                <ListItem className={classes.listItem} key={index}>
+                            <div key={index}>
+                                <ListItem className={classes.listItem} >
                                     <div className="picture-content">
                                         <div>
                                             <img className="picture-img" alt={picture.name} src={`${config.adressServer}${picture.addr}`} />
