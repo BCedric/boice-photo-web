@@ -3,7 +3,7 @@ import { Card, CardMedia, CardContent } from '@material-ui/core'
 
 import config from 'config'
 import { makeStyles } from '@material-ui/styles'
-import MyLink from 'components/Link';
+import MyLink from 'components/MyLink';
 
 const useStyles = makeStyles({
   card: {

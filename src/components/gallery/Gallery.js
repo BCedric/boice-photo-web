@@ -5,7 +5,8 @@ import { connect } from 'react-redux'
 import React from 'react'
 import {
   setCurrentPictureIndex,
-  getPictures
+  getPictures,
+  setGallery
 } from 'redux/gallery-redux/actions'
 import {
   currentImageSelector,
@@ -29,6 +30,7 @@ const Gallery = connect(
   dispatch => ({
     getPictures: galleryId => getPictures(galleryId)(dispatch),
     setCurrentPictureIndex: id => dispatch(setCurrentPictureIndex(id)),
+    setGallery: (gallery) => dispatch(setGallery(gallery))
   })
 )(class extends React.Component {
 
@@ -43,6 +45,11 @@ const Gallery = connect(
     if (nextGalleryListId !== currentGalleryListId) {
       this.props.getPictures(this.props.match.params.galleryId)
     }
+  }
+
+  componentWillUnmount() {
+    console.log('gallery will unmount');
+    this.props.setGallery(null)
   }
 
   openLightbox = (_, obj) => {

@@ -47,3 +47,7 @@ h1 {
 div.g-recaptcha div {
   display: initial;
 }
+
+.clickable {
+  cursor: pointer;
+}

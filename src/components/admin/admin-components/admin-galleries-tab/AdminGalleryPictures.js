@@ -1,86 +1,50 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { List, ListItem, Icon, ListItemText, ListItemSecondaryAction, Divider } from '@material-ui/core'
-import { withStyles } from '@material-ui/styles'
+import { ListItemText } from '@material-ui/core'
+
+import { deletePicture } from 'redux/admin-redux/actions'
+import { currentGallerySelector } from 'redux/admin-redux/selectors'
 
 import config from 'config'
-import { deletePicture, getGalleryPictures } from 'redux/admin-redux/actions'
-import { currentPicturesSelector } from 'redux/admin-redux/selectors'
-
 import AdminAddPictureModal from './AdminAddPictureModal'
-import './AdminGalleryPictures.css'
-
-const styles = {
-    root: {
-        width: '100%'
-    },
-    listItem: {
-        cursor: 'initial'
-    }
-}
-
+import EntitiesList from 'components/EntitiesList'
 
 const AdminGalleryPictures = connect(
     state => ({
-        currentPictures: currentPicturesSelector(state)
+        gallery: currentGallerySelector(state)
     }),
     dispatch => ({
         deletePicture: pictureId => deletePicture(pictureId)(dispatch),
-        getGalleryPictures: gallery => getGalleryPictures(gallery)(dispatch)
     })
 )(
-    class extends React.Component {
-        constructor(props) {
-            super(props)
-            this.state = { pictures: null }
-        }
-
-        componentDidMount() {
-            this.props.getGalleryPictures(this.props.gallery)
-        }
-
-        componentDidUpdate(nextProps) {
-            if (nextProps.gallery.id !== this.props.gallery.id) {
-                this.props.getGalleryPictures(this.props.gallery)
-            }
-        }
-
-        deletePicture = pictureId => this.props.deletePicture(pictureId)
-
-        render() {
-            const pictures = this.props.currentPictures
-            const { classes } = this.props
-            return (
-                <div className="pictures-collection">
-                    <AdminAddPictureModal galleryId={this.props.gallery.id}></AdminAddPictureModal>
-                    {pictures != null && <List className={classes.root}>
-                        {pictures.map((picture, index) =>
-                            <div key={index}>
-                                <ListItem className={classes.listItem} >
-                                    <div className="picture-content">
-                                        <div>
-                                            <img className="picture-img" alt={picture.name} src={`${config.adressServer}${picture.addr}`} />
-                                        </div>
-                                        <div className="picture-name">
-                                        </div>
-                                    </div>
-                                    <ListItemText>
-                                        <span>{picture.name}</span>
-                                    </ListItemText>
-                                    <ListItemSecondaryAction>
-                                        <div className="actions" onClick={() => this.deletePicture(picture.id)}>
-                                            <Icon>delete</Icon>
-                                        </div>
-                                    </ListItemSecondaryAction>
-                                </ListItem>
-                                {index !== pictures.length - 1 && <Divider />}
+    function (props) {
+        const { gallery, deletePicture } = props
+        const pictures = gallery != null && gallery.pictures
+        return (
+            <div className="pictures-collection">
+                <AdminAddPictureModal galleryId={gallery.id}></AdminAddPictureModal>
+                <EntitiesList
+                    deleteEntity={pictureId => deletePicture(pictureId)}
+                    entities={pictures}
+                    renderEntity={entity => (
+                        <div className="entity-content" >
+                            <div >
+                                <div>
+                                    <img className="entity-img" alt={entity.name} src={`${config.adressServer}${entity.addr}`} />
+                                </div>
+                                <div className="entity-name">
+                                </div>
                             </div>
-                        )}
-                    </List>}
-                </div>
-            )
-        }
+                            <ListItemText>
+                                <span>{entity.name}</span>
+                            </ListItemText>
+                        </div>
+                    )}
+                >
+                </EntitiesList>
+            </div>
+        )
     }
 )
 
-export default withStyles(styles)(AdminGalleryPictures)
+export default AdminGalleryPictures

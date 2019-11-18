@@ -1,0 +1,13 @@
+.gallery-form {
+    margin: 0.5em 0;
+}
+
+.buttons-action {
+    margin: 0.5em 0;
+}
+
+.galleries-list-fields {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

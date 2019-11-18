@@ -13,6 +13,7 @@ import {
 } from 'redux/admin-redux/actions.js'
 import AdminGalleries from './admin-components/admin-galleries-tab/AdminGalleries'
 import './Admin.css'
+import AdminGalleriesLists from './admin-components/admin-galleries-lists-tab/AdminGalleriesLists'
 
 function TabPanel(props) {
   const { children, value, index } = props;
@@ -75,7 +76,7 @@ const Admin = connect(
             <AdminGalleries></AdminGalleries>
           </TabPanel>
           <TabPanel value={value} index={1}>
-            <AdminGalleries></AdminGalleries>
+            <AdminGalleriesLists></AdminGalleriesLists>
           </TabPanel>
           <TabPanel value={value} index={2}>
             <Button onClick={() => this.props.updateDB(this.props.adressServer)}>Update DB</Button>

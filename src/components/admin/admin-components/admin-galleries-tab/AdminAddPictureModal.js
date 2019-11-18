@@ -1,10 +1,9 @@
 import React from 'react'
-import Button from '@material-ui/core/Button'
-import { Dialog, DialogTitle, DialogContent, DialogActions } from '@material-ui/core';
-import { Icon, Fab } from '@material-ui/core'
+import { Icon, Fab } from '@material-ui/core';
 import { connect } from 'react-redux'
 
 import { addPicture } from 'redux/admin-redux/actions'
+import Modal from 'components/Modal';
 
 const AdminAddPictureModal = connect(
     state => ({}),
@@ -33,35 +32,23 @@ const AdminAddPictureModal = connect(
             this.setState({ isFileSelected: this.fileInput.current != null })
         }
 
-        open = () => {
-            this.setState({ isOpen: true })
-        }
+        getButtonToOpenModal = (open) =>
+            <Fab color="primary" onClick={() => open()} ><Icon >add</Icon></Fab>
 
         render() {
-            const { isFileSelected, isOpen } = this.state
+            const { isFileSelected, } = this.state
             return (
-                <div>
-                    <Fab color="primary" onClick={() => this.open()} ><Icon >add</Icon></Fab>
-                    <Dialog
-
-                        open={isOpen}
-                        onClose={() => this.cancel()}
-                    >
-                        <DialogTitle>Ajouter une photo</DialogTitle>
-                        <DialogContent>
-                            <div>
-                                <form>
-                                    <input type="file" ref={this.fileInput} onChange={() => this.fileChange()} ></input>
-                                </form>
-                            </div>
-
-                        </DialogContent>
-                        <DialogActions>
-                            <Button disabled={!isFileSelected} onClick={() => this.addPicture()}>Ajouter</Button>
-                            <Button onClick={() => this.cancel()}>Annuler</Button>
-                        </DialogActions>
-                    </Dialog>
-                </div>
+                <Modal
+                    title="Ajouter une photo"
+                    onValidate={() => this.addPicture()}
+                    getButton={this.getButtonToOpenModal}
+                >
+                    <div>
+                        <form>
+                            <input type="file" ref={this.fileInput} onChange={() => this.fileChange()} ></input>
+                        </form>
+                    </div>
+                </Modal>
             )
         }
     }
