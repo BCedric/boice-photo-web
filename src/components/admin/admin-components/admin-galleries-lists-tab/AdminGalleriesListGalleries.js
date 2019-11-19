@@ -18,11 +18,18 @@ const AdminGalleriesListGalleries = connect(
     function (props) {
         const { galleriesList } = props
         const galleries = galleriesList != null && galleriesList.galleries
+
+        const actions = [{
+            icon: 'link_off',
+            color: 'error',
+            onClick: (entityId) => props.removeGalleryToList(galleriesList.id, { galleryId: entityId })
+        }]
+
         return (
             <div>
                 <AdminAddGalleryModal />
                 <EntitiesList
-                    deleteEntity={(entityId) => props.removeGalleryToList(galleriesList.id, { galleryId: entityId })}
+                    actions={actions}
                     entities={galleries}
                     renderEntity={entity => (
                         <ListItemText>{entity.name}</ListItemText>

@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import Captcha from 'react-captcha'
 import Helmet from 'react-helmet'
 import React from 'react'
-import Modal from 'components/Modal'
+// import Modal from 'components/Modal'
 
 import {
   onChangeForm,

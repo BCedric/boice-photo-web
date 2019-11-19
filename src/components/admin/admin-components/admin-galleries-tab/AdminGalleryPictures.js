@@ -9,6 +9,8 @@ import config from 'config'
 import AdminAddPictureModal from './AdminAddPictureModal'
 import EntitiesList from 'components/EntitiesList'
 
+import './AdminGalleryPictures.css'
+
 const AdminGalleryPictures = connect(
     state => ({
         gallery: currentGallerySelector(state)
@@ -20,23 +22,25 @@ const AdminGalleryPictures = connect(
     function (props) {
         const { gallery, deletePicture } = props
         const pictures = gallery != null && gallery.pictures
+
+        const actions = [{
+            icon: 'delete',
+            color: 'error',
+            onClick: pictureId => deletePicture(pictureId)
+        }]
         return (
             <div className="pictures-collection">
                 <AdminAddPictureModal galleryId={gallery.id}></AdminAddPictureModal>
                 <EntitiesList
-                    deleteEntity={pictureId => deletePicture(pictureId)}
+                    actions={actions}
                     entities={pictures}
                     renderEntity={entity => (
                         <div className="entity-content" >
-                            <div >
-                                <div>
+                            <ListItemText >
+                                <div className="list-item-content">
                                     <img className="entity-img" alt={entity.name} src={`${config.adressServer}${entity.addr}`} />
+                                    <span>{entity.name}</span>
                                 </div>
-                                <div className="entity-name">
-                                </div>
-                            </div>
-                            <ListItemText>
-                                <span>{entity.name}</span>
                             </ListItemText>
                         </div>
                     )}

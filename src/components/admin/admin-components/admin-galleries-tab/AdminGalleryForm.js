@@ -9,7 +9,7 @@ import { putGallery, postGallery } from "redux/admin-redux/actions";
 const AdminGalleryForm = connect(
     state => ({}),
     dispatch => ({
-        putGallery: (galleryId, body) => putGallery(galleryId, body),
+        putGallery: (galleryId, body) => putGallery(galleryId, body)(dispatch),
         postGallery: gallery => postGallery(gallery)(dispatch)
     })
 )(
@@ -51,9 +51,9 @@ const AdminGalleryForm = connect(
         submit() {
             this.props.gallery != null
                 ? this.props.putGallery(this.props.gallery.id, this.state)
-                    .then(response => response.message != null && this.cancel())
+                    .then(response => response.err == null && this.cancel())
                 : this.props.postGallery({ ...this.state, files: this.filesInput.current.files })
-                    .then(response => response.message != null && this.cancel())
+                    .then(response => response.err == null && this.cancel())
         }
 
         cancel() {

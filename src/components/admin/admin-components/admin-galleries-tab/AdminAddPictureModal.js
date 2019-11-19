@@ -2,13 +2,13 @@ import React from 'react'
 import { Icon, Fab } from '@material-ui/core';
 import { connect } from 'react-redux'
 
-import { addPicture } from 'redux/admin-redux/actions'
+import { addPictures } from 'redux/admin-redux/actions'
 import Modal from 'components/Modal';
 
 const AdminAddPictureModal = connect(
     state => ({}),
     dispatch => ({
-        addPicture: (galleryId, file) => addPicture(galleryId, file)(dispatch)
+        addPictures: (galleryId, files) => addPictures(galleryId, files)(dispatch)
     })
 )(
 
@@ -24,7 +24,7 @@ const AdminAddPictureModal = connect(
         }
 
         addPicture = () => {
-            this.props.addPicture(this.props.galleryId, this.fileInput.current.files[0])
+            this.props.addPictures(this.props.galleryId, this.fileInput.current.files)
                 .then(_ => this.cancel())
         }
 
@@ -36,16 +36,15 @@ const AdminAddPictureModal = connect(
             <Fab color="primary" onClick={() => open()} ><Icon >add</Icon></Fab>
 
         render() {
-            const { isFileSelected, } = this.state
             return (
                 <Modal
-                    title="Ajouter une photo"
+                    title="Ajouter des photos"
                     onValidate={() => this.addPicture()}
                     getButton={this.getButtonToOpenModal}
                 >
                     <div>
                         <form>
-                            <input type="file" ref={this.fileInput} onChange={() => this.fileChange()} ></input>
+                            <input type="file" multiple ref={this.fileInput} onChange={() => this.fileChange()} ></input>
                         </form>
                     </div>
                 </Modal>
