@@ -6,3 +6,8 @@
 .dropdown-content li a a{
   color: #19CCC8;
 }
+
+.gallery-loader-container {
+  height: 100%;
+  margin: 5em;
+}

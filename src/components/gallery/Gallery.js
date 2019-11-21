@@ -13,10 +13,10 @@ import {
   isFetchingSelector,
   gallerySelector
 } from 'redux/gallery-redux/selectors'
-import config from 'config'
 import GalleryPicture from './gallery-components/GalleryPicture'
 
 import './Gallery.css'
+import { CircularProgress } from '@material-ui/core'
 
 
 const Gallery = connect(
@@ -48,7 +48,6 @@ const Gallery = connect(
   }
 
   componentWillUnmount() {
-    console.log('gallery will unmount');
     this.props.setGallery(null)
   }
 
@@ -57,8 +56,9 @@ const Gallery = connect(
   }
 
   render() {
-    const { gallery, match } = this.props
-    const pictures = gallery != null && gallery.pictures.map(picture => ({ src: `${config.adressServer}${picture.addr}`, width: picture.width, height: picture.height }))
+    const { gallery, match, isFetching } = this.props
+    const pictures = gallery != null && gallery.pictures.map(picture => ({ src: `${picture.addr}`, width: picture.width, height: picture.height }))
+
     return (
       <div>
         <Helmet>
@@ -76,6 +76,10 @@ const Gallery = connect(
             <GalleryPicture pictures={pictures} pictureIndex={this.props.currentImage} setCurrentPicture={this.props.setCurrentPictureIndex} />
           </div>
         }
+        {isFetching && <div className="gallery-loader-container">
+          <CircularProgress size={100} />
+        </div>}
+
       </div>
     );
   }
