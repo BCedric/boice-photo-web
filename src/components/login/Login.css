@@ -1,0 +1,10 @@
+.login-form {
+    margin: 1em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.login-form > :nth-child(n){
+    margin: 0.5em;
+}
