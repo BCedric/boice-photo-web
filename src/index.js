@@ -8,6 +8,7 @@ import galleryReducer from 'redux/gallery-redux/reducer'
 import adminReducer from 'redux/admin-redux/reducer'
 import navReducer from 'redux/nav-redux/reducer'
 import contactReducer from 'redux/contact-redux/reducer'
+import loginRedcer from 'redux/login-redux/reducer';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
@@ -16,7 +17,8 @@ let store = createStore(combineReducers({
   galleryState: galleryReducer,
   navState: navReducer,
   adminState: adminReducer,
-  contactState: contactReducer
+  contactState: contactReducer,
+  loginState: loginRedcer
 }))
 ReactDOM.render(
   <Provider store={store}>

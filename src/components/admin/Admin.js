@@ -14,6 +14,7 @@ import {
 import AdminGalleries from './admin-components/admin-galleries-tab/AdminGalleries'
 import './Admin.css'
 import AdminGalleriesLists from './admin-components/admin-galleries-lists-tab/AdminGalleriesLists'
+import { logout } from 'redux/login-redux/actions'
 
 function TabPanel(props) {
   const { children, value, index } = props;
@@ -31,13 +32,14 @@ const Admin = connect(
   state => {
     return {
       message: messageSelector(state),
-      adressServer: adressServerSelector(state)
+      adressServer: adressServerSelector(state),
     }
   },
   dispatch => {
     return {
       updateDB: adressServer => updateDB(adressServer)(dispatch),
-      saveAdressServer: adress => dispatch(saveAdressServer(adress))
+      saveAdressServer: adress => dispatch(saveAdressServer(adress)),
+      logout: (user) => logout(user)(dispatch)
     }
   }
 )(
@@ -49,6 +51,11 @@ const Admin = connect(
 
     handleChange = (event, value) => {
       this.setState({ value })
+    }
+
+    logout = () => {
+      const userLogged = JSON.parse(sessionStorage.getItem('userLogged'))
+      this.props.logout(userLogged)
     }
 
 
@@ -67,7 +74,7 @@ const Admin = connect(
             indicatorColor="primary"
             textColor="primary"
           >
-            <Tab label="Galeries" />>
+            <Tab label="Galeries" />
             <Tab label="Listes" />
             <Tab label="tests" />
           </Tabs>
@@ -82,6 +89,7 @@ const Admin = connect(
             <Button onClick={() => this.props.updateDB(this.props.adressServer)}>Update DB</Button>
             {this.props.message && <p>{this.props.message}</p>}
           </TabPanel>
+          <Button color="primary" onClick={() => this.logout()}>Déconnexion</Button>
 
         </div>
       )

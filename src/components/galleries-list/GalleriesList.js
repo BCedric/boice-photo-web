@@ -8,7 +8,7 @@ import {
   galleriesListSelector
 } from 'redux/galleries-list-redux/selectors'
 import {
-  fetchGalleriesList,
+  fetchGalleriesList, setGalleriesListObject,
 } from 'redux/galleries-list-redux/actions'
 
 import GalleryListItem from './gallery-list-components/GalleryListItem'
@@ -22,6 +22,7 @@ const GalleriesList = connect(
   }),
   dispatch => ({
     fetchGalleriesList: id => fetchGalleriesList(id)(dispatch),
+    setGalleriesListObject: (object) => dispatch(setGalleriesListObject(object))
   })
 )(
   class extends React.Component {
@@ -36,6 +37,10 @@ const GalleriesList = connect(
       if (nextGalleryListId !== currentGalleryListId) {
         this.props.fetchGalleriesList(this.props.match.params.galleriesList)
       }
+    }
+
+    componentWillUnmount() {
+      this.props.setGalleriesListObject(null)
     }
 
     displayList() {

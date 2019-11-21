@@ -16,6 +16,8 @@ import Nav from './components/nav/Nav'
 import theme from 'styles/theme';
 
 import './App.css';
+import Login from './components/login/Login';
+import BootLogin from './components/login/BootLogin';
 
 class App extends Component {
   render() {
@@ -32,7 +34,7 @@ class App extends Component {
                 <Route path='/gallery/:galleryId' component={Gallery} />
                 <Route path='/gallerieslist/:galleriesList' component={GalleriesList} />
                 <Route path='/contact' component={Contact} />
-                <Route path='/admin' component={Admin} />
+                <Route path='/admin' component={BootLogin} />
               </div>
             </ThemeProvider>
           </div>
