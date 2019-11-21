@@ -4,20 +4,14 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.6.0",
-    "image-size": "^0.6.1",
-    "immutable": "^3.8.2",
-    "install": "^0.10.1",
     "material-ui": "^0.19.4",
-    "prop-types": "^15.6.0",
     "react": "^16.0.0",
     "react-async-script": "^0.9.1",
-    "react-bootstrap": "^0.31.5",
     "react-captcha": "^2.0.9",
     "react-dom": "^16.1.1",
     "react-google-recaptcha": "^0.9.7",
     "react-helmet": "^5.2.0",
     "react-images": "^0.5.11",
-    "react-images-uploader": "^1.1.0",
     "react-photo-gallery": "^6.0.16",
     "react-progress-button": "^5.1.0",
     "react-recaptcha": "^2.3.5",
@@ -25,10 +19,7 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "^3.2.0",
     "react-transition-group": "^2.2.0",
-    "redux": "^3.7.2",
-    "redux-action-creator": "^2.2.0",
-    "request-image-size": "^2.1.0",
-    "reselect": "^3.0.1"
+    "redux": "^3.7.2"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -1,15 +1,14 @@
-import { default as GalleryPhotos } from 'react-photo-gallery'
+import React from 'react'
+import { default as PicturesList } from 'react-photo-gallery'
 import Helmet from 'react-helmet'
 import { connect } from 'react-redux'
 
-import React from 'react'
 import {
   setCurrentPictureIndex,
   getPictures,
   setGallery
 } from 'redux/gallery-redux/actions'
 import {
-  currentImageSelector,
   isFetchingSelector,
   gallerySelector
 } from 'redux/gallery-redux/selectors'
@@ -22,7 +21,6 @@ import { CircularProgress } from '@material-ui/core'
 const Gallery = connect(
   state => {
     return {
-      currentImage: currentImageSelector(state),
       isFetching: isFetchingSelector(state),
       gallery: gallerySelector(state)
     }
@@ -72,7 +70,7 @@ const Gallery = connect(
             <p className='description'>{
               gallery.description
             }</p>
-            <GalleryPhotos className='gallery' photos={pictures} columns={4} onClick={this.openLightbox} >LOADING</GalleryPhotos>
+            <PicturesList className='gallery' photos={pictures} columns={4} onClick={this.openLightbox} >LOADING</PicturesList>
             <GalleryPicture pictures={pictures} pictureIndex={this.props.currentImage} setCurrentPicture={this.props.setCurrentPictureIndex} />
           </div>
         }

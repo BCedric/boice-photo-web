@@ -11,10 +11,11 @@ import {
   updateDB,
   saveAdressServer
 } from 'redux/admin-redux/actions.js'
+import { logout } from 'redux/login-redux/actions'
+
 import AdminGalleries from './admin-components/admin-galleries-tab/AdminGalleries'
 import './Admin.css'
 import AdminGalleriesLists from './admin-components/admin-galleries-lists-tab/AdminGalleriesLists'
-import { logout } from 'redux/login-redux/actions'
 
 function TabPanel(props) {
   const { children, value, index } = props;

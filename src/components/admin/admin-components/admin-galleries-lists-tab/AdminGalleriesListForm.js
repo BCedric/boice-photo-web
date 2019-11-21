@@ -1,11 +1,13 @@
 import React from 'react'
 import { TextField, Button } from '@material-ui/core'
-import AdminGalleriesListFormGallery from './AdminGalleriesListFormGallery'
 import { connect } from 'react-redux'
 
-import './AdminGalleriesListForm.css'
-import Icon from 'components/Icon'
 import { postGalleriesList, putGalleriesList } from 'redux/admin-redux/actions'
+
+import AdminGalleriesListFormGallery from './AdminGalleriesListFormGallery'
+import Icon from 'components/Icon'
+
+import './AdminGalleriesListForm.css'
 
 const AdminGalleriesListForm = connect(
     state => ({}),

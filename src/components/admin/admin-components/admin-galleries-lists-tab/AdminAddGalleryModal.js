@@ -2,11 +2,12 @@ import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { Fab, Icon, FormControl, InputLabel, Select, MenuItem } from '@material-ui/core'
 
-import Modal from 'components/Modal'
 import { galleriesSelector, currentGalleriesListSelector } from 'redux/admin-redux/selectors'
+import { addGalleryToList } from 'redux/admin-redux/actions'
+
+import Modal from 'components/Modal'
 
 import './AdminAddGalleryModal.css'
-import { addGalleryToList } from 'redux/admin-redux/actions'
 
 const AdminAddGalleryModal = connect(
     state => ({
