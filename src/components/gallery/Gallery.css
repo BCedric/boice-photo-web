@@ -11,3 +11,11 @@
   height: 100%;
   margin: 5em;
 }
+
+.description {
+  margin: 2em 0;
+}
+
+.picture {
+  height: 300px;
+}

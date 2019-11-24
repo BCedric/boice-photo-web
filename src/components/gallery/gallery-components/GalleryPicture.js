@@ -1,46 +1,33 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import Lightbox from 'react-images'
+import React, { useState } from 'react'
+import { CircularProgress } from '@material-ui/core';
 
-const GalleryPicture = connect(
+import './GalleryPicture.css'
 
-)(
-    class extends React.Component {
+function GalleryPicture(props) {
+    const [isLoading, setIsLoading] = useState(true)
+    const { margin, photo } = props.picture
+    const { width, height } = photo
 
-        constructor(props) {
-            super(props)
-            this.state = { isLightBoxOpen: false, currentPicture: 0 }
-        }
-
-        closeLightbox = () => {
-            this.props.setCurrentPicture(null)
-        }
-
-        gotoNext = () => {
-            this.props.setCurrentPicture(this.props.pictureIndex + 1)
-        }
-
-        gotoPrevious = () => {
-            this.props.setCurrentPicture(this.props.pictureIndex - 1)
-        }
-
-        render() {
-            const { pictures } = this.props
-            return (
-                <Lightbox
-                    theme={{ container: { background: 'rgba(0, 0, 0, 0.85)' } }}
-                    images={pictures}
-                    backdropClosesModal={true}
-                    onClose={this.closeLightbox}
-                    onClickPrev={this.gotoPrevious}
-                    onClickNext={this.gotoNext}
-                    currentImage={this.props.pictureIndex}
-                    isOpen={this.props.pictureIndex != null}
-                    width={1600}
-                />
-            )
-        }
+    const onLoadPicture = () => {
+        setIsLoading(false)
     }
-)
+
+    return (
+        <div>
+            {isLoading &&
+                <div className="loader-content" style={{ width, margin: `0 ${margin}px`, height }}>
+                    <CircularProgress />
+                </div>
+            }
+            <img
+                className="clickable"
+                alt={props.picture.index}
+                onClick={() => props.onClick(props.picture)}
+                onLoad={() => onLoadPicture()}
+                src={props.picture.key}
+                style={{ width, margin: `0 ${props.picture.margin}px` }} />
+        </div>
+    )
+}
 
 export default GalleryPicture

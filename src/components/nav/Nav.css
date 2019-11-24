@@ -8,4 +8,16 @@
   background-repeat: no-repeat;
   background-size: 120%;
   background-position: 0 50%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
 }
+
+ .nav {
+       height: 30vh;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+ }

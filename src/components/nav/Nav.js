@@ -73,21 +73,19 @@ const Nav = connect(
     const { navGalleries } = this.props
     return (
       <div className='nav'>
-        <div>
-          <div className='header'>
-            <Link to='/'>
-              <img className='logo' src={logo} alt='logo' />
-            </Link>
-          </div>
-          <AppBar className='navbar' position="static">
-            <Toolbar>
-              {items.map((item, index) => this.getNavItem(item, index))}
-              {navGalleries != null && this.mapGalleries(navGalleries.galleriesLists, 'gallerieslist')}
-              {navGalleries != null && this.mapGalleries(navGalleries.galleries, 'gallery')}
-              {/* <NavBarGalleries {...this.props} className='fade' /> */}
-            </Toolbar>
-          </AppBar>
+        <div className='header'>
+          <Link to='/'>
+            <img className='logo' src={logo} alt='logo' />
+          </Link>
         </div>
+        <AppBar className='navbar' position="static">
+          <Toolbar>
+            {items.map((item, index) => this.getNavItem(item, index))}
+            {navGalleries != null && this.mapGalleries(navGalleries.galleriesLists, 'gallerieslist')}
+            {navGalleries != null && this.mapGalleries(navGalleries.galleries, 'gallery')}
+            {/* <NavBarGalleries {...this.props} className='fade' /> */}
+          </Toolbar>
+        </AppBar>
       </div >
     )
   }
