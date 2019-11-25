@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { ListItemText } from '@material-ui/core'
 
-import { deletePicture } from 'redux/admin-redux/actions'
+import { deletePicture, setPictureGalleryPreview } from 'redux/admin-redux/actions'
 import { currentGallerySelector } from 'redux/admin-redux/selectors'
 
 import config from 'config'
@@ -17,17 +17,26 @@ const AdminGalleryPictures = connect(
     }),
     dispatch => ({
         deletePicture: pictureId => deletePicture(pictureId)(dispatch),
+        setPictureGalleryPreview: pictureId => setPictureGalleryPreview(pictureId)(dispatch)
     })
 )(
     function (props) {
-        const { gallery, deletePicture } = props
+        const { gallery, deletePicture, setPictureGalleryPreview } = props
         const pictures = gallery != null && gallery.pictures
 
-        const actions = [{
-            icon: 'delete',
-            color: 'error',
-            onClick: pictureId => deletePicture(pictureId)
-        }]
+        const actions = [
+            {
+                display: picture => !picture.galleryPreview
+                ,
+                icon: 'remove_red_eye',
+                color: 'primary',
+                onClick: pictureId => setPictureGalleryPreview(pictureId)
+            },
+            {
+                icon: 'delete',
+                color: 'error',
+                onClick: pictureId => deletePicture(pictureId)
+            }]
         return (
             <div className="pictures-collection">
                 <AdminAddPictureModal galleryId={gallery.id}></AdminAddPictureModal>

@@ -21,13 +21,13 @@ const useStyles = makeStyles({
 function GalleryListItem(props) {
   const classes = useStyles();
 
-  const { id, name, randPicture } = props
+  const { id, name, galleryPreview } = props
   return (
     <Card className={classes.card}>
       <MyLink to={'/gallery/' + id}>
         <CardMedia
           className={classes.media}
-          image={`${config.adressServer}${randPicture}`}
+          image={`${config.adressServer}${galleryPreview}`}
           title={name}
         />
       </MyLink>
