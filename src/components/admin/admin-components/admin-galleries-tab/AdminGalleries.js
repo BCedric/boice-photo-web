@@ -1,10 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { galleriesSelector, currentGallerySelector } from 'redux/admin-redux/selectors'
-import { getGalleries, setCurrentGallery, deleteGallery } from 'redux/admin-redux/actions'
+import { getGalleries, setCurrentGallery, deleteGallery, putGallery } from 'redux/admin-redux/actions'
 
 import AdminGalleryPictures from './AdminGalleryPictures'
 import AdminGalleryForm from './AdminGalleryForm'
+
+import Carousel from 'Icons/Carousel'
 
 import SelectableEntitiesList from 'components/SelectableEntitiesList'
 
@@ -16,14 +18,34 @@ const AdminGalleries = connect(
     dispatch => ({
         getGalleries: () => getGalleries()(dispatch),
         setCurrentGallery: gallery => dispatch(setCurrentGallery(gallery)),
-        deleteGallery: gallery => deleteGallery(gallery.id)(dispatch)
+        deleteGallery: gallery => deleteGallery(gallery.id)(dispatch),
+        putGallery: (galleryId, body) => putGallery(galleryId, body)(dispatch)
     })
 )(
-    function (props) {
-        const { galleries, getGalleries, setCurrentGallery, selectedGallery } = props
+    function ({ putGallery, deleteGallery, galleries, getGalleries, setCurrentGallery, selectedGallery }) {
+        const actions = [
+            {
+                display: gallery => gallery.isInCarousel,
+                icon: 'ac_unit',
+                onClick: gallery => putGallery(gallery.id, { isInCarousel: false })
+            },
+            {
+                display: gallery => !gallery.isInCarousel,
+                icon: (gallery) =>
+                    <span className="clickable" onClick={() => {
+                        putGallery(gallery.id, {
+                            isInCarousel: true
+                        })
+                    }}>
+                        <Carousel width={24} />
+                    </span>
+            }
+        ]
+
         return (
             <div>
                 <SelectableEntitiesList
+                    actions={actions}
                     entities={galleries}
                     displayEntity={gallery => gallery.name}
                     setCurrentEntity={setCurrentGallery}
@@ -31,7 +53,7 @@ const AdminGalleries = connect(
                     selectedEntity={selectedGallery}
                     componentToDisplay={() => <AdminGalleryPictures />}
                     entityForm={(closeForm, editedEntity) => <AdminGalleryForm closeForm={closeForm} gallery={editedEntity} />}
-                    deleteEntity={(gallery) => props.deleteGallery(gallery)}
+                    deleteEntity={(gallery) => deleteGallery(gallery)}
                 />
             </div>
         )

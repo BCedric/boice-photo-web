@@ -22,6 +22,7 @@
     "redux": "^3.7.2"
   },
   "scripts": {
+    "svgr": "svgr -d src/node_modules/Icons/ assets/",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
