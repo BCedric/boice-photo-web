@@ -7,8 +7,6 @@ import { postGalleriesList, putGalleriesList } from 'redux/admin-redux/actions'
 import AdminGalleriesListFormGallery from './AdminGalleriesListFormGallery'
 import Icon from 'components/Icon'
 
-import './AdminGalleriesListForm.css'
-
 const AdminGalleriesListForm = connect(
     state => ({}),
     dispatch => ({
@@ -79,8 +77,8 @@ const AdminGalleriesListForm = connect(
         render() {
             const { galleriesList } = this.props
             return (
-                <form id="galleries-list-form">
-                    <div className="galleries-list-fields">
+                <form>
+                    <div className="form-line">
                         <TextField
                             label="Nom"
                             name="name"
@@ -92,7 +90,7 @@ const AdminGalleriesListForm = connect(
                         {galleriesList == null && <Icon className="clickable" onClick={() => this.addGallerie()} >add</Icon>}
                     </div>
                     {this.state.galleriesForms.map((galleryForm, index) =>
-                        <div className="gallery-form" key={index}>
+                        <div className="form-line" key={index}>
                             <AdminGalleriesListFormGallery
                                 index={index}
                                 values={galleryForm}
@@ -100,7 +98,7 @@ const AdminGalleriesListForm = connect(
                                 onDelete={(index) => this.deleteGalleryValues(index)}
                             />
                         </div>)}
-                    <div className="buttons-action">
+                    <div className="buttons-form-action">
                         <Button color="primary" onClick={() => this.submit()} >Valider</Button>
                         <Button onClick={() => this.props.closeForm()} >Annuler</Button>
                     </div>

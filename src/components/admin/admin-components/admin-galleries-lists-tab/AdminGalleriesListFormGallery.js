@@ -22,7 +22,7 @@ class AdminGalleriesListFormGallery extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="form-line">
                 <TextField
                     label="Nom"
                     name="name"

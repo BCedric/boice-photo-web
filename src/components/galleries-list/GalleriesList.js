@@ -1,7 +1,8 @@
 import { connect } from 'react-redux'
-import React from 'react'
+import React, { useEffect } from 'react'
 import Helmet from 'react-helmet'
 import { upperFirst } from 'lodash'
+import { makeStyles } from '@material-ui/styles'
 
 import {
   isFetchingSelector,
@@ -13,7 +14,12 @@ import {
 
 import GalleryListItem from './gallery-list-components/GalleryListItem'
 
-import './GalleriesList.css'
+const useStyles = makeStyles({
+  galleryListContainer: {
+    display: 'flex',
+    justifyContent: 'center'
+  }
+})
 
 const GalleriesList = connect(
   state => ({
@@ -25,54 +31,34 @@ const GalleriesList = connect(
     setGalleriesListObject: (object) => dispatch(setGalleriesListObject(object))
   })
 )(
-  class extends React.Component {
+  function ({ galleriesList, match, fetchGalleriesList, setGalleriesListObject }) {
+    useEffect(() => {
+      fetchGalleriesList(match.params.galleriesList)
+      return () => setGalleriesListObject(null)
+    }, [match.params.galleriesList])
+    const { galleryListContainer } = useStyles()
 
-    componentDidMount() {
-      this.props.fetchGalleriesList(this.props.match.params.galleriesList)
-    }
+    return (
+      <div>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>{`Boïce Photo | ${galleriesList && galleriesList.name}`} </title>
+        </Helmet>
+        {galleriesList != null &&
+          <div>
+            <h1>
+              {upperFirst(galleriesList.name)}
+            </h1>
+            <p>{galleriesList.description}</p>
+            <div className={galleryListContainer}>
+              {galleriesList.galleries.map(
+                (gallery, index) => <GalleryListItem {...gallery} key={index} />
+              )}
+            </div>
+          </div>}
 
-    componentDidUpdate(nextProps) {
-      const nextGalleryListId = nextProps.match.params.galleriesList
-      const currentGalleryListId = this.props.match.params.galleriesList
-      if (nextGalleryListId !== currentGalleryListId) {
-        this.props.fetchGalleriesList(this.props.match.params.galleriesList)
-      }
-    }
-
-    componentWillUnmount() {
-      this.props.setGalleriesListObject(null)
-    }
-
-    displayList() {
-      const { galleriesList } = this.props
-      return !this.props.isFetching && galleriesList &&
-        this.props.match.params.galleriesList === galleriesList.id.toString()
-    }
-
-    render() {
-      const { galleriesList } = this.props
-      return (
-        <div>
-          <Helmet>
-            <meta charSet="utf-8" />
-            <title>{`Boïce Photo | ${galleriesList && galleriesList.name}`} </title>
-          </Helmet>
-          {galleriesList != null &&
-            <div>
-              <h1>
-                {upperFirst(galleriesList.name)}
-              </h1>
-              <p>{galleriesList.description}</p>
-              <div className="gallery-list-container">
-                {galleriesList.galleries.map(
-                  (gallery, index) => <GalleryListItem {...gallery} key={index} />
-                )}
-              </div>
-            </div>}
-
-        </div>
-      )
-    }
+      </div>
+    )
   }
 )
 

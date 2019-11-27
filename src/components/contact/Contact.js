@@ -15,8 +15,6 @@ import {
 } from 'redux/contact-redux/selectors'
 import { TextField, Button } from '@material-ui/core'
 
-import './Contact.css'
-
 const Contact = connect(
   state => ({
     form: formSelector(state),
@@ -102,22 +100,27 @@ const Contact = connect(
               />
             </div>
           </div>
-          <TextField
-            id='message'
-            className="message"
-            multiline
-            rows="5"
-            label="Message"
-            margin="normal"
-            onChange={(e) => this.onChangeForm(e)}
-            value={message}
-          />
-          <Captcha
-            sitekey='6LfNfjoUAAAAAP8XWyo1-lyspeqsa1AyyydzT2-P'
-            lang='fr'
-            type='image'
-            callback={(value) => this.props.onChangeForm({ 'g-recaptcha-response': value })}
-          />
+          <div className="form-line">
+            <TextField
+              id='message'
+              className="message"
+              multiline
+              rows="5"
+              label="Message"
+              margin="normal"
+              onChange={(e) => this.onChangeForm(e)}
+              value={message}
+            />
+          </div>
+          <div className="form-line">
+
+            <Captcha
+              sitekey='6LfNfjoUAAAAAP8XWyo1-lyspeqsa1AyyydzT2-P'
+              lang='fr'
+              type='image'
+              callback={(value) => this.props.onChangeForm({ 'g-recaptcha-response': value })}
+            />
+          </div>
           <Button
             waves='light'
             onClick={() => this.props.sendEmail(this.props.form)}

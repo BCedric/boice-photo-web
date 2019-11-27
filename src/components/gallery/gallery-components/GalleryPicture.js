@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
 import { CircularProgress } from '@material-ui/core';
 
-import './GalleryPicture.css'
-
 function GalleryPicture(props) {
     const [isLoading, setIsLoading] = useState(true)
     const { margin, photo } = props.picture
@@ -15,7 +13,7 @@ function GalleryPicture(props) {
     return (
         <div>
             {isLoading &&
-                <div className="loader-content" style={{ width, margin: `0 ${margin}px`, height }}>
+                <div className="loader-container" style={{ width, margin: `0 ${margin}px`, height }}>
                     <CircularProgress />
                 </div>
             }

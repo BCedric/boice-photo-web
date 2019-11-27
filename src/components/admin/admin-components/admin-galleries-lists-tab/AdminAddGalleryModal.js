@@ -7,8 +7,6 @@ import { addGalleryToList } from 'redux/admin-redux/actions'
 
 import Modal from 'components/Modal'
 
-import './AdminAddGalleryModal.css'
-
 const AdminAddGalleryModal = connect(
     state => ({
         galleries: galleriesSelector(state),
@@ -34,8 +32,8 @@ const AdminAddGalleryModal = connect(
                 onValidate={() => props.addGalleryToList(props.galleryList.id, { galleryId: gallerySelected })}
                 getButton={getButtonToOpenModal}
             >
-                <form>
-                    <FormControl className="select-control">
+                <form className="form-line">
+                    <FormControl >
                         <InputLabel >Galerie</InputLabel>
                         <Select value={gallerySelected} onChange={(event) => handleChangeGallery(event)}>
                             {props.galleries.map((gallery, index) =>

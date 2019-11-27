@@ -5,6 +5,7 @@
   "dependencies": {
     "@material-ui/core": "^4.6.0",
     "material-ui": "^0.19.4",
+    "node-sass": "^4.13.0",
     "react": "^16.0.0",
     "react-async-script": "^0.9.1",
     "react-captcha": "^2.0.9",

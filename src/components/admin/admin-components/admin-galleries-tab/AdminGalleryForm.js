@@ -3,7 +3,6 @@ import TextField from "@material-ui/core/TextField";
 import { Button } from "@material-ui/core";
 import { connect } from 'react-redux'
 
-import './AdminGalleryForm.css'
 import { putGallery, postGallery } from "redux/admin-redux/actions";
 
 const AdminGalleryForm = connect(
@@ -65,25 +64,31 @@ const AdminGalleryForm = connect(
             const { gallery } = this.props
             return (
                 <form noValidate autoComplete="off">
-                    <TextField
-                        label="Nom"
-                        name="name"
-                        multiline
-                        variant="outlined"
-                        value={name}
-                        onChange={(event) => this.onInputChange(event)}
-                    />
-                    <TextField
-                        label="Description"
-                        name="description"
-                        multiline
-                        variant="outlined"
-                        value={description}
-                        onChange={(event) => this.onInputChange(event)}
-                    />
-                    {gallery == null && <input type="file" multiple ref={this.filesInput} />}
-                    <Button color="primary" onClick={() => this.submit()} >Valider</Button>
-                    <Button onClick={() => this.cancel()} >Annuler</Button>
+                    <div className="form-line">
+                        <TextField
+                            label="Nom"
+                            name="name"
+                            multiline
+                            variant="outlined"
+                            value={name}
+                            onChange={(event) => this.onInputChange(event)}
+                        />
+                        <TextField
+                            label="Description"
+                            name="description"
+                            multiline
+                            variant="outlined"
+                            value={description}
+                            onChange={(event) => this.onInputChange(event)}
+                        />
+                    </div>
+                    <div className="form-line">
+                        {gallery == null && <input type="file" multiple ref={this.filesInput} />}
+                    </div>
+                    <div className="buttons-form-action">
+                        <Button color="primary" onClick={() => this.submit()} >Valider</Button>
+                        <Button onClick={() => this.cancel()} >Annuler</Button>
+                    </div>
                 </form>
             )
         }

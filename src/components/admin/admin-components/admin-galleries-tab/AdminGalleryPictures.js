@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { ListItemText } from '@material-ui/core'
+import { makeStyles } from '@material-ui/styles'
 
 import { deletePicture, setPictureGalleryPreview } from 'redux/admin-redux/actions'
 import { currentGallerySelector } from 'redux/admin-redux/selectors'
@@ -9,7 +10,16 @@ import config from 'config'
 import AdminAddPictureModal from './AdminAddPictureModal'
 import EntitiesList from 'components/EntitiesList'
 
-import './AdminGalleryPictures.css'
+const useStyles = makeStyles({
+    listItemContent: {
+        display: 'flex',
+        alignItems: 'center'
+    },
+    entityImg: {
+        marginRight: '0.5em',
+        width: '8em'
+    }
+})
 
 const AdminGalleryPictures = connect(
     state => ({
@@ -20,9 +30,9 @@ const AdminGalleryPictures = connect(
         setPictureGalleryPreview: pictureId => setPictureGalleryPreview(pictureId)(dispatch)
     })
 )(
-    function (props) {
-        const { gallery, deletePicture, setPictureGalleryPreview } = props
+    function ({ gallery, deletePicture, setPictureGalleryPreview }) {
         const pictures = gallery != null && gallery.pictures
+        const { listItemContent, entityImg } = useStyles()
 
         const actions = [
             {
@@ -46,8 +56,8 @@ const AdminGalleryPictures = connect(
                     renderEntity={entity => (
                         <div className="entity-content" >
                             <ListItemText >
-                                <div className="list-item-content">
-                                    <img className="entity-img" alt={entity.name} src={`${config.adressServer}${entity.addr}`} />
+                                <div className={listItemContent}>
+                                    <img className={entityImg} alt={entity.name} src={`${config.adressServer}${entity.addr}`} />
                                     <span>{entity.name}</span>
                                 </div>
                             </ListItemText>

@@ -1,13 +1,18 @@
 import React, { useEffect, useCallback } from 'react'
 import Helmet from 'react-helmet'
 import { useSelector, useDispatch } from 'react-redux'
+import { makeStyles } from '@material-ui/styles'
 
 import config from 'config'
 import Slider from 'components/Slider/Slider'
 import { carouselGalleriesSelector } from 'redux/home-redux/selectors'
 import { getCarouselGalleries } from 'redux/home-redux/actions'
 
-import './Home.css'
+const useStyles = makeStyles({
+  sliderContainer: {
+    height: '100vh'
+  }
+})
 
 export default function Home() {
   const dispatch = useDispatch()
@@ -28,6 +33,8 @@ export default function Home() {
       return null
     })
 
+  const { sliderContainer } = useStyles()
+
   useEffect(() => {
     fetchCarouselGalleries()
   }, [fetchCarouselGalleries])
@@ -41,11 +48,11 @@ export default function Home() {
       </Helmet>
       <h1>Accueil</h1>
       {carouselPictures != null &&
-        <div className="slider-container">
+        <div className={sliderContainer}>
           <Slider pictures={carouselPictures} />
         </div>}
       <div className="accueil-content">
-        <p>
+        <p >
           Morbi condimentum augue ut venenatis molestie. Mauris fermentum nibh consectetur justo tincidunt, eget mattis est aliquet. Morbi ut justo in odio consectetur maximus. Proin sollicitudin ut augue eget dapibus. In et ex molestie, convallis erat eget, posuere est. Fusce nec tempor lectus. Vivamus vulputate eu tellus et convallis. Nulla accumsan fringilla porttitor. Curabitur tristique felis eu sapien laoreet, a imperdiet magna fringilla. Donec sed lectus at mi auctor tincidunt sed viverra ante. Sed in eros eu orci egestas sodales. Vestibulum tortor erat, molestie placerat euismod sodales, aliquam nec orci. Pellentesque id facilisis ipsum.
         </p>
         <p>

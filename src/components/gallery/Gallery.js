@@ -15,9 +15,16 @@ import {
 } from 'redux/gallery-redux/selectors'
 import GalleryLightbox from './gallery-components/GalleryLightbox'
 
-import './Gallery.css'
 import { CircularProgress } from '@material-ui/core'
 import GalleryPicture from './gallery-components/GalleryPicture'
+import { withStyles } from '@material-ui/styles'
+
+const styles = {
+  picturesContainer: {
+    width: '95%',
+    margin: 'auto'
+  }
+}
 
 
 const Gallery = connect(
@@ -63,7 +70,7 @@ const Gallery = connect(
   }
 
   render() {
-    const { gallery, match, isFetching } = this.props
+    const { gallery, match, isFetching, classes } = this.props
     const pictures = gallery != null && gallery.pictures.map(picture => ({ src: `${picture.addr}`, width: picture.width, height: picture.height }))
 
     return (
@@ -73,27 +80,22 @@ const Gallery = connect(
           <title>Boïce Photo | {gallery && match.params.galleryId ? gallery.name : 'Vrac'}</title>
           <link rel="canonical" href="http://mysite.com/example" />
         </Helmet>
-        <div className="gallery-container">
+        <div>
           {gallery != null &&
             <div >
-              {/* <GalleryTitle> */}
               <h1>
                 {gallery.name}
               </h1>
-              {/* </GalleryTitle> */}
-              <p className='description'>{
+              <p className="paragraph">{
                 gallery.description
               }</p>
-              {/* {pictures.map((picture, index) => (
-                <div key={index} style={{ display: 'inline-block' }}>
-                  <img className="picture" src={picture.src} alt="fill murray" />
-                </div>
-              ))} */}
-              <PicturesList className='gallery' renderImage={(picture) => this.imageRenderer(picture)} photos={pictures} columns={4} onClick={this.openLightbox} >LOADING</PicturesList>
+              <div className={classes.picturesContainer}>
+                <PicturesList className='gallery' renderImage={(picture) => this.imageRenderer(picture)} photos={pictures} columns={4} onClick={this.openLightbox} >LOADING</PicturesList>
+              </div>
               <GalleryLightbox pictures={pictures} pictureIndex={this.props.currentImage} setCurrentPicture={this.props.setCurrentPictureIndex} />
             </div>
           }
-          {isFetching && <div className="gallery-loader-container">
+          {isFetching && <div className="loader-container">
             <CircularProgress size={100} />
           </div>}
         </div>
@@ -102,4 +104,4 @@ const Gallery = connect(
     );
   }
 })
-export default Gallery;
+export default withStyles(styles)(Gallery);
