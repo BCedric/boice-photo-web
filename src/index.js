@@ -13,6 +13,11 @@ import homeReducer from 'redux/home-redux/reducer';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
+import 'styles/fonts/Zallord.ttf'
+import 'styles/fonts/Brillion.otf'
+import 'styles/fonts/Boldey.otf'
+import 'styles/fonts/Gilberto.ttf'
+
 let store = createStore(combineReducers({
   galleriesListState: galleriesListReducer,
   galleryState: galleryReducer,

@@ -44,11 +44,12 @@ const styles = ({ palette }) => ({
   },
   drawer: {
     flexShrink: 0,
-    width: '300px'
+    width: '300px',
   },
   drawerPaper: {
     backgroundColor: palette.primary.main,
-    width: '300px'
+    width: '300px',
+    display: 'block',
   }
 })
 

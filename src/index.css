@@ -3,3 +3,21 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+@font-face {
+  font-family: 'Zallord';
+  src: local('Zallord'), url(./node_modules/styles/fonts/Zallord.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Brillion';
+  src: local('Brillion'), url(./node_modules/styles/fonts/Brillion.otf) format('opentype');
+}
+@font-face {
+  font-family: 'Boldey';
+  src: local('Boldey'), url(./node_modules/styles/fonts/Boldey.otf) format('opentype');
+}
+@font-face {
+  font-family: 'Gilberto';
+  src: local('Gilberto'), url(./node_modules/styles/fonts/Gilberto.ttf) format('truetype');
+}
