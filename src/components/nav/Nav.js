@@ -1,7 +1,7 @@
 import React from 'react'
 import { upperFirst } from 'lodash'
 import { connect } from 'react-redux'
-import { AppBar, Toolbar } from '@material-ui/core'
+import { AppBar, Toolbar, Drawer } from '@material-ui/core'
 import {
   Link
 } from 'react-router-dom'
@@ -18,6 +18,9 @@ import logo from '../styles/img/logo.png'
 import NavItemComp from './nav-components/NavItemComp'
 
 import './Nav.css'
+import { withStyles } from '@material-ui/styles'
+import { width } from '@material-ui/system'
+import NavItemCompCopy from './nav-components/NavItemCompCopy'
 
 const items = [
   {
@@ -33,6 +36,21 @@ const items = [
     route: '/contact'
   }
 ]
+
+const styles = ({ palette }) => ({
+  logo: {
+    margin: '10px',
+    width: '200px',
+  },
+  drawer: {
+    flexShrink: 0,
+    width: '300px'
+  },
+  drawerPaper: {
+    backgroundColor: palette.primary.main,
+    width: '300px'
+  }
+})
 
 const Nav = connect(
   state => {
@@ -53,7 +71,12 @@ const Nav = connect(
 
   getNavItem = (item, index) => {
     return (
-      <NavItemComp
+      // <NavItemComp
+      //   className={this.props.location.pathname === item.route ? 'active' : ''}
+      //   key={index}
+      //   {...item}
+      // />
+      <NavItemCompCopy
         className={this.props.location.pathname === item.route ? 'active' : ''}
         key={index}
         {...item}
@@ -70,26 +93,43 @@ const Nav = connect(
   }
 
   render() {
-    const { navGalleries } = this.props
+    const { navGalleries, classes } = this.props
     return (
-      <div className='nav'>
-        <div className='header'>
+      // <div className='nav'>
+      //   <div className='header'>
+      //     <Link to='/'>
+      //       <img className='logo' src={logo} alt='logo' />
+      //     </Link>
+      //   </div>
+      //   <AppBar className='navbar' position="static">
+      //     <Toolbar>
+      //       {items.map((item, index) => this.getNavItem(item, index))}
+      //       {navGalleries != null && this.mapGalleries(navGalleries.galleriesLists, 'gallerieslist')}
+      //       {navGalleries != null && this.mapGalleries(navGalleries.galleries, 'gallery')}
+      //       {/* <NavBarGalleries {...this.props} className='fade' /> */}
+      //     </Toolbar>
+      //   </AppBar>
+      // </div >
+      <div>
+        <Drawer
+          variant="permanent"
+          className={classes.drawer}
+          open={true}
+          classes={{
+            paper: classes.drawerPaper,
+          }}
+        >
           <Link to='/'>
-            <img className='logo' src={logo} alt='logo' />
+            <img className={classes.logo} src={logo} alt='logo' />
           </Link>
-        </div>
-        <AppBar className='navbar' position="static">
-          <Toolbar>
-            {items.map((item, index) => this.getNavItem(item, index))}
-            {navGalleries != null && this.mapGalleries(navGalleries.galleriesLists, 'gallerieslist')}
-            {navGalleries != null && this.mapGalleries(navGalleries.galleries, 'gallery')}
-            {/* <NavBarGalleries {...this.props} className='fade' /> */}
-          </Toolbar>
-        </AppBar>
-      </div >
+          {items.map((item, index) => this.getNavItem(item, index))}
+          {navGalleries != null && this.mapGalleries(navGalleries.galleriesLists, 'gallerieslist')}
+          {navGalleries != null && this.mapGalleries(navGalleries.galleries, 'gallery')}
+        </Drawer>
+      </div>
     )
   }
 })
 
 
-export default withRouter(Nav)
+export default withRouter(withStyles(styles)(Nav))
