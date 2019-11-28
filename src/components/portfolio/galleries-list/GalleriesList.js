@@ -35,7 +35,7 @@ const GalleriesList = connect(
     useEffect(() => {
       fetchGalleriesList(match.params.galleriesList)
       return () => setGalleriesListObject(null)
-    }, [match.params.galleriesList])
+    }, [match.params.galleriesList, fetchGalleriesList, setGalleriesListObject])
     const { galleryListContainer } = useStyles()
 
     return (
@@ -52,7 +52,7 @@ const GalleriesList = connect(
             <p>{galleriesList.description}</p>
             <div className={galleryListContainer}>
               {galleriesList.galleries.map(
-                (gallery, index) => <GalleryListItem {...gallery} key={index} />
+                (gallery, index) => <GalleryListItem {...gallery} galleriesListId={galleriesList.id} key={index} />
               )}
             </div>
           </div>}

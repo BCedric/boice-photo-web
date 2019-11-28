@@ -1,7 +1,6 @@
-import React from 'react'
-import { upperFirst } from 'lodash'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { AppBar, Toolbar, Drawer } from '@material-ui/core'
+import { Drawer } from '@material-ui/core'
 import {
   Link
 } from 'react-router-dom'
@@ -12,15 +11,12 @@ import {
 import {
   navGalleriesSelector
 } from 'redux/nav-redux/selectors'
-import { withRouter } from 'react-router'
+import { useRouteMatch } from "react-router";
 
 import logo from '../styles/img/logo.png'
-import NavItemComp from './nav-components/NavItemComp'
 
-import './Nav.css'
 import { withStyles } from '@material-ui/styles'
-import { width } from '@material-ui/system'
-import NavItemCompCopy from './nav-components/NavItemCompCopy'
+import NavItemComp from './nav-components/NavItemComp'
 
 const items = [
   {
@@ -28,8 +24,8 @@ const items = [
     route: '/'
   },
   {
-    nameItem: 'Vrac',
-    route: '/vrac'
+    nameItem: 'Photos',
+    route: '/portfolio'
   },
   {
     nameItem: 'Contact',
@@ -62,75 +58,55 @@ const Nav = connect(
   dispatch => ({
     fetchNavGalleries: () => fetchNavGalleries()(dispatch)
   })
-)(class extends React.Component {
+)(function Nav({ fetchNavGalleries, classes }) {
+
+  useEffect(() => {
+    fetchNavGalleries()
+  }, [fetchNavGalleries])
+
+  const matches = [
+    useRouteMatch({
+      path: '/',
+      exact: true,
+    }),
+    useRouteMatch({
+      path: '/portfolio'
+    }),
+    useRouteMatch({
+      path: '/contact'
+    })
+  ]
 
 
-  componentDidMount() {
-    this.props.fetchNavGalleries()
-  }
 
-
-  getNavItem = (item, index) => {
+  const getNavItem = (item, index) => {
+    const isActive = matches.some(match => match != null && match.url === item.route)
     return (
-      // <NavItemComp
-      //   className={this.props.location.pathname === item.route ? 'active' : ''}
-      //   key={index}
-      //   {...item}
-      // />
-      <NavItemCompCopy
-        className={this.props.location.pathname === item.route ? 'active' : ''}
+      <NavItemComp
+        className={isActive ? 'active' : ''}
         key={index}
         {...item}
       />
     )
   }
 
-  mapGalleries = (galleriesLists, baseRoute) => {
-    return galleriesLists.map(
-      (list, index) => this.getNavItem({
-        nameItem: upperFirst(list.name),
-        route: `/${baseRoute}/${list.id}`
-      }, index))
-  }
+  return (
+    <Drawer
+      variant="permanent"
+      className={classes.drawer}
+      open={true}
+      classes={{
+        paper: classes.drawerPaper,
+      }}
+    >
+      <Link to='/'>
+        <img className={classes.logo} src={logo} alt='logo' />
+      </Link>
+      {items.map((item, index) => getNavItem(item, index))}
 
-  render() {
-    const { navGalleries, classes } = this.props
-    return (
-      // <div className='nav'>
-      //   <div className='header'>
-      //     <Link to='/'>
-      //       <img className='logo' src={logo} alt='logo' />
-      //     </Link>
-      //   </div>
-      //   <AppBar className='navbar' position="static">
-      //     <Toolbar>
-      //       {items.map((item, index) => this.getNavItem(item, index))}
-      //       {navGalleries != null && this.mapGalleries(navGalleries.galleriesLists, 'gallerieslist')}
-      //       {navGalleries != null && this.mapGalleries(navGalleries.galleries, 'gallery')}
-      //       {/* <NavBarGalleries {...this.props} className='fade' /> */}
-      //     </Toolbar>
-      //   </AppBar>
-      // </div >
-      <div>
-        <Drawer
-          variant="permanent"
-          className={classes.drawer}
-          open={true}
-          classes={{
-            paper: classes.drawerPaper,
-          }}
-        >
-          <Link to='/'>
-            <img className={classes.logo} src={logo} alt='logo' />
-          </Link>
-          {items.map((item, index) => this.getNavItem(item, index))}
-          {navGalleries != null && this.mapGalleries(navGalleries.galleriesLists, 'gallerieslist')}
-          {navGalleries != null && this.mapGalleries(navGalleries.galleries, 'gallery')}
-        </Drawer>
-      </div>
-    )
-  }
+    </Drawer>
+  )
 })
 
 
-export default withRouter(withStyles(styles)(Nav))
+export default withStyles(styles)(Nav)

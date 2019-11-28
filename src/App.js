@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import {
   BrowserRouter as Router,
@@ -7,12 +7,11 @@ import {
 import { ThemeProvider, makeStyles } from '@material-ui/styles';
 
 import Home from './components/home/Home'
-import Gallery from './components/gallery/Gallery'
-import GalleriesList from './components/galleries-list/GalleriesList'
 import Contact from './components/contact/Contact'
 import Nav from './components/nav/Nav'
 import theme from 'styles/theme';
 import BootLogin from './components/login/BootLogin';
+import Portfolio from './components/portfolio/Portfolio';
 
 import 'styles/styles.scss'
 
@@ -32,9 +31,8 @@ function App() {
           <Nav></Nav>
           <div className={classes.appContent}>
             <Route exact path='/' component={Home} />
-            <Route path='/vrac' component={Gallery} />
-            <Route path='/gallery/:galleryId' component={Gallery} />
-            <Route path='/gallerieslist/:galleriesList' component={GalleriesList} />
+
+            <Route path='/portfolio' component={Portfolio} />
             <Route path='/contact' component={Contact} />
             <Route path='/admin' component={BootLogin} />
           </div>

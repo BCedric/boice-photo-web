@@ -18,13 +18,17 @@ const useStyles = makeStyles({
   }
 });
 
-function GalleryListItem(props) {
+function GalleryListItem({
+  id,
+  name,
+  galleryPreview,
+  galleriesListId
+}) {
   const classes = useStyles();
 
-  const { id, name, galleryPreview } = props
   return (
     <Card className={classes.card}>
-      <MyLink to={'/gallery/' + id}>
+      <MyLink to={`/portfolio/gallerieslist/${galleriesListId}/gallery/${id}`}>
         <CardMedia
           className={classes.media}
           image={`${config.adressServer}${galleryPreview}`}
@@ -36,7 +40,7 @@ function GalleryListItem(props) {
           {name}
         </span>
         <p>
-          <MyLink to={'/gallery/' + id}>
+          <MyLink to={`/portfolio/gallerieslist/${galleriesListId}/gallery/${id}`}>
             Voir plus
           </MyLink>
         </p>

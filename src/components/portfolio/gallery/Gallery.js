@@ -6,12 +6,14 @@ import { default as PicturesList } from 'react-photo-gallery'
 import {
   setCurrentPictureIndex,
   getPictures,
-  setGallery
+  setGallery,
+  addGalleryPictures
 } from 'redux/gallery-redux/actions'
 import {
   isFetchingSelector,
   gallerySelector,
-  currentImageSelector
+  currentImageSelector,
+  galleryPicturesSelector
 } from 'redux/gallery-redux/selectors'
 import GalleryLightbox from './gallery-components/GalleryLightbox'
 
@@ -32,13 +34,15 @@ const Gallery = connect(
     return {
       isFetching: isFetchingSelector(state),
       gallery: gallerySelector(state),
-      currentImage: currentImageSelector(state)
+      currentImage: currentImageSelector(state),
+      pictures: galleryPicturesSelector(state)
     }
   },
   dispatch => ({
     getPictures: galleryId => getPictures(galleryId)(dispatch),
     setCurrentPictureIndex: id => dispatch(setCurrentPictureIndex(id)),
-    setGallery: (gallery) => dispatch(setGallery(gallery))
+    setGallery: (gallery) => dispatch(setGallery(gallery)),
+    addGalleryPictures: (pictures) => dispatch(addGalleryPictures(pictures))
   })
 )(class extends React.Component {
 
@@ -51,11 +55,14 @@ const Gallery = connect(
     const nextGalleryListId = nextProps.match.params.galleryId
     const currentGalleryListId = this.props.match.params.galleryId
     if (nextGalleryListId !== currentGalleryListId) {
+      console.log(nextGalleryListId, currentGalleryListId);
+      this.props.addGalleryPictures(null)
       this.props.getPictures(this.props.match.params.galleryId)
     }
   }
 
   componentWillUnmount() {
+    this.props.addGalleryPictures(null)
     this.props.setGallery(null)
   }
 
@@ -71,7 +78,7 @@ const Gallery = connect(
 
   render() {
     const { gallery, match, isFetching, classes } = this.props
-    const pictures = gallery != null && gallery.pictures.map(picture => ({ src: `${picture.addr}`, width: picture.width, height: picture.height }))
+    const pictures = gallery != null && this.props.pictures.map(picture => ({ src: `${picture.addr}`, width: picture.width, height: picture.height }))
 
     return (
       <div >
