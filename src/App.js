@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Route
 } from 'react-router-dom'
 import { ThemeProvider, makeStyles } from '@material-ui/styles';
@@ -25,7 +25,7 @@ const useStyles = makeStyles({
 function App() {
   const classes = useStyles()
   return (
-    <Router>
+    <Router basename="/">
       <ThemeProvider theme={theme}>
         <div className="App">
           <Nav></Nav>
