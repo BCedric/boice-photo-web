@@ -1,14 +1,23 @@
 import React, { useState } from 'react'
 import { CircularProgress } from '@material-ui/core';
+import { makeStyles } from '@material-ui/styles';
 
-function GalleryPicture(props) {
+const useStyles = makeStyles({
+    imgLoading: {
+        display: 'none'
+    }
+})
+
+function GalleryPicture({ picture, onClick }) {
     const [isLoading, setIsLoading] = useState(true)
-    const { margin, photo } = props.picture
+    const { margin, photo } = picture
     const { width, height } = photo
 
     const onLoadPicture = () => {
         setIsLoading(false)
     }
+
+    const classes = useStyles()
 
     return (
         <div>
@@ -18,12 +27,12 @@ function GalleryPicture(props) {
                 </div>
             }
             <img
-                className="clickable"
-                alt={props.picture.index}
-                onClick={() => props.onClick(props.picture)}
+                className={`clickable ${isLoading && classes.imgLoading}`}
+                alt={picture.index}
+                onClick={() => onClick(picture)}
                 onLoad={() => onLoadPicture()}
-                src={props.picture.key}
-                style={{ width, margin: `0 ${props.picture.margin}px` }} />
+                src={picture.key}
+                style={{ width, margin: `0 ${picture.margin}px` }} />
         </div>
     )
 }
