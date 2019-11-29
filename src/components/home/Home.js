@@ -25,7 +25,7 @@ export default function Home() {
       const galleries = carouselGalleriesSelector(state)
       if (galleries != null) {
         return galleries.map(gallery => ({
-          src: `${config.adressServer}${gallery.galleryPreview}`,
+          src: `${config.addressServer}${gallery.galleryPreview}`,
           name: gallery.name,
           link: `/gallery/${gallery.id}`
         }))

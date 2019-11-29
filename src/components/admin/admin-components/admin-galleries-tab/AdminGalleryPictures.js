@@ -57,7 +57,7 @@ const AdminGalleryPictures = connect(
                         <div className="entity-content" >
                             <ListItemText >
                                 <div className={listItemContent}>
-                                    <img className={entityImg} alt={entity.name} src={`${config.adressServer}${entity.addr}`} />
+                                    <img className={entityImg} alt={entity.name} src={`${config.addressServer}${entity.addr}`} />
                                     <span>{entity.name}</span>
                                 </div>
                             </ListItemText>

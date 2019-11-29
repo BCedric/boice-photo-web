@@ -31,7 +31,7 @@ function GalleryListItem({
       <MyLink to={`/portfolio/gallerieslist/${galleriesListId}/gallery/${id}`}>
         <CardMedia
           className={classes.media}
-          image={`${config.adressServer}${galleryPreview}`}
+          image={`${config.addressServer}${galleryPreview}`}
           title={name}
         />
       </MyLink>
