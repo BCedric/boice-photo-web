@@ -99,7 +99,7 @@ const Nav = connect(
         paper: classes.drawerPaper,
       }}
     >
-      <Link to='/'>
+      <Link to='/' className="unselectable">
         <img className={classes.logo} src={logo} alt='logo' />
       </Link>
       {items.map((item, index) => getNavItem(item, index))}

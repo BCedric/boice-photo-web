@@ -43,7 +43,7 @@ const NavItemComp = connect()(
     const activeClass = () => props.className === 'active' && classes.active
 
     return (
-      <Link className={` ${activeClass()} ${classes.link}`} to={props.route} >
+      <Link className={` ${activeClass()} ${classes.link} unselectable`} to={props.route} >
         <span className="progressive-underline" >
           {props.nameItem}
         </span>
