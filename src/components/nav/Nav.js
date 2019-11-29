@@ -36,15 +36,15 @@ const items = [
 const styles = ({ palette }) => ({
   logo: {
     margin: '10px',
-    width: '200px',
+    width: '150px',
   },
   drawer: {
     flexShrink: 0,
-    width: '300px',
+    width: '250px',
   },
   drawerPaper: {
     backgroundColor: palette.primary.main,
-    width: '300px',
+    width: '250px',
     display: 'block',
   }
 })
