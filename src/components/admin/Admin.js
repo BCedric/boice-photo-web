@@ -5,7 +5,7 @@ import { Button, Tabs, Tab } from "@material-ui/core"
 import { makeStyles } from '@material-ui/styles'
 
 import {
-  messageSelector,
+  messageSelector, uploadSizeValueSelector, progressUploadValueSelector,
 } from 'redux/admin-redux/selectors'
 import {
   updateDB,
@@ -14,6 +14,7 @@ import { logout } from 'redux/login-redux/actions'
 
 import AdminGalleries from './admin-components/admin-galleries-tab/AdminGalleries'
 import AdminGalleriesLists from './admin-components/admin-galleries-lists-tab/AdminGalleriesLists'
+import ProgressBar from 'components/ProgressBar'
 
 const useStyles = makeStyles({
   tabs: {
@@ -37,6 +38,8 @@ const Admin = connect(
   state => {
     return {
       message: messageSelector(state),
+      uploadSizeValue: uploadSizeValueSelector(state),
+      progressUploadValue: progressUploadValueSelector(state)
     }
   },
   dispatch => {
@@ -46,7 +49,7 @@ const Admin = connect(
     }
   }
 )(
-  function ({ logout, message, updateDB }) {
+  function ({ logout, message, updateDB, uploadSizeValue, progressUploadValue }) {
     const [value, setValue] = useState(0)
     const { tabs } = useStyles()
     const handleChange = (event, value) => {
@@ -58,13 +61,13 @@ const Admin = connect(
       logout(userLogged)
     }
 
-
     return (
       <div className={tabs}>
         <Helmet>
           <meta charSet="utf-8" />
           <title>Boïce Photo | Admin </title>
         </Helmet>
+        <ProgressBar value={progressUploadValue} completeValue={uploadSizeValue} />
 
         <Tabs
           value={value}

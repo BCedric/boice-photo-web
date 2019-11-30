@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+
 import { galleriesSelector, currentGallerySelector } from 'redux/admin-redux/selectors'
 import { getGalleries, setCurrentGallery, deleteGallery, putGallery } from 'redux/admin-redux/actions'
 
@@ -22,7 +23,14 @@ const AdminGalleries = connect(
         putGallery: (galleryId, body) => putGallery(galleryId, body)(dispatch)
     })
 )(
-    function ({ putGallery, deleteGallery, galleries, getGalleries, setCurrentGallery, selectedGallery }) {
+    function ({
+        putGallery,
+        deleteGallery,
+        galleries,
+        getGalleries,
+        setCurrentGallery,
+        selectedGallery,
+    }) {
         const actions = [
             {
                 display: gallery => gallery.isInCarousel,

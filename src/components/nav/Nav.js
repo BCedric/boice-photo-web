@@ -100,7 +100,7 @@ const Nav = connect(
       }}
     >
       <Link to='/' className="unselectable">
-        <img className={classes.logo} src={logo} alt='logo' />
+        <img className={`${classes.logo} unselectable`} src={logo} alt='logo' />
       </Link>
       {items.map((item, index) => getNavItem(item, index))}
 
