@@ -24,11 +24,18 @@ export default function Home() {
     (state) => {
       const galleries = carouselGalleriesSelector(state)
       if (galleries != null) {
-        return galleries.map(gallery => ({
-          src: `${config.addressServer}${gallery.galleryPreview}`,
-          name: gallery.name,
-          link: `/portfolio/gallery/${gallery.id}`
-        }))
+        return galleries.map(gallery => {
+          const link = gallery.parentId === null
+            ? `/portfolio/gallery/${gallery.id}`
+            : `/portfolio/gallerieslist/${gallery.parentId}/gallery/${gallery.id}`
+
+          return {
+            src: `${config.addressServer}${gallery.galleryPreview}`,
+            name: gallery.name,
+            link
+          }
+
+        })
       }
       return null
     })
