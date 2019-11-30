@@ -27,7 +27,7 @@ export default function Home() {
         return galleries.map(gallery => ({
           src: `${config.addressServer}${gallery.galleryPreview}`,
           name: gallery.name,
-          link: `/gallery/${gallery.id}`
+          link: `/portfolio/gallery/${gallery.id}`
         }))
       }
       return null
