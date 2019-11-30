@@ -4,6 +4,7 @@ import { Button } from "@material-ui/core";
 import { connect } from 'react-redux'
 
 import { putGallery, postGallery } from "redux/admin-redux/actions";
+import RichTextEditor from "components/RichTextEditor";
 
 const AdminGalleryForm = connect(
     state => ({}),
@@ -42,6 +43,8 @@ const AdminGalleryForm = connect(
 
         }
 
+        onDescriptionChange = value => this.setState({ description: value })
+
         onInputChange = (event) => {
             const { name, value } = event.target
             this.setState({ [name]: value })
@@ -73,14 +76,13 @@ const AdminGalleryForm = connect(
                             value={name}
                             onChange={(event) => this.onInputChange(event)}
                         />
-                        <TextField
-                            label="Description"
-                            name="description"
-                            multiline
-                            variant="outlined"
-                            value={description}
-                            onChange={(event) => this.onInputChange(event)}
-                        />
+                        <div className="form-field">
+                            <RichTextEditor
+                                setValue={this.onDescriptionChange}
+                                value={description}
+                                fieldName="Description"
+                            />
+                        </div>
                     </div>
                     <div className="form-line">
                         {gallery == null && <input type="file" multiple ref={this.filesInput} />}
