@@ -9,14 +9,15 @@ import { white } from 'material-ui/styles/colors'
 const useStyles = makeStyles(theme => {
   return {
     'link': {
-      padding: '0 2em',
+      padding: '0 0.5em',
       color: white,
       height: '100%',
       display: 'flex',
       alignItems: 'center',
       textDecoration: 'none',
       transition: 'background-color 0.3s',
-      fontSize: '15px',
+      fontFamily: 'Gilberto',
+      fontSize: '3em',
       '&:hover': {
         transition: 'background-color 0.3s',
         backgroundColor: theme.palette.primary.light
