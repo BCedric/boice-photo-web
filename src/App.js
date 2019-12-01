@@ -17,8 +17,8 @@ import 'styles/styles.scss'
 
 const useStyles = makeStyles({
   appContent: {
-    margin: '0 auto',
-    flexGrow: '1'
+    flexGrow: '1',
+    minWidth: '500px'
   }
 })
 
