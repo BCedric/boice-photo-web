@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { Drawer } from '@material-ui/core'
 import {
   Link
 } from 'react-router-dom'
@@ -38,15 +37,10 @@ const styles = ({ palette }) => ({
     margin: '10px',
     width: '150px',
   },
-  drawer: {
-    flexShrink: 0,
+  menu: {
     width: '250px',
-  },
-  drawerPaper: {
     backgroundColor: palette.primary.main,
-    width: '250px',
-    display: 'block',
-  }
+  },
 })
 
 const Nav = connect(
@@ -91,20 +85,14 @@ const Nav = connect(
   }
 
   return (
-    <Drawer
-      variant="permanent"
-      className={classes.drawer}
-      open={true}
-      classes={{
-        paper: classes.drawerPaper,
-      }}
+    <div
+      className={classes.menu}
     >
       <Link to='/' className="unselectable">
         <img className={`${classes.logo} unselectable`} src={logo} alt='logo' />
       </Link>
       {items.map((item, index) => getNavItem(item, index))}
-
-    </Drawer>
+    </div>
   )
 })
 
