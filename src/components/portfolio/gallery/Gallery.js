@@ -91,7 +91,7 @@ const Gallery = connect(
             <h1>
               {gallery.name}
             </h1>
-            <div dangerouslySetInnerHTML={{ __html: gallery.description }} />
+            <div className="paragraph" dangerouslySetInnerHTML={{ __html: gallery.description }} />
             <div className={classes.picturesContainer}>
               <PicturesList className='gallery' renderImage={(picture) => imageRenderer(picture)} photos={picturesForList} columns={4} onClick={openLightbox} >LOADING</PicturesList>
             </div>
