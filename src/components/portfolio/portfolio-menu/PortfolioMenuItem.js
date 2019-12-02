@@ -10,6 +10,7 @@ const useStyles = makeStyles(theme => {
   return {
     'link': {
       padding: '0 0.5em',
+      lineHeight: '0.5em',
       color: white,
       height: '100%',
       display: 'flex',
@@ -22,6 +23,10 @@ const useStyles = makeStyles(theme => {
         transition: 'background-color 0.3s',
         backgroundColor: theme.palette.primary.light
       }
+
+    },
+    'linkLabel': {
+      margin: '0.2em 0'
     },
     'active': {
       backgroundColor: theme.palette.primary.light
@@ -36,7 +41,7 @@ const PortfolioMenuItem = connect()(
 
     return (
       <Link className={`${classes.link} ${activeClass()}`} to={props.route}>
-        {props.nameItem}
+        <span className={classes.linkLabel}>{props.nameItem}</span>
       </Link>
     )
   }

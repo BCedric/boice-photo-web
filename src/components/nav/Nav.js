@@ -36,10 +36,15 @@ const styles = ({ palette }) => ({
   logo: {
     margin: '10px',
     width: '150px',
+    textDecoration: 'none'
   },
   menu: {
     width: '250px',
     backgroundColor: palette.primary.main,
+    flexShrink: '0',
+    display: 'flex',
+    flexDirection: 'column',
+    minHeight: '100vh'
   },
 })
 
