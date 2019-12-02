@@ -39,6 +39,7 @@ const styles = ({ palette }) => ({
     textDecoration: 'none'
   },
   menu: {
+    position: 'fixed',
     width: '250px',
     backgroundColor: palette.primary.main,
     flexShrink: '0',

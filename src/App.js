@@ -18,7 +18,8 @@ import 'styles/styles.scss'
 const useStyles = makeStyles({
   appContent: {
     flexGrow: '1',
-    minWidth: '500px'
+    minWidth: '500px',
+    marginLeft: '250px',
   }
 })
 
@@ -31,7 +32,6 @@ function App() {
           <Nav></Nav>
           <div className={classes.appContent}>
             <Route exact path='/' component={Home} />
-
             <Route path='/portfolio' component={Portfolio} />
             <Route path='/contact' component={Contact} />
             <Route path='/admin' component={BootLogin} />

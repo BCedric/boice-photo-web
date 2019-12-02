@@ -10,7 +10,8 @@ import { getCarouselGalleries } from 'redux/home-redux/actions'
 
 const useStyles = makeStyles({
   sliderContainer: {
-    height: '100vh'
+    height: '100vh',
+    backgroundColor: 'black'
   }
 })
 
