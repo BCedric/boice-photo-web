@@ -1,8 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { galleriesSelector, currentGallerySelector } from 'redux/admin-redux/selectors'
-import { getGalleries, setCurrentGallery, deleteGallery, putGallery } from 'redux/admin-redux/actions'
+import { getGalleries, setCurrentGallery, deleteGallery, putGallery } from 'redux/admin-redux/admin-gallery-redux/actions'
+import { galleriesSelector, currentGallerySelector } from 'redux/admin-redux/admin-gallery-redux/selectors'
 
 import AdminGalleryPictures from './AdminGalleryPictures'
 import AdminGalleryForm from './AdminGalleryForm'

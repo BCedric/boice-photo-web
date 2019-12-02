@@ -2,8 +2,9 @@ import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { Fab, Icon, FormControl, InputLabel, Select, MenuItem } from '@material-ui/core'
 
-import { galleriesSelector, currentGalleriesListSelector } from 'redux/admin-redux/selectors'
-import { addGalleryToList } from 'redux/admin-redux/actions'
+import { currentGalleriesListSelector } from 'redux/admin-redux/admin-galleries-list-redux/selectors'
+import { addGalleryToList } from 'redux/admin-redux/admin-galleries-list-redux/actions'
+import { galleriesSelector } from 'redux/admin-redux/admin-gallery-redux/selectors'
 
 import Modal from 'components/Modal'
 

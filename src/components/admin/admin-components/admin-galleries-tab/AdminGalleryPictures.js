@@ -3,8 +3,8 @@ import { connect } from 'react-redux'
 import { ListItemText } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 
-import { deletePicture, setPictureGalleryPreview } from 'redux/admin-redux/actions'
-import { currentGallerySelector } from 'redux/admin-redux/selectors'
+import { deletePicture, setPictureGalleryPreview } from 'redux/admin-redux/admin-gallery-redux/actions'
+import { currentGallerySelector } from 'redux/admin-redux/admin-gallery-redux/selectors'
 
 import config from 'config'
 import AdminAddPictureModal from './AdminAddPictureModal'

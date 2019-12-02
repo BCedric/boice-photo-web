@@ -1,11 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
+import { currentGalleriesListSelector } from 'redux/admin-redux/admin-galleries-list-redux/selectors'
+import { removeGalleryToList } from 'redux/admin-redux/admin-galleries-list-redux/actions'
+
 import EntitiesList from 'components/EntitiesList'
-import { currentGalleriesListSelector } from 'redux/admin-redux/selectors'
 import { ListItemText } from '@material-ui/core'
 import AdminAddGalleryModal from './AdminAddGalleryModal'
-import { removeGalleryToList } from 'redux/admin-redux/actions'
 
 const AdminGalleriesListGalleries = connect(
     state => ({

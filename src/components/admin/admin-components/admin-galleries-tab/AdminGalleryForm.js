@@ -3,7 +3,7 @@ import TextField from "@material-ui/core/TextField";
 import { Button } from "@material-ui/core";
 import { connect } from 'react-redux'
 
-import { putGallery, postGallery } from "redux/admin-redux/actions";
+import { putGallery, postGallery } from "redux/admin-redux/admin-gallery-redux/actions";
 import RichTextEditor from "components/RichTextEditor";
 
 const AdminGalleryForm = connect(

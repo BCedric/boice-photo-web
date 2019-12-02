@@ -2,7 +2,7 @@ import React from 'react'
 import { TextField, Button } from '@material-ui/core'
 import { connect } from 'react-redux'
 
-import { postGalleriesList, putGalleriesList } from 'redux/admin-redux/actions'
+import { postGalleriesList, putGalleriesList } from 'redux/admin-redux/admin-galleries-list-redux/actions'
 
 import AdminGalleriesListFormGallery from './AdminGalleriesListFormGallery'
 import Icon from 'components/Icon'

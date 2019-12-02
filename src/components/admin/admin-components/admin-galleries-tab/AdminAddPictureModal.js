@@ -2,7 +2,7 @@ import React from 'react'
 import { Icon, Fab } from '@material-ui/core';
 import { connect } from 'react-redux'
 
-import { addPictures } from 'redux/admin-redux/actions'
+import { addPictures } from 'redux/admin-redux/admin-gallery-redux/actions'
 import Modal from 'components/Modal';
 
 const AdminAddPictureModal = connect(

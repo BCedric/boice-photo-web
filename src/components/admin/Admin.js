@@ -5,8 +5,12 @@ import { Button, Tabs, Tab } from "@material-ui/core"
 import { makeStyles } from '@material-ui/styles'
 
 import {
-  messageSelector, uploadSizeValueSelector, progressUploadValueSelector,
-} from 'redux/admin-redux/selectors'
+  messageSelector,
+} from 'redux/admin-redux/admin-message-redux/selectors'
+import {
+  uploadSizeValueSelector,
+  progressUploadValueSelector
+} from 'redux/admin-redux/admin-progress-upload/selectors'
 import {
   updateDB,
 } from 'redux/admin-redux/actions.js'
