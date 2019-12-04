@@ -1,134 +1,139 @@
-import { connect } from 'react-redux'
-import Captcha from 'react-captcha'
 import Helmet from 'react-helmet'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { ReCaptcha, loadReCaptcha } from 'react-recaptcha-v3'
 // import Modal from 'components/Modal'
 
 import {
-  onChangeForm,
   sendEmail,
-  setResponse
 } from 'redux/contact-redux/actions'
-import {
-  formSelector,
-  responseSelector
-} from 'redux/contact-redux/selectors'
-import { TextField, Button } from '@material-ui/core'
+import { TextField, Button, CircularProgress, SnackbarContent, Snackbar } from '@material-ui/core'
+import config from 'config'
 
-const Contact = connect(
-  state => ({
-    form: formSelector(state),
-    response: responseSelector(state)
-  }),
-  dispatch => ({
-    onChangeForm: value => dispatch(onChangeForm(value)),
-    sendEmail: form => sendEmail(form)(dispatch),
-    setResponse: res => dispatch(setResponse(res))
-  })
-)(
-  class extends React.Component {
-    constructor() {
-      super()
-      this.state = { displayModal: false }
-    }
-    onChangeForm(e) {
-      this.props.onChangeForm({ [e.target.id]: e.target.value })
-    }
+function Contact() {
+  const [lastName, setLastName] = useState('')
+  const [firstName, setFirstName] = useState('')
+  const [email, setEmail] = useState('')
+  const [object, setObject] = useState('')
+  const [message, setMessage] = useState('')
+  const [isRenderingCaptcha, setIsRenderingCaptcha] = useState(false)
+  const [response, setResponse] = useState(null)
+  const [isLoading, setIsLoading] = useState(false)
 
-    isButtonEnabled() {
-      const { nom, prenom, email, message } = this.props.form
-      return nom !== undefined
-        && prenom !== undefined
-        && email !== undefined
-        && message !== undefined
-        && this.props.form['g-recaptcha-response'] !== undefined
-    }
+  useEffect(() => {
+    loadReCaptcha(config.captchaSecretKey)
+  }, [])
 
-
-    render() {
-      const { nom, prenom, email, sujet, message } = this.props.form
-      return (
-        <div>
-          <Helmet>
-            <meta charSet="utf-8" />
-            <title>Boïce Photo | Contact </title>
-          </Helmet>
-          {/* <Modal header='coucou' show={this.props.response !== undefined && this.props.response.ok}> */}
-          {/* <h1>Message envoyé</h1> */}
-          {/* <Button
-              waves='light'
-              onClick={() => this.props.setResponse(undefined)}
-            >Fermer</Button> */}
-          {/* </Modal> */}
-          <h1>Contact</h1>
-          <p>Si vous voulez m'addresser des mots doux, n'hésitez surtout pas.</p>
-          <div>
-            <div className="form-line">
-              <TextField
-                id='nom'
-                required
-                label="Nom"
-                margin="normal"
-                onChange={(e) => this.onChangeForm(e)}
-                value={nom}
-              />
-
-              <TextField
-                id='prenom'
-                required
-                label="Prénom"
-                margin="normal"
-                onChange={(e) => this.onChangeForm(e)}
-                value={prenom}
-              />
-            </div>
-            <div className="form-line">
-              <TextField
-                id='email'
-                margin="normal"
-                onChange={(e) => this.onChangeForm(e)}
-                type="email"
-                label="Email"
-                value={email}
-              />
-              <TextField
-                id='sujet'
-                margin="normal"
-                onChange={(e) => this.onChangeForm(e)}
-                label="Sujet"
-                value={sujet}
-              />
-            </div>
-          </div>
-          <div className="form-line">
-            <TextField
-              id='message'
-              className="message"
-              multiline
-              rows="5"
-              label="Message"
-              margin="normal"
-              onChange={(e) => this.onChangeForm(e)}
-              value={message}
-            />
-          </div>
-          <div className="form-line">
-
-            <Captcha
-              sitekey='6LfNfjoUAAAAAP8XWyo1-lyspeqsa1AyyydzT2-P'
-              lang='fr'
-              type='image'
-              callback={(value) => this.props.onChangeForm({ 'g-recaptcha-response': value })}
-            />
-          </div>
-          <Button
-            waves='light'
-            onClick={() => this.props.sendEmail(this.props.form)}
-            disabled={!this.isButtonEnabled()}>Envoyer</Button>
-        </div >
-      )
-    }
+  const captchaCallback = (captchaToken) => {
+    sendEmail({ lastName, firstName, email, message, object, captchaToken })
+      .then(res => {
+        setResponse(res.msg)
+        setIsRenderingCaptcha(false)
+        setIsLoading(false)
+      })
   }
-)
+
+  const isButtonEnabled = () => {
+    return lastName !== ''
+      && firstName !== ''
+      && email !== ''
+      && message !== ''
+  }
+
+  const submit = () => {
+    setIsRenderingCaptcha(true)
+    setIsLoading(true)
+  }
+
+  return (
+    <div>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Boïce Photo | Contact </title>
+      </Helmet>
+      <Snackbar
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+        open={response != null}
+        autoHideDuration={6000}
+        onClose={() => setResponse(null)}
+      >
+        <SnackbarContent
+          message={response}
+        />
+
+      </Snackbar>
+      <h1>Contact</h1>
+      <p>Si vous voulez m'addresser des mots doux, n'hésitez surtout pas.</p>
+      <div>
+        <div className="form-line">
+          <TextField
+            name='lastName'
+            required
+            label="Nom"
+            margin="normal"
+            onChange={(e) =>
+              setLastName(e.target.value)
+            }
+            value={lastName}
+          />
+
+          <TextField
+            name='firstName'
+            required
+            label="Prénom"
+            margin="normal"
+            onChange={(e) => setFirstName(e.target.value)}
+            value={firstName}
+          />
+        </div>
+        <div className="form-line">
+          <TextField
+            name='email'
+            margin="normal"
+            onChange={(e) => setEmail(e.target.value)}
+            type="email"
+            label="Email"
+            value={email}
+          />
+          <TextField
+            name='object'
+            margin="normal"
+            onChange={(e) => setObject(e.target.value)}
+            label="Sujet"
+            value={object}
+          />
+        </div>
+      </div>
+      <div className="form-line">
+        <TextField
+          name='message'
+          className="message"
+          multiline
+          rows="5"
+          label="Message"
+          margin="normal"
+          onChange={(e) => setMessage(e.target.value)}
+          value={message}
+        />
+      </div>
+      <div className="form-line">
+        {isRenderingCaptcha && <ReCaptcha
+          sitekey={config.captchaSecretKey}
+          action='submit_contact_form'
+          verifyCallback={captchaCallback}
+        />}
+      </div>
+      <div className="buttons-form-action">
+        <Button
+          waves='light'
+          onClick={() => submit()}
+          disabled={!isButtonEnabled()}>Envoyer</Button>
+      </div>
+      {isLoading && <CircularProgress />}
+    </div >
+  )
+}
 
 export default Contact
