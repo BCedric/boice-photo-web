@@ -7,11 +7,13 @@ import config from 'config'
 import Slider from 'components/Slider/Slider'
 import { carouselGalleriesSelector } from 'redux/home-redux/selectors'
 import { getCarouselGalleries } from 'redux/home-redux/actions'
+import { CircularProgress } from '@material-ui/core'
 
 const useStyles = makeStyles({
   sliderContainer: {
     height: '100vh',
-    backgroundColor: 'black'
+    backgroundColor: 'black',
+    width: '100%'
   }
 })
 
@@ -54,10 +56,16 @@ export default function Home() {
         <meta charSet="utf-8" />
         <title>Boïce Photo | Accueil </title>
       </Helmet>
-      {carouselPictures != null &&
-        <div className={sliderContainer}>
+      <div className={sliderContainer}>
+        {carouselPictures == null &&
+          <div className="loader-container">
+            <CircularProgress className="" style={{ color: 'white' }} />
+          </div>
+        }
+        {carouselPictures != null &&
           <Slider pictures={carouselPictures} />
-        </div>}
+        }
+      </div>
     </div >
   )
 }
