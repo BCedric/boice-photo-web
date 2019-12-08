@@ -55,6 +55,7 @@ export default function Home() {
       <Helmet>
         <meta charSet="utf-8" />
         <title>Boïce Photo | Accueil </title>
+        <meta name="description" content="Boïce Photo, photographies diverses et variées" />
       </Helmet>
       <div className={sliderContainer}>
         {carouselPictures == null &&

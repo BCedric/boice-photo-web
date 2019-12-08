@@ -49,6 +49,7 @@ function Contact() {
       <Helmet>
         <meta charSet="utf-8" />
         <title>Boïce Photo | Contact </title>
+        <meta name="description" content="Boïce Photo contact" />
       </Helmet>
       <Snackbar
         anchorOrigin={{

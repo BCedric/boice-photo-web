@@ -14,6 +14,7 @@ function Portfolio() {
             <Helmet>
                 <meta charSet="utf-8" />
                 <title>Boïce Photo | Photos </title>
+                <meta name="description" content="Boïce Photo, les photos" />
             </Helmet>
             <PortfolioMenu />
             <Route exact path='/portfolio' component={Gallery} />

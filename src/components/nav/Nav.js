@@ -59,7 +59,6 @@ const Nav = connect(
     fetchNavGalleries: () => fetchNavGalleries()(dispatch)
   })
 )(function Nav({ fetchNavGalleries, classes }) {
-
   useEffect(() => {
     fetchNavGalleries()
   }, [fetchNavGalleries])

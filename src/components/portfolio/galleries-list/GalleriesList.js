@@ -43,6 +43,7 @@ const GalleriesList = connect(
         <Helmet>
           <meta charSet="utf-8" />
           <title>{`Boïce Photo | ${galleriesList && galleriesList.name}`} </title>
+          <meta name="description" content={`Boïce Photo, ${galleriesList && galleriesList.name}`} />
         </Helmet>
         {galleriesList != null &&
           <div>

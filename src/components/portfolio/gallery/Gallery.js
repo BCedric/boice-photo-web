@@ -82,8 +82,8 @@ const Gallery = connect(
     <div >
       <Helmet>
         <meta charSet="utf-8" />
-        <title>Boïce Photo | {gallery && match.params.galleryId ? gallery.name : 'Vrac'}</title>
-        <link rel="canonical" href="http://mysite.com/example" />
+        <title>Boïce Photo | {gallery && match.params.galleryId ? gallery.name : 'Toutes les photos'}</title>
+        <meta name="description" content={`Boïce Photo, ${gallery && match.params.galleryId ? gallery.name : 'Toutes les photos'}`} />
       </Helmet>
       <div>
         {gallery != null &&
