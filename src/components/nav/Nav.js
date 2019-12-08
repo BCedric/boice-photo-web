@@ -35,7 +35,7 @@ const items = [
 const styles = ({ palette }) => ({
   logo: {
     margin: '10px',
-    width: '150px',
+    height: '150px',
     textDecoration: 'none'
   },
   menu: {

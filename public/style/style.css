@@ -1,0 +1,8 @@
+@font-face {
+  font-family: 'Gilberto';
+  src: local('Gilberto'), 
+        url(./font/gilberto-webfont.woff2) format('woff2'),
+        url(./font/gilberto-webfont.woff) format('woff'),
+        url(./font/Gilberto.ttf) format('truetype');
+  font-display: block;
+}
