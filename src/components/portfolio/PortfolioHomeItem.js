@@ -22,7 +22,7 @@ const useStyles = makeStyles({
             boxShadow: '0px 2px 4px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12)',
             zIndex: '100',
             transform: 'scale(1.1, 1.1)',
-            opacity: '1.5',
+            opacity: '1',
             transition: 'opacity 0.5s, transform 0.5s, box-shadow 0.5',
         }
     }
@@ -39,7 +39,7 @@ function PortfolioHomeItem({ gallery, imgLoaded }) {
         }
         imgTemp.src = gallery.src
         setImg(imgTemp)
-    }, [gallery.src, imgLoaded])
+    }, [gallery])
 
     return (
         <MyLink className={`unselectable clickable ${link}`}

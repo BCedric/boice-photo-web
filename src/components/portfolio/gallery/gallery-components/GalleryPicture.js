@@ -4,7 +4,15 @@ import { makeStyles } from '@material-ui/styles';
 
 const useStyles = makeStyles({
     imgLoading: {
-        display: 'none'
+        opacity: '0 !important',
+        transition: 'opacity 0.5s',
+        height: '0px',
+        margin: '0 !important'
+
+    },
+    imgLoaded: {
+        opacity: '1',
+        transition: 'opacity 0.5s'
     }
 })
 
@@ -21,18 +29,19 @@ function GalleryPicture({ picture, onClick }) {
 
     return (
         <div>
+            {/* <button onClick={() => setIsLoading(false)} >clcik</button> */}
             {isLoading &&
                 <div className="loader-container" style={{ width, margin: `0 ${margin}px`, height, padding: '0' }}>
                     <CircularProgress />
                 </div>
             }
             <img
-                className={`clickable ${isLoading && classes.imgLoading}`}
+                className={`clickable  ${isLoading ? classes.imgLoading : classes.imgLoaded}`}
                 alt={picture.index}
                 onClick={() => onClick(picture)}
                 onLoad={() => onLoadPicture()}
                 src={picture.key}
-                style={{ width, margin: `0 ${margin}px` }} />
+                style={{ width, margin: `0 ${margin}px`, height }} />
         </div>
     )
 }

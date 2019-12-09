@@ -26,11 +26,9 @@ class PortfolioHomeItems extends React.Component {
         this.setState({ imgsLoaded: imgsLoadedTemp })
     }
 
-    everyImgsLoaded = () => {
-        const { imgsLoaded } = this.state
+    everyImgsLoaded = () =>
+        this.state.imgsLoaded.every(loaded => loaded === true)
 
-        return imgsLoaded.every(loaded => loaded === true)
-    }
 
     render() {
         const { classes, galleries } = this.props
