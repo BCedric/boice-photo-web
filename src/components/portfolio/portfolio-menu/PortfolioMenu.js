@@ -22,12 +22,14 @@ function PortfolioMenu(props) {
         fetchNavGalleries()(dispatch)
     }, [dispatch])
 
+    const { toolbar } = useStyles()
+
     const matches = [
         useRouteMatch({
             path: '/portfolio/gallerieslist/:galleriesListId',
         }),
         useRouteMatch({
-            path: '/portfolio',
+            path: '/portfolio/all',
             exact: true
         }),
         useRouteMatch({
@@ -63,11 +65,10 @@ function PortfolioMenu(props) {
     return (
         <div>
             <AppBar className='navbar' position="static">
-                <Toolbar>
-                    {getNavItem({ nameItem: 'Toutes', route: '/portfolio' })}
+                <Toolbar className={toolbar}>
                     {navGalleries != null && mapGalleries(navGalleries.galleriesLists, 'gallerieslist')}
                     {navGalleries != null && mapGalleries(navGalleries.galleries, 'gallery')}
-                    {/* <NavBarGalleries {...this.props} className='fade' /> */}
+                    {getNavItem({ nameItem: 'Toutes', route: '/portfolio/all' })}
                 </Toolbar>
             </AppBar>
         </div>
