@@ -39,7 +39,7 @@ function PortfolioHomeItem({ gallery, imgLoaded }) {
         }
         imgTemp.src = gallery.src
         setImg(imgTemp)
-    }, [])
+    }, [gallery.src, imgLoaded])
 
     return (
         <MyLink className={`unselectable clickable ${link}`}

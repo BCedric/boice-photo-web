@@ -1,16 +1,9 @@
-import React, { useEffect } from 'react'
-import { connect } from 'react-redux'
+import React from 'react'
 import {
   Link
 } from 'react-router-dom'
 import { makeStyles } from '@material-ui/styles'
 
-import {
-  fetchNavGalleries,
-} from 'redux/nav-redux/actions'
-import {
-  navGalleriesSelector
-} from 'redux/nav-redux/selectors'
 import { useRouteMatch } from "react-router";
 
 import logo from '../styles/img/logo.png'
