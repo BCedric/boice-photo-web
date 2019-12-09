@@ -38,7 +38,7 @@ const useStyles = makeStyles(({ palette }) => ({
     flexShrink: '0',
     display: 'flex',
     flexDirection: 'column',
-    minHeight: '100vh'
+    minHeight: '100%',
   },
 }))
 

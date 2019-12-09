@@ -29,7 +29,6 @@ function GalleryPicture({ picture, onClick }) {
 
     return (
         <div>
-            {/* <button onClick={() => setIsLoading(false)} >clcik</button> */}
             {isLoading &&
                 <div className="loader-container" style={{ width, margin: `0 ${margin}px`, height, padding: '0' }}>
                     <CircularProgress />
