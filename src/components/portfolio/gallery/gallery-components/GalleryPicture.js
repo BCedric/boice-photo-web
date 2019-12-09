@@ -22,7 +22,7 @@ function GalleryPicture({ picture, onClick }) {
     return (
         <div>
             {isLoading &&
-                <div className="loader-container" style={{ width, margin: `0 ${margin}px`, height }}>
+                <div className="loader-container" style={{ width, margin: `0 ${margin}px`, height, padding: '0' }}>
                     <CircularProgress />
                 </div>
             }
@@ -32,7 +32,7 @@ function GalleryPicture({ picture, onClick }) {
                 onClick={() => onClick(picture)}
                 onLoad={() => onLoadPicture()}
                 src={picture.key}
-                style={{ width, margin: `0 ${picture.margin}px` }} />
+                style={{ width, margin: `0 ${margin}px` }} />
         </div>
     )
 }
