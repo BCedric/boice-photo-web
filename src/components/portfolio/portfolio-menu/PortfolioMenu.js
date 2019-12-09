@@ -2,11 +2,18 @@ import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useRouteMatch } from "react-router";
 import { Toolbar, AppBar } from '@material-ui/core'
+import { makeStyles } from '@material-ui/styles';
 import { upperFirst } from 'lodash'
 
 import { navGalleriesSelector } from 'redux/nav-redux/selectors'
 import { fetchNavGalleries } from 'redux/nav-redux/actions'
 import PortfolioMenuItem from './PortfolioMenuItem'
+
+const useStyles = makeStyles({
+    toolbar: {
+        alignItems: 'stretch'
+    }
+})
 
 function PortfolioMenu(props) {
     const navGalleries = useSelector(navGalleriesSelector)
