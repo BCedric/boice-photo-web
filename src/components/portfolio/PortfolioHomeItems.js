@@ -8,7 +8,8 @@ const styles = {
         display: 'flex',
         flexWrap: 'wrap',
         justifyContent: 'center',
-        padding: '1em'
+        padding: '1em',
+
     }
 }
 
@@ -41,7 +42,7 @@ class PortfolioHomeItems extends React.Component {
                         <CircularProgress />
                     </div>
                 }
-                <div className={classes.container} style={{ visibility: this.everyImgsLoaded() ? 'visible' : 'hidden' }}>
+                <div className={classes.container} style={{ opacity: this.everyImgsLoaded() ? '1' : '0', transition: 'opacity 0.5s' }}>
                     {galleries.map((gallery, index) =>
                         <PortfolioHomeItem key={index} gallery={gallery} imgLoaded={() => this.imgLoaded(index)} />
                     )}
