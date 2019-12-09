@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import {
   Link
 } from 'react-router-dom'
+import { makeStyles } from '@material-ui/styles'
 
 import {
   fetchNavGalleries,
@@ -14,7 +15,6 @@ import { useRouteMatch } from "react-router";
 
 import logo from '../styles/img/logo.png'
 
-import { withStyles } from '@material-ui/styles'
 import NavItemComp from './nav-components/NavItemComp'
 
 const items = [
@@ -32,7 +32,7 @@ const items = [
   }
 ]
 
-const styles = ({ palette }) => ({
+const useStyles = makeStyles(({ palette }) => ({
   logo: {
     margin: '10px',
     height: '150px',
@@ -47,21 +47,10 @@ const styles = ({ palette }) => ({
     flexDirection: 'column',
     minHeight: '100vh'
   },
-})
+}))
 
-const Nav = connect(
-  state => {
-    return {
-      navGalleries: navGalleriesSelector(state)
-    }
-  },
-  dispatch => ({
-    fetchNavGalleries: () => fetchNavGalleries()(dispatch)
-  })
-)(function Nav({ fetchNavGalleries, classes }) {
-  useEffect(() => {
-    fetchNavGalleries()
-  }, [fetchNavGalleries])
+function Nav() {
+  const classes = useStyles()
 
   const matches = [
     useRouteMatch({
@@ -99,7 +88,7 @@ const Nav = connect(
       {items.map((item, index) => getNavItem(item, index))}
     </div>
   )
-})
+}
 
 
-export default withStyles(styles)(Nav)
+export default Nav

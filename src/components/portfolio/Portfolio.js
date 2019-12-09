@@ -4,6 +4,7 @@ import {
     Route
 } from 'react-router-dom'
 
+import PortfolioHome from './PortfolioHome'
 import PortfolioMenu from './portfolio-menu/PortfolioMenu'
 import Gallery from './gallery/Gallery'
 import GalleriesList from './galleries-list/GalleriesList'
@@ -17,7 +18,8 @@ function Portfolio() {
                 <meta name="description" content="Boïce Photo, les photos" />
             </Helmet>
             <PortfolioMenu />
-            <Route exact path='/portfolio' component={Gallery} />
+            <Route exact path='/portfolio' component={PortfolioHome} />
+            <Route  path='/portfolio/all' component={Gallery} />
             <Route path='/portfolio/gallery/:galleryId' component={Gallery} />
             <Route exact path='/portfolio/gallerieslist/:galleriesList' component={GalleriesList} />
             <Route path='/portfolio/gallerieslist/:galleriesListId/gallery/:galleryId' component={Gallery} />
