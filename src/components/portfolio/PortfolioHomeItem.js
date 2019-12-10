@@ -12,7 +12,7 @@ const useStyles = makeStyles({
         margin: '0.5em',
         width: '600px',
         height: '300px',
-        fontFamily: 'Gilberto',
+        fontFamily: 'BiGPoiNts',
         fontSize: '3em',
         color: 'white',
         textDecoration: 'none',

@@ -10,7 +10,7 @@ import { white } from 'material-ui/styles/colors'
 const useStyles = makeStyles(theme => {
   return {
     'link': {
-      fontFamily: 'Gilberto',
+      fontFamily: 'BiGPoiNts',
       display: 'flex',
       justifyContent: 'center',
       padding: '0.2em',

@@ -1,15 +1,14 @@
 @font-face {
-  font-family: 'Gilberto';
-  src: local('Gilberto'), 
-        url(./font/gilberto-webfont.woff2) format('woff2'),
-        url(./font/gilberto-webfont.woff) format('woff'),
-        url(./font/Gilberto.ttf) format('truetype');
-  font-display: block;
-}
-
-@font-face {
   font-family: 'coolvetica';
   src: local('coolvetica'), 
         url(./font/coolvetica.ttf) format('truetype');
   font-display: block;
 }
+
+@font-face {
+  font-family: 'BiGPoiNts';
+  src: local('BiGPoiNts'), 
+        url(./font/BiGPoiNts.otf) format('opentype');
+  font-display: block;
+}
+

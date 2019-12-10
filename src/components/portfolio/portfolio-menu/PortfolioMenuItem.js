@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => {
       alignItems: 'center',
       textDecoration: 'none',
       transition: 'background-color 0.3s',
-      fontFamily: 'Gilberto',
+      fontFamily: 'BiGPoiNts',
       fontSize: '2em',
       '&:hover': {
         transition: 'background-color 0.3s',
