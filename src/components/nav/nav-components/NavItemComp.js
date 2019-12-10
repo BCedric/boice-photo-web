@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => {
       alignItems: 'center',
       textDecoration: 'none',
       transition: 'border-color 0.5s',
-      fontSize: '4.5em',
+      fontSize: '4em',
       '&:hover::before, &:hover::after': {
         width: '100%',
         height: '100%'

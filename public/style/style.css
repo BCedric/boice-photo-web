@@ -6,3 +6,10 @@
         url(./font/Gilberto.ttf) format('truetype');
   font-display: block;
 }
+
+@font-face {
+  font-family: 'coolvetica';
+  src: local('coolvetica'), 
+        url(./font/coolvetica.ttf) format('truetype');
+  font-display: block;
+}

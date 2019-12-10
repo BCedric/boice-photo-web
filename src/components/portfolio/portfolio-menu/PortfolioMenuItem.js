@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => {
       textDecoration: 'none',
       transition: 'background-color 0.3s',
       fontFamily: 'Gilberto',
-      fontSize: '3em',
+      fontSize: '2em',
       '&:hover': {
         transition: 'background-color 0.3s',
         backgroundColor: theme.palette.primary.light

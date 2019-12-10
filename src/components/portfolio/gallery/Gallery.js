@@ -27,6 +27,14 @@ const useStyles = makeStyles({
   picturesContainer: {
     width: '95%',
     margin: 'auto'
+  },
+  galleryDescriptionContainer: {
+    display: 'flex',
+    justifyContent: 'center'
+  },
+  galleryDescription: {
+    marginTop: '0',
+    width: '60%',
   }
 })
 
@@ -94,7 +102,9 @@ const Gallery = connect(
               <h1>
                 {gallery.name}
               </h1>
-              <div className="paragraph" dangerouslySetInnerHTML={{ __html: gallery.description }} />
+              <div className={classes.galleryDescriptionContainer}>
+                <div className={`paragraph ${classes.galleryDescription}`} dangerouslySetInnerHTML={{ __html: gallery.description }} />
+              </div>
               <div className={classes.picturesContainer}>
                 <PicturesList className='gallery' renderImage={(picture) => imageRenderer(picture)} photos={picturesForList} columns={4} onClick={openLightbox} >LOADING</PicturesList>
               </div>
