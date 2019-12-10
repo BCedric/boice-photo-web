@@ -12,6 +12,9 @@ import PortfolioMenuItem from './PortfolioMenuItem'
 const useStyles = makeStyles({
     toolbar: {
         alignItems: 'stretch'
+    },
+    defaultMenu: {
+        minHeight: '64px'
     }
 })
 
@@ -22,7 +25,7 @@ function PortfolioMenu(props) {
         fetchNavGalleries()(dispatch)
     }, [dispatch])
 
-    const { toolbar } = useStyles()
+    const { toolbar, defaultMenu } = useStyles()
 
     const matches = [
         useRouteMatch({
@@ -63,14 +66,17 @@ function PortfolioMenu(props) {
     }
 
     return (
-        <div>
-            <AppBar className='navbar' position="static">
-                <Toolbar className={toolbar}>
-                    {navGalleries != null && mapGalleries(navGalleries.galleriesLists, 'gallerieslist')}
-                    {navGalleries != null && mapGalleries(navGalleries.galleries, 'gallery')}
-                    {getNavItem({ nameItem: 'Toutes', route: '/portfolio/all' })}
-                </Toolbar>
-            </AppBar>
+
+        <div className={defaultMenu}>
+            {navGalleries != null &&
+                <AppBar className='navbar' position="static">
+                    <Toolbar className={toolbar}>
+                        {navGalleries != null && mapGalleries(navGalleries.galleriesLists, 'gallerieslist')}
+                        {navGalleries != null && mapGalleries(navGalleries.galleries, 'gallery')}
+                        {getNavItem({ nameItem: 'Toutes', route: '/portfolio/all' })}
+                    </Toolbar>
+                </AppBar>
+            }
         </div>
     )
 }
