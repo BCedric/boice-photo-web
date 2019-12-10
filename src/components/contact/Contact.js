@@ -67,7 +67,7 @@ function Contact() {
       </Snackbar>
       <Fade>
         <h1>Contact</h1>
-        <p>Si vous voulez m'addresser des mots doux, n'hésitez surtout pas.</p>
+        <p>Si vous voulez m'adresser des mots doux, n'hésitez surtout pas.</p>
         <div>
           <div className="form-line">
             <TextField
