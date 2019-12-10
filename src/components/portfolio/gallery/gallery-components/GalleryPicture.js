@@ -1,20 +1,6 @@
 import React, { useState } from 'react'
 import { CircularProgress } from '@material-ui/core';
-import { makeStyles } from '@material-ui/styles';
-
-const useStyles = makeStyles({
-    imgLoading: {
-        opacity: '0 !important',
-        transition: 'opacity 0.5s',
-        height: '0px',
-        margin: '0 !important'
-
-    },
-    imgLoaded: {
-        opacity: '1',
-        transition: 'opacity 0.5s'
-    }
-})
+import Fade from 'components/Fade';
 
 function GalleryPicture({ picture, onClick }) {
     const [isLoading, setIsLoading] = useState(true)
@@ -25,8 +11,6 @@ function GalleryPicture({ picture, onClick }) {
         setIsLoading(false)
     }
 
-    const classes = useStyles()
-
     return (
         <div>
             {isLoading &&
@@ -34,13 +18,14 @@ function GalleryPicture({ picture, onClick }) {
                     <CircularProgress />
                 </div>
             }
-            <img
-                className={`clickable  ${isLoading ? classes.imgLoading : classes.imgLoaded}`}
-                alt={picture.index}
-                onClick={() => onClick(picture)}
-                onLoad={() => onLoadPicture()}
-                src={picture.key}
-                style={{ width, margin: `0 ${margin}px`, height }} />
+            <Fade show={!isLoading} className="clickable">
+                <img
+                    alt={picture.index}
+                    onClick={() => onClick(picture)}
+                    onLoad={() => onLoadPicture()}
+                    src={picture.key}
+                    style={{ width, margin: `0 ${margin}px`, height }} />
+            </Fade>
         </div>
     )
 }

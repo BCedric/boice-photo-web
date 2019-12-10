@@ -21,6 +21,7 @@ import GalleryLightbox from './gallery-components/GalleryLightbox'
 
 import GalleryPicture from './gallery-components/GalleryPicture'
 import config from 'config'
+import Fade from 'components/Fade'
 
 const useStyles = makeStyles({
   picturesContainer: {
@@ -86,18 +87,21 @@ const Gallery = connect(
         <meta name="description" content={`Boïce Photo, ${gallery && match.params.galleryId ? gallery.name : 'Toutes les photos'}`} />
       </Helmet>
       <div>
-        {gallery != null &&
-          <div >
-            <h1>
-              {gallery.name}
-            </h1>
-            <div className="paragraph" dangerouslySetInnerHTML={{ __html: gallery.description }} />
-            <div className={classes.picturesContainer}>
-              <PicturesList className='gallery' renderImage={(picture) => imageRenderer(picture)} photos={picturesForList} columns={4} onClick={openLightbox} >LOADING</PicturesList>
+        <div style={{ height: '20px' }}>{isFetching}</div>
+        <Fade show={!isFetching && gallery != null}>
+          {gallery != null &&
+            <div >
+              <h1>
+                {gallery.name}
+              </h1>
+              <div className="paragraph" dangerouslySetInnerHTML={{ __html: gallery.description }} />
+              <div className={classes.picturesContainer}>
+                <PicturesList className='gallery' renderImage={(picture) => imageRenderer(picture)} photos={picturesForList} columns={4} onClick={openLightbox} >LOADING</PicturesList>
+              </div>
+              <GalleryLightbox pictures={picturesForList} pictureIndex={currentImage} setCurrentPicture={setCurrentPictureIndex} />
             </div>
-            <GalleryLightbox pictures={picturesForList} pictureIndex={currentImage} setCurrentPicture={setCurrentPictureIndex} />
-          </div>
-        }
+          }
+        </Fade>
         {isFetching && <div className="loader-container">
           <CircularProgress size={100} />
         </div>}

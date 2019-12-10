@@ -2,6 +2,7 @@ import React from 'react'
 import { withStyles } from '@material-ui/styles'
 import PortfolioHomeItem from './PortfolioHomeItem'
 import { CircularProgress } from '@material-ui/core'
+import Fade from 'components/Fade'
 
 const styles = {
     container: {
@@ -9,7 +10,6 @@ const styles = {
         flexWrap: 'wrap',
         justifyContent: 'center',
         padding: '1em',
-
     }
 }
 
@@ -40,11 +40,11 @@ class PortfolioHomeItems extends React.Component {
                         <CircularProgress />
                     </div>
                 }
-                <div className={classes.container} style={{ opacity: this.everyImgsLoaded() ? '1' : '0', transition: 'opacity 0.5s' }}>
+                <Fade className={classes.container} show={this.everyImgsLoaded()}>
                     {galleries.map((gallery, index) =>
                         <PortfolioHomeItem key={index} gallery={gallery} imgLoaded={() => this.imgLoaded(index)} />
                     )}
-                </div>
+                </Fade>
 
             </div>
         )
