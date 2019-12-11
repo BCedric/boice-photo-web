@@ -1,15 +1,8 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { TextField, Button } from '@material-ui/core'
-import { makeStyles } from '@material-ui/styles'
 
 import { login } from 'redux/login-redux/actions'
-
-const useStyles = makeStyles({
-    loginForm: {
-        width: '450px'
-    }
-})
 
 const Login = connect(
     state => ({}),
@@ -20,7 +13,6 @@ const Login = connect(
     function (props) {
         const [login, setLogin] = useState('')
         const [password, setPassword] = useState('')
-        const classes = useStyles()
 
         const onLoginChange = (event) => {
             setLogin(event.target.value)
@@ -36,9 +28,9 @@ const Login = connect(
         }
 
         return (
-            <div >
+            <div className="login">
                 <h1>Login</h1>
-                <form className={classes.loginForm} onSubmit={(event) => submit(event)}>
+                <form className="login-form" onSubmit={(event) => submit(event)}>
                     <div className="form-line">
                         <TextField
                             label="Login"

@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import Helmet from 'react-helmet'
 import { Button, Tabs, Tab } from "@material-ui/core"
-import { makeStyles } from '@material-ui/styles'
 
 import {
   messageSelector,
@@ -19,12 +18,6 @@ import { logout } from 'redux/login-redux/actions'
 import AdminGalleries from './admin-components/admin-galleries-tab/AdminGalleries'
 import AdminGalleriesLists from './admin-components/admin-galleries-lists-tab/AdminGalleriesLists'
 import ProgressBar from 'components/ProgressBar'
-
-const useStyles = makeStyles({
-  tabs: {
-    margin: '0.5em'
-  }
-})
 
 function TabPanel(props) {
   const { children, value, index } = props;
@@ -55,7 +48,6 @@ const Admin = connect(
 )(
   function ({ logout, message, updateDB, uploadSizeValue, progressUploadValue }) {
     const [value, setValue] = useState(0)
-    const { tabs } = useStyles()
     const handleChange = (event, value) => {
       setValue(value)
     }
@@ -66,7 +58,7 @@ const Admin = connect(
     }
 
     return (
-      <div className={tabs}>
+      <div className="admin">
         <Helmet>
           <meta charSet="utf-8" />
           <title>Boïce Photo | Admin </title>

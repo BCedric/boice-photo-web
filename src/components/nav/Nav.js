@@ -1,14 +1,10 @@
 import React from 'react'
-import {
-  Link
-} from 'react-router-dom'
-import { makeStyles } from '@material-ui/styles'
-
 import { useRouteMatch } from "react-router";
 
 import logo from '../styles/img/logo.png'
 
 import NavItemComp from './nav-components/NavItemComp'
+import MyLink from 'components/MyLink';
 
 const items = [
   {
@@ -25,26 +21,7 @@ const items = [
   }
 ]
 
-const useStyles = makeStyles(({ palette }) => ({
-  logo: {
-    margin: '10px',
-    height: '150px',
-    textDecoration: 'none'
-  },
-  menu: {
-    position: 'fixed',
-    width: '250px',
-    backgroundColor: palette.primary.main,
-    flexShrink: '0',
-    display: 'flex',
-    flexDirection: 'column',
-    minHeight: '100%',
-  },
-}))
-
 function Nav() {
-  const classes = useStyles()
-
   const matches = [
     useRouteMatch({
       path: '/',
@@ -57,8 +34,6 @@ function Nav() {
       path: '/contact'
     })
   ]
-
-
 
   const getNavItem = (item, index) => {
     const isActive = matches.some(match => match != null && match.url === item.route)
@@ -73,11 +48,11 @@ function Nav() {
 
   return (
     <div
-      className={classes.menu}
+      className="nav"
     >
-      <Link to='/' className="unselectable">
-        <img className={`${classes.logo} unselectable`} src={logo} alt='logo' />
-      </Link>
+      <MyLink to='/' className="unselectable">
+        <img className="nav-logo unselectable" src={logo} alt='logo' />
+      </MyLink>
       {items.map((item, index) => getNavItem(item, index))}
     </div>
   )

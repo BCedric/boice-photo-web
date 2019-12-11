@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import Helmet from 'react-helmet'
 import { connect } from 'react-redux'
 import { default as PicturesList } from 'react-photo-gallery'
-import { makeStyles } from '@material-ui/styles'
 import { CircularProgress } from '@material-ui/core'
 
 import {
@@ -22,21 +21,6 @@ import GalleryLightbox from './gallery-components/GalleryLightbox'
 import GalleryPicture from './gallery-components/GalleryPicture'
 import config from 'config'
 import Fade from 'components/Fade'
-
-const useStyles = makeStyles({
-  picturesContainer: {
-    width: '95%',
-    margin: 'auto'
-  },
-  galleryDescriptionContainer: {
-    display: 'flex',
-    justifyContent: 'center'
-  },
-  galleryDescription: {
-    marginTop: '0',
-    width: '60%',
-  }
-})
 
 const Gallery = connect(
   state => {
@@ -64,8 +48,6 @@ const Gallery = connect(
   pictures,
   match,
 }) {
-  const classes = useStyles()
-
   useEffect(() => {
     addGalleryPictures(null)
     getPictures(match.params.galleryId)
@@ -88,7 +70,7 @@ const Gallery = connect(
   const picturesForList = gallery != null && pictures.map(picture => ({ src: `${config.addressServer}${picture.addr}`, width: picture.width, height: picture.height }))
 
   return (
-    <div >
+    <div className="gallery">
       <Helmet>
         <meta charSet="utf-8" />
         <title>Boïce Photo | {gallery && match.params.galleryId ? gallery.name : 'Toutes les photos'}</title>
@@ -102,11 +84,13 @@ const Gallery = connect(
               <h1>
                 {gallery.name}
               </h1>
-              <div className={classes.galleryDescriptionContainer}>
-                <div className={`paragraph ${classes.galleryDescription}`} dangerouslySetInnerHTML={{ __html: gallery.description }} />
+              <div className="centered-h">
+                <div className="paragraph gallery-description" dangerouslySetInnerHTML={{ __html: gallery.description }} />
               </div>
-              <div className={classes.picturesContainer}>
-                <PicturesList className='gallery' renderImage={(picture) => imageRenderer(picture)} photos={picturesForList} columns={4} onClick={openLightbox} >LOADING</PicturesList>
+              <div className="centered-h">
+                <div className="gallery-pictures-container">
+                  <PicturesList renderImage={(picture) => imageRenderer(picture)} photos={picturesForList} columns={4} onClick={openLightbox} >LOADING</PicturesList>
+                </div>
               </div>
               <GalleryLightbox pictures={picturesForList} pictureIndex={currentImage} setCurrentPicture={setCurrentPictureIndex} />
             </div>

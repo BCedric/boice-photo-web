@@ -6,9 +6,7 @@ import Fade from 'components/Fade'
 
 const styles = {
     container: {
-        display: 'flex',
         flexWrap: 'wrap',
-        justifyContent: 'center',
         padding: '1em',
     }
 }
@@ -40,7 +38,7 @@ class PortfolioHomeItems extends React.Component {
                         <CircularProgress />
                     </div>
                 }
-                <Fade className={classes.container} show={this.everyImgsLoaded()}>
+                <Fade className={`centered-h ${classes.container}`} show={this.everyImgsLoaded()}>
                     {galleries.map((gallery, index) =>
                         <PortfolioHomeItem key={index} gallery={gallery} imgLoaded={() => this.imgLoaded(index)} />
                     )}

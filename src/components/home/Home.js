@@ -1,21 +1,12 @@
 import React, { useEffect, useCallback } from 'react'
 import Helmet from 'react-helmet'
 import { useSelector, useDispatch } from 'react-redux'
-import { makeStyles } from '@material-ui/styles'
 
 import config from 'config'
 import Slider from 'components/Slider/Slider'
 import { carouselGalleriesSelector } from 'redux/home-redux/selectors'
 import { getCarouselGalleries } from 'redux/home-redux/actions'
 import { CircularProgress } from '@material-ui/core'
-
-const useStyles = makeStyles({
-  sliderContainer: {
-    height: '100vh',
-    backgroundColor: 'black',
-    width: '100%'
-  }
-})
 
 export default function Home() {
   const dispatch = useDispatch()
@@ -43,8 +34,6 @@ export default function Home() {
       return null
     })
 
-  const { sliderContainer } = useStyles()
-
   useEffect(() => {
     fetchCarouselGalleries()
   }, [fetchCarouselGalleries])
@@ -57,7 +46,7 @@ export default function Home() {
         <title>Boïce Photo | Accueil </title>
         <meta name="description" content="Boïce Photo, photographies diverses et variées" />
       </Helmet>
-      <div className={sliderContainer}>
+      <div className="slider-container">
         {carouselPictures == null &&
           <div className="loader-container">
             <CircularProgress className="" style={{ color: 'white' }} />

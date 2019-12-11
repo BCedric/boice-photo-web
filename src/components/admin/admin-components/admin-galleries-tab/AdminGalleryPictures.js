@@ -1,7 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { ListItemText } from '@material-ui/core'
-import { makeStyles } from '@material-ui/styles'
 
 import { deletePicture, setPictureGalleryPreview } from 'redux/admin-redux/admin-gallery-redux/actions'
 import { currentGallerySelector } from 'redux/admin-redux/admin-gallery-redux/selectors'
@@ -9,17 +8,6 @@ import { currentGallerySelector } from 'redux/admin-redux/admin-gallery-redux/se
 import config from 'config'
 import AdminAddPictureModal from './AdminAddPictureModal'
 import EntitiesList from 'components/EntitiesList'
-
-const useStyles = makeStyles({
-    listItemContent: {
-        display: 'flex',
-        alignItems: 'center'
-    },
-    entityImg: {
-        marginRight: '0.5em',
-        width: '8em'
-    }
-})
 
 const AdminGalleryPictures = connect(
     state => ({
@@ -32,7 +20,6 @@ const AdminGalleryPictures = connect(
 )(
     function ({ gallery, deletePicture, setPictureGalleryPreview }) {
         const pictures = gallery != null && gallery.pictures
-        const { listItemContent, entityImg } = useStyles()
 
         const actions = [
             {
@@ -56,8 +43,8 @@ const AdminGalleryPictures = connect(
                     renderEntity={entity => (
                         <div className="entity-content" >
                             <ListItemText >
-                                <div className={listItemContent}>
-                                    <img className={entityImg} alt={entity.name} src={`${config.addressServer}${entity.addr}`} />
+                                <div className='centered-v'>
+                                    <img className="admin-gallery-picture" alt={entity.name} src={`${config.addressServer}${entity.addr}`} />
                                     <span>{entity.name}</span>
                                 </div>
                             </ListItemText>

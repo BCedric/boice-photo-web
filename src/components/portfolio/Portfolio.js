@@ -11,7 +11,7 @@ import GalleriesList from './galleries-list/GalleriesList'
 
 function Portfolio() {
     return (
-        <div>
+        <div className="portfolio">
             <Helmet>
                 <meta charSet="utf-8" />
                 <title>Boïce Photo | Photos </title>
@@ -19,7 +19,7 @@ function Portfolio() {
             </Helmet>
             <PortfolioMenu />
             <Route exact path='/portfolio' component={PortfolioHome} />
-            <Route  path='/portfolio/all' component={Gallery} />
+            <Route path='/portfolio/all' component={Gallery} />
             <Route path='/portfolio/gallery/:galleryId' component={Gallery} />
             <Route exact path='/portfolio/gallerieslist/:galleriesList' component={GalleriesList} />
             <Route path='/portfolio/gallerieslist/:galleriesListId/gallery/:galleryId' component={Gallery} />

@@ -2,7 +2,6 @@ import { connect } from 'react-redux'
 import React, { useEffect } from 'react'
 import Helmet from 'react-helmet'
 import { upperFirst } from 'lodash'
-import { makeStyles } from '@material-ui/styles'
 
 import {
   isFetchingSelector,
@@ -13,13 +12,6 @@ import {
 } from 'redux/galleries-list-redux/actions'
 
 import GalleryListItem from './gallery-list-components/GalleryListItem'
-
-const useStyles = makeStyles({
-  galleryListContainer: {
-    display: 'flex',
-    justifyContent: 'center'
-  }
-})
 
 const GalleriesList = connect(
   state => ({
@@ -36,10 +28,9 @@ const GalleriesList = connect(
       fetchGalleriesList(match.params.galleriesList)
       return () => setGalleriesListObject(null)
     }, [match.params.galleriesList, fetchGalleriesList, setGalleriesListObject])
-    const { galleryListContainer } = useStyles()
 
     return (
-      <div>
+      <div className="galleries-list">
         <Helmet>
           <meta charSet="utf-8" />
           <title>{`Boïce Photo | ${galleriesList && galleriesList.name}`} </title>
@@ -51,7 +42,7 @@ const GalleriesList = connect(
               {upperFirst(galleriesList.name)}
             </h1>
             <p>{galleriesList.description}</p>
-            <div className={galleryListContainer}>
+            <div className='centered-h'>
               {galleriesList.galleries.map(
                 (gallery, index) => <GalleryListItem {...gallery} galleriesListId={galleriesList.id} key={index} />
               )}

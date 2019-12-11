@@ -1,22 +1,11 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useRouteMatch } from "react-router";
-import { Toolbar, AppBar } from '@material-ui/core'
-import { makeStyles } from '@material-ui/styles';
 import { upperFirst } from 'lodash'
 
 import { navGalleriesSelector } from 'redux/nav-redux/selectors'
 import { fetchNavGalleries } from 'redux/nav-redux/actions'
 import PortfolioMenuItem from './PortfolioMenuItem'
-
-const useStyles = makeStyles({
-    toolbar: {
-        alignItems: 'stretch'
-    },
-    defaultMenu: {
-        minHeight: '64px'
-    }
-})
 
 function PortfolioMenu(props) {
     const navGalleries = useSelector(navGalleriesSelector)
@@ -24,8 +13,6 @@ function PortfolioMenu(props) {
     useEffect(() => {
         fetchNavGalleries()(dispatch)
     }, [dispatch])
-
-    const { toolbar, defaultMenu } = useStyles()
 
     const matches = [
         useRouteMatch({
@@ -67,15 +54,15 @@ function PortfolioMenu(props) {
 
     return (
 
-        <div className={defaultMenu}>
+        <div className="default-navbar">
             {navGalleries != null &&
-                <AppBar className='navbar' position="static">
-                    <Toolbar className={toolbar}>
+                <div className='navbar' position="static">
+                    <div className='toolbar'>
                         {navGalleries != null && mapGalleries(navGalleries.galleriesLists, 'gallerieslist')}
                         {navGalleries != null && mapGalleries(navGalleries.galleries, 'gallery')}
                         {getNavItem({ nameItem: 'Toutes', route: '/portfolio/all' })}
-                    </Toolbar>
-                </AppBar>
+                    </div>
+                </div>
             }
         </div>
     )
