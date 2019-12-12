@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import Helmet from 'react-helmet'
 import { Button, Tabs, Tab } from "@material-ui/core"
@@ -13,7 +13,7 @@ import {
 import {
   updateDB,
 } from 'redux/admin-redux/actions.js'
-import { logout } from 'redux/login-redux/actions'
+import { logout, refreshToken } from 'redux/login-redux/actions'
 
 import AdminGalleries from './admin-components/admin-galleries-tab/AdminGalleries'
 import AdminGalleriesLists from './admin-components/admin-galleries-lists-tab/AdminGalleriesLists'
@@ -42,15 +42,21 @@ const Admin = connect(
   dispatch => {
     return {
       updateDB: () => updateDB()(dispatch),
-      logout: (user) => logout(user)(dispatch)
+      logout: (user) => logout(user)(dispatch),
+      refreshToken: () => refreshToken()(dispatch)
     }
   }
 )(
-  function ({ logout, message, updateDB, uploadSizeValue, progressUploadValue }) {
+  function ({ logout, message, updateDB, uploadSizeValue, progressUploadValue, refreshToken }) {
     const [value, setValue] = useState(0)
     const handleChange = (event, value) => {
       setValue(value)
     }
+
+    useEffect(() => {
+      const intervalId = setInterval(refreshToken, 60 * 1000 * 15)
+      return () => clearInterval(intervalId)
+    })
 
     const onClickLogout = () => {
       const userLogged = JSON.parse(sessionStorage.getItem('userLogged'))
