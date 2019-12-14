@@ -49,14 +49,12 @@ const PicturesList = connect(
             <div>
                 {
                     picturesArray.map((pictures, arrayIndex) =>
-                        <div>
-                            <List
-                                key={arrayIndex}
-                                renderImage={(picture) => imageRenderer(picture, arrayIndex)}
-                                photos={pictures}
-                                columns={4}
-                            />
-                        </div>
+                        <List
+                            key={arrayIndex}
+                            renderImage={(picture) => imageRenderer(picture, arrayIndex)}
+                            photos={pictures}
+                            columns={4}
+                        />
                     )
                 }
             </div>
