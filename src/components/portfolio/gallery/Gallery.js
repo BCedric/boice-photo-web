@@ -1,26 +1,27 @@
 import React, { useEffect } from 'react'
 import Helmet from 'react-helmet'
 import { connect } from 'react-redux'
-import { default as PicturesList } from 'react-photo-gallery'
 import { CircularProgress } from '@material-ui/core'
 
 import {
   setCurrentPictureIndex,
   getPictures,
   setGallery,
-  addGalleryPictures
+  addGalleryPictures,
+  loadMorePictures
 } from 'redux/gallery-redux/actions'
 import {
   isFetchingSelector,
   gallerySelector,
   currentImageSelector,
-  galleryPicturesSelector
 } from 'redux/gallery-redux/selectors'
 import GalleryLightbox from './gallery-components/GalleryLightbox'
 
-import GalleryPicture from './gallery-components/GalleryPicture'
 import config from 'config'
 import Fade from 'components/Fade'
+import PicturesList from './gallery-components/PicturesList'
+
+const THRESHOLD_RELOAD = 300
 
 const Gallery = connect(
   state => {
@@ -28,49 +29,51 @@ const Gallery = connect(
       isFetching: isFetchingSelector(state),
       gallery: gallerySelector(state),
       currentImage: currentImageSelector(state),
-      pictures: galleryPicturesSelector(state)
     }
   },
   dispatch => ({
     getPictures: galleryId => getPictures(galleryId)(dispatch),
     setCurrentPictureIndex: id => dispatch(setCurrentPictureIndex(id)),
     setGallery: (gallery) => dispatch(setGallery(gallery)),
-    addGalleryPictures: (pictures) => dispatch(addGalleryPictures(pictures))
+    addGalleryPictures: (pictures) => dispatch(addGalleryPictures(pictures)),
+    loadMorePictures: () => dispatch(loadMorePictures())
   })
 )(function ({
   getPictures,
   setCurrentPictureIndex,
   setGallery,
   addGalleryPictures,
+  loadMorePictures,
   isFetching,
   gallery,
   currentImage,
-  pictures,
   match,
 }) {
   useEffect(() => {
     addGalleryPictures(null)
     getPictures(match.params.galleryId)
+    addScrollEventListener()
     return () => {
+      document.removeEventListener('scroll', scrollHandling);
       addGalleryPictures(null)
       setGallery(null)
     }
   }, [match.params.galleryId, addGalleryPictures, getPictures, setGallery])
 
-  const openLightbox = (obj) => {
-    setCurrentPictureIndex(obj.index)
+  const addScrollEventListener = () => document.addEventListener('scroll', scrollHandling, { once: true })
+
+  const scrollHandling = event => {
+    setTimeout(() => addScrollEventListener(), 100)
+    const scrollMax = document.documentElement.scrollHeight - document.documentElement.clientHeight
+    if (scrollMax - THRESHOLD_RELOAD < window.scrollY) {
+      loadMorePictures()
+    }
   }
 
-  const imageRenderer = (picture) => {
-    return (
-      <GalleryPicture key={picture.index} picture={picture} onClick={openLightbox} />
-    )
-  }
-
-  const picturesForList = gallery != null && pictures.map(picture => ({ src: `${config.addressServer}${picture.addr}`, width: picture.width, height: picture.height }))
+  const picturesForLightbox = gallery != null && gallery.pictures.map(picture => ({ src: `${config.addressServer}${picture.addr}`, width: picture.width, height: picture.height }))
 
   return (
-    <div className="gallery">
+    <div className="gallery" onScroll={(event) => scrollHandling(event)}>
       <Helmet>
         <meta charSet="utf-8" />
         <title>Boïce Photo | {gallery && match.params.galleryId ? gallery.name : 'Toutes les photos'}</title>
@@ -89,10 +92,10 @@ const Gallery = connect(
               </div>
               <div className="centered-h">
                 <div className="gallery-pictures-container">
-                  <PicturesList renderImage={(picture) => imageRenderer(picture)} photos={picturesForList} columns={4} onClick={openLightbox} >LOADING</PicturesList>
+                  <PicturesList />
                 </div>
               </div>
-              <GalleryLightbox pictures={picturesForList} pictureIndex={currentImage} setCurrentPicture={setCurrentPictureIndex} />
+              <GalleryLightbox pictures={picturesForLightbox} pictureIndex={currentImage} setCurrentPicture={setCurrentPictureIndex} />
             </div>
           }
         </Fade>
@@ -100,7 +103,6 @@ const Gallery = connect(
           <CircularProgress size={100} />
         </div>}
       </div>
-
     </div>
   );
 })
