@@ -1,33 +1,41 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 
 import MyLink from 'components/MyLink'
 
-function PortfolioHomeItem({ gallery, imgLoaded }) {
-    const [img, setImg] = useState(null)
+class PortfolioHomeItem extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = { img: null }
+    }
 
-    useEffect(() => {
+    componentDidMount() {
+        const { imgLoaded, gallery } = this.props
         const imgTemp = new Image()
         imgTemp.onload = () => {
             imgLoaded()
         }
         imgTemp.src = gallery.src
-        setImg(imgTemp)
-    }, [gallery])
+        this.setState({ img: imgTemp })
+    }
 
-    return (
-        <MyLink className="unselectable clickable centered-h-v home-item"
-            style={{
-                backgroundImage: img != null ? `url(${img.src})` : '',
-                backgroundSize: 'cover',
-                backgroundRepeat: 'no-repeat',
-                backgroundPosition: '50% 60%',
-            }}
-            to={gallery.link} >
-            <span>
-                {gallery.name}
-            </span>
-        </MyLink >
-    )
+    render() {
+        const { gallery } = this.props
+        const { img } = this.state
+        return (
+            <MyLink className="unselectable clickable centered-h-v home-item"
+                style={{
+                    backgroundImage: img != null ? `url(${img.src})` : '',
+                    backgroundSize: 'cover',
+                    backgroundRepeat: 'no-repeat',
+                    backgroundPosition: '50% 60%',
+                }}
+                to={gallery.link} >
+                <span>
+                    {gallery.name}
+                </span>
+            </MyLink >
+        )
+    }
 }
 
 export default PortfolioHomeItem
