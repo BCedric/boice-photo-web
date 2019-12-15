@@ -66,7 +66,7 @@ const Gallery = connect(
     }
 
     render() {
-      const { gallery, isFetching, currentImage, match } = this.props
+      const { gallery, isFetching, currentImage, match, setCurrentPictureIndex } = this.props
       const picturesForLightbox = gallery != null && gallery.pictures.map(picture => ({ src: `${config.addressServer}${picture.addr}`, width: picture.width, height: picture.height }))
 
       return (
