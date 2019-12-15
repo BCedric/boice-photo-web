@@ -23,7 +23,7 @@ class GalleryLightbox extends React.Component {
         const { pictures } = this.props
         return (
             <Lightbox
-                theme={{ container: { background: 'rgba(0, 0, 0, 0.85)' } }}
+                theme={{ container: { background: 'rgba(0, 0, 0, 0.85)', fontFamily: 'coolvetica' } }}
                 images={pictures}
                 backdropClosesModal={true}
                 onClose={this.closeLightbox}
