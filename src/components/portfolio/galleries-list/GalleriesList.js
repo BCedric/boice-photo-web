@@ -42,7 +42,7 @@ const GalleriesList = connect(
               {upperFirst(galleriesList.name)}
             </h1>
             <p>{galleriesList.description}</p>
-            <div className='centered-h'>
+            <div className='centered-h galleries-list-items'>
               {galleriesList.galleries.map(
                 (gallery, index) => <GalleryListItem {...gallery} galleriesListId={galleriesList.id} key={index} />
               )}
