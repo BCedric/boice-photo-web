@@ -14,6 +14,7 @@ import {
   isFetchingSelector,
   gallerySelector,
   currentImageSelector,
+  galleryPicturesSelector,
 } from 'redux/gallery-redux/selectors'
 import GalleryLightbox from './gallery-components/GalleryLightbox'
 
@@ -29,6 +30,7 @@ const Gallery = connect(
       isFetching: isFetchingSelector(state),
       gallery: gallerySelector(state),
       currentImage: currentImageSelector(state),
+      pictures: galleryPicturesSelector(state)
     }
   },
   dispatch => ({
@@ -48,6 +50,13 @@ const Gallery = connect(
 
     }
 
+    componentDidUpdate(prevProps) {
+      if (prevProps.match.params.galleryId !== this.props.match.params.galleryId) {
+        this.props.addGalleryPictures(null)
+        this.props.getPictures(this.props.match.params.galleryId)
+      }
+    }
+
     componentWillUnmount() {
       const { addGalleryPictures, setGallery } = this.props
       document.removeEventListener('scroll', this.scrollHandling);
@@ -59,8 +68,9 @@ const Gallery = connect(
 
     scrollHandling = event => {
       setTimeout(() => this.addScrollEventListener(), 100)
+      const { gallery, pictures } = this.props
       const scrollMax = document.documentElement.scrollHeight - document.documentElement.clientHeight
-      if (scrollMax - THRESHOLD_RELOAD < window.scrollY) {
+      if (gallery != null && scrollMax - THRESHOLD_RELOAD < window.scrollY && gallery.pictures.length > pictures.length) {
         this.props.loadMorePictures()
       }
     }
