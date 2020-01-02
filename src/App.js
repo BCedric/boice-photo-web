@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import {
   HashRouter as Router,
@@ -16,6 +16,10 @@ import Portfolio from './components/portfolio/Portfolio';
 import 'styles/styles.scss'
 
 function App() {
+
+  useEffect(() => {
+    document.addEventListener('contextmenu', event => event.preventDefault());
+  }, [])
   return (
     <Router basename="/">
       <ThemeProvider theme={theme}>
