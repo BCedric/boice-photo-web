@@ -78,7 +78,7 @@ const Gallery = connect(
     }
 
     isInList = () =>
-      this.props.match.path.includes('gallerieslist')
+      this.props.gallery.parentId != null
 
     render() {
       const { gallery, isFetching, currentImage, match, setCurrentPictureIndex } = this.props
