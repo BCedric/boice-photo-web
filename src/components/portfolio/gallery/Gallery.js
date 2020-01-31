@@ -22,6 +22,7 @@ import config from 'config'
 import Fade from 'components/Fade'
 import PicturesList from './gallery-components/PicturesList'
 import Icon from 'components/Icon'
+import MyLink from 'components/MyLink'
 
 const THRESHOLD_RELOAD = 300
 
@@ -79,9 +80,6 @@ const Gallery = connect(
     isInList = () =>
       this.props.match.path.includes('gallerieslist')
 
-    goBack = () =>
-      this.props.history.goBack()
-
     render() {
       const { gallery, isFetching, currentImage, match, setCurrentPictureIndex } = this.props
       const picturesForLightbox = gallery != null && gallery.pictures.map(picture => ({ src: `${config.addressServer}${picture.addr}`, width: picture.width, height: picture.height }))
@@ -99,7 +97,9 @@ const Gallery = connect(
               {gallery != null &&
                 <div >
                   {this.isInList() &&
-                    <Icon className="gallery-back-icon" onClick={() => this.goBack()} >arrow_back</Icon>
+                    <MyLink to={`/portfolio/gallerieslist/${gallery.parentId}`}>
+                      <Icon className="gallery-back-icon" >arrow_back</Icon>
+                    </MyLink>
                   }
                   <h1>
                     {gallery.name}
