@@ -79,13 +79,14 @@ const Gallery = connect(
     isInList = () =>
       this.props.match.path.includes('gallerieslist')
 
-    goBack = () =>
+    goBack = () => {
       this.props.history.goBack()
+    }
 
     render() {
       const { gallery, isFetching, currentImage, match, setCurrentPictureIndex } = this.props
       const picturesForLightbox = gallery != null && gallery.pictures.map(picture => ({ src: `${config.addressServer}${picture.addr}`, width: picture.width, height: picture.height }))
-
+      console.log(gallery)
       return (
         <div className="gallery" onScroll={(event) => this.scrollHandling(event)}>
           <Helmet>
